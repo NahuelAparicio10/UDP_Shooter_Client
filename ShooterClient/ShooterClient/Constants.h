@@ -1,0 +1,19 @@
+#pragma once
+#include <string>
+#include "SFML/Network.hpp"
+
+class Constants
+{
+public:
+	
+	#pragma region Paths
+		inline static const std::string VersionFile = "Config/version.txt";
+		inline static const std::string MapFile = "Maps/map_v0_0.txt";
+	#pragma endregion 
+
+	#pragma region IP / Ports
+		inline static const std::optional<sf::IpAddress> VersionCheckerServerIP = sf::IpAddress::resolve("127.0.0.1");
+		inline static const unsigned short VersionCheckerServerPort = 9000;
+	#pragma endregion 
+
+};
