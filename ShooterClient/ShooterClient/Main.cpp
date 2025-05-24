@@ -1,22 +1,16 @@
-#include <SFML/Graphics.hpp>
+#include "Launcher.h"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode({ 200,200 }), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	Launcher launcher;
 
-	while (window.isOpen())
+	if (!launcher.CheckAndUpdate()) 
 	{
-		while (const std::optional event = window.pollEvent())
-		{
-			if (event->is<sf::Event::Closed>())
-			{
-				window.close();
-			}
-		}
-		window.clear();
-		window.draw(shape);
-		window.display();
+		std::cout << "[LAUNCHER] Version check failed. Exiting" << std::endl;
+		return 1;
 	}
+
+	std::cout << "[LAUNCHER] Update check passed. Starting game..." << std::endl;
+
+	return 0;
 }

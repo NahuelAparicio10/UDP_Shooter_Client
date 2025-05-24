@@ -13,10 +13,33 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Launcher">
+      <UniqueIdentifier>{afefe003-cf80-4559-bc07-d2c0e8070453}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Launcher">
+      <UniqueIdentifier>{cd3862c3-32e0-495e-96fa-578fe6e68684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{5f652c04-55e5-4888-b426-c2878298f20b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{896d62af-4b4b-4b02-a372-e1e8fe81dd55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Launcher.cpp">
+      <Filter>Source Files\Launcher</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Launcher.h">
+      <Filter>Header Files\Launcher</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
