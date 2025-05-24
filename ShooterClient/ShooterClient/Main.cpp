@@ -1,5 +1,5 @@
 #include "Launcher.h"
-
+#include "GameManager.h"
 int main()
 {
 	Launcher launcher;
@@ -11,6 +11,10 @@ int main()
 	}
 
 	std::cout << "[LAUNCHER] Update check passed. Starting game..." << std::endl;
+
+	GameManager gameManager;
+
+	gameManager.Run();
 
 	return 0;
 }
