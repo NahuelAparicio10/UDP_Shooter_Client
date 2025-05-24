@@ -6,7 +6,7 @@ class UICanvas
 {
 public:
 	void AddElement(UIElement* element);
-	void Render(sf::RenderWindow& window);
+	void Render(sf::RenderWindow* window);
 	void HandleEvent(const sf::Event& event);
 
 private:

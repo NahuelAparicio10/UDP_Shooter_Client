@@ -5,7 +5,7 @@ void UICanvas::AddElement(UIElement* element)
 	_elements.push_back(element);
 }
 
-void UICanvas::Render(sf::RenderWindow& window)
+void UICanvas::Render(sf::RenderWindow* window)
 {
 	for (auto* e : _elements)
 	{

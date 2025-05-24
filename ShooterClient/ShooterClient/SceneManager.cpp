@@ -1,14 +1,7 @@
 #include "SceneManager.h"
 
-SceneManager::SceneManager()
-{
-	_currentScene = nullptr;
-}
+Scene* SceneManager::_currentScene = nullptr;
 
-SceneManager::~SceneManager()
-{
-	delete _currentScene;
-}
 
 void SceneManager::ChangeScene(Scene* newScene)
 {
@@ -25,7 +18,7 @@ void SceneManager::Update(float dt)
 	_currentScene->Update(dt);
 }
 
-void SceneManager::Render(sf::RenderWindow& window)
+void SceneManager::Render(sf::RenderWindow* window)
 {
 	if (!_currentScene) return;
 	_currentScene->Render(window);
