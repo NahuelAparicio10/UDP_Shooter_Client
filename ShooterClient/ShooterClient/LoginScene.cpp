@@ -2,6 +2,9 @@
 
 LoginScene::LoginScene()
 {
+	_client = new ClientTCP();
+	_client->ConnectToBootstrapServer("127.0.0.1", 50000);
+
 	UIButton* loginButton = new UIButton({ 200, 60 }, { 540, 300 }, "LOGIN", FontManager::GetMainFont());
 	loginButton->OnClick.Subscribe([]() { std::cout << "Login button clicked!\n"; });
 
@@ -17,6 +20,7 @@ LoginScene::LoginScene()
 
 LoginScene::~LoginScene()
 {
+	delete _client;
 }
 
 void LoginScene::Update(float dt)

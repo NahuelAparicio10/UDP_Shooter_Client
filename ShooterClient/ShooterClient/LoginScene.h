@@ -2,6 +2,7 @@
 #include "UICanvas.h"
 #include "Scene.h"
 #include "FontManager.h"
+#include "ClientTCP.h"
 
 class LoginScene : public Scene
 {
@@ -17,5 +18,6 @@ public:
 
 private:
 	UICanvas _canvas;
+	ClientTCP* _client;
 };
 
