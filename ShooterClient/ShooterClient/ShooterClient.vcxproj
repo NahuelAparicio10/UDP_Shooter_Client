@@ -135,7 +135,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Launcher.cpp" />
@@ -146,13 +145,13 @@
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UICanvas.cpp" />
+    <ClCompile Include="UITextField.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Event.h" />
-    <ClInclude Include="EventHandler.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
@@ -164,6 +163,7 @@
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UICanvas.h" />
     <ClInclude Include="UIElement.h" />
+    <ClInclude Include="UITextField.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -6,12 +6,11 @@ UIButton::UIButton(const sf::Vector2f& size, const sf::Vector2f& position, const
     _background.setPosition(position);
     _background.setFillColor(sf::Color(100, 100, 255));
 
-	//_text.setFont(font);
-    //_text.setString(text);
-    //_text.setCharacterSize(20);
     _text.setFillColor(sf::Color::White);
     _text.setPosition(sf::Vector2f{position.x + 10, position.y + 5});
 }
+
+void UIButton::Update(float dt) { /* Nothing to update */ }
 
 void UIButton::Render(sf::RenderWindow* window)
 {
