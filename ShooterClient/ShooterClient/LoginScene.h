@@ -1,8 +1,9 @@
 #pragma once
 #include "UICanvas.h"
 #include "Scene.h"
-#include "UIButton.h"
 #include "FontManager.h"
+#include "ClientTCP.h"
+
 class LoginScene : public Scene
 {
 public:
@@ -16,6 +17,9 @@ public:
 	void HandleEvent(const sf::Event& event) override;
 
 private:
+	UITextField* _usernameTextField;
+	UITextField* _passwordTextField;
 	UICanvas _canvas;
+	ClientTCP* _client;
 };
 

@@ -6,8 +6,9 @@
 class UIButton : public UIElement
 {
 public:
-    UIButton(const sf::Vector2f& size, const sf::Vector2f& position, const std::string& text, sf::Font& font);
+    UIButton(const std::string& id, const sf::Vector2f& size, const sf::Vector2f& position, const std::string& text, sf::Font& font);
 
+    void Update(float dt) override;
     void Render(sf::RenderWindow* window) override;
     void HandleEvent(const sf::Event& event) override;
 

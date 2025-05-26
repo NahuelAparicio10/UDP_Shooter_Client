@@ -16,7 +16,6 @@ void GameManager::Run()
 	while (_window->IsOpen())
 	{
 		float deltaTime = _clock.restart().asSeconds();
-
 		HandleEvents();
 		SceneManager::Update(deltaTime);
 		Render();

@@ -2,11 +2,67 @@
 C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
 C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+  GameObject.cpp
   LoginScene.cpp
 C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
 C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
   Main.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+  Scene.cpp
+  SceneManager.cpp
+  Transform.cpp
+  UIButton.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\UIButton.cpp(27,79): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\UIButton.cpp(27,53): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+  UICanvas.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+  UITextField.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(62,79): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(62,53): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+  Window.cpp
 C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
 C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'

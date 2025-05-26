@@ -88,9 +88,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UIButton.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UITextField.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientTCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EventHandler.cpp">
+    <ClCompile Include="UIImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MatchMakingScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -134,13 +143,22 @@
     <ClInclude Include="Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UIButton.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="UITextField.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="EventHandler.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="UIButton.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="FontManager.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientTCP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UIImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MatchMakingScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
