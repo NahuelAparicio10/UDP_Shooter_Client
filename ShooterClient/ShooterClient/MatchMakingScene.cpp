@@ -7,6 +7,10 @@ MatchMakingScene::MatchMakingScene()
 	UIButton* rankedButton = new UIButton("Branked", { 200, 50 }, { 608, 661 }, "RANKED", FontManager::GetMainFont(), sf::Color::White);
 	UIButton* rankingButton = new UIButton("Branking", { 200, 50 }, { 608, 661 }, "SHOW RANKING", FontManager::GetMainFont(), sf::Color::White);
 
+	casualButton->OnClick.Subscribe([this]() {  });
+	rankedButton->OnClick.Subscribe([this]() {  });
+
+
 	_canvas.AddElement(background);
 	_canvas.AddElement(casualButton);
 	_canvas.AddElement(rankedButton);
