@@ -17,6 +17,8 @@ public:
 	void HandleEvent(const sf::Event& event) override;
 
 private:
+	UITextField* _usernameTextField;
+	UITextField* _passwordTextField;
 	UICanvas _canvas;
 	ClientTCP* _client;
 };

@@ -1,7 +1,9 @@
 #include "UITextField.h"
 
-UITextField::UITextField(const sf::Vector2f& position, const sf::Vector2f& size, const std::string& placeholder) : _placeHolder(placeholder), _text(FontManager::GetMainFont(), "", 20)
+UITextField::UITextField(const std::string& id, const sf::Vector2f& position, const sf::Vector2f& size, const std::string& placeholder) : _placeHolder(placeholder), _text(FontManager::GetMainFont(), "", 20)
 {
+    SetID(id);
+
     _box.setPosition(position);
     _box.setSize(size);
     _box.setFillColor(sf::Color(255, 255, 255, 200));

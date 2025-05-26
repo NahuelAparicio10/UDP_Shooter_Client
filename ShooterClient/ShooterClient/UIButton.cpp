@@ -1,7 +1,9 @@
 #include "UIButton.h"
 
-UIButton::UIButton(const sf::Vector2f& size, const sf::Vector2f& position, const std::string& text, sf::Font& font) : _text(font, text, 20)
+UIButton::UIButton(const std::string& id, const sf::Vector2f& size, const sf::Vector2f& position, const std::string& text, sf::Font& font) : _text(font, text, 20)
 {
+    SetID(id);
+
     _background.setSize(size);
     _background.setPosition(position);
     _background.setFillColor(sf::Color(100, 100, 255));

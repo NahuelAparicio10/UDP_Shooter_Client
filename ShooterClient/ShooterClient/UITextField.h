@@ -7,7 +7,7 @@
 class UITextField : public UIElement
 {
 public:
-	UITextField(const sf::Vector2f& position, const sf::Vector2f& size, const std::string& placeholder);
+	UITextField(const std::string& id, const sf::Vector2f& position, const sf::Vector2f& size, const std::string& placeholder);
 
 	void Update(float dt) override;
 	void Render(sf::RenderWindow* window) override;

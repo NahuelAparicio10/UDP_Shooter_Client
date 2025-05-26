@@ -96,6 +96,12 @@
     <ClCompile Include="ClientTCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UIImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MatchMakingScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Launcher.h">
@@ -147,6 +153,12 @@
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="ClientTCP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UIImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MatchMakingScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
