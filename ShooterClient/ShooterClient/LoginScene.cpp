@@ -2,26 +2,26 @@
 
 LoginScene::LoginScene()
 {
+	onLoginSuccess = false;
+
 	_client = new ClientTCP();
 
 	_client->ConnectToBootstrapServer("127.0.0.1", 50000);
 
 	UIImage* background = new UIImage("bg", "Assets/Backgrounds/bg_lr.png", sf::Color::White, false);
 
-	UIButton* loginButton = new UIButton("BLogin", { 200, 60 }, {540, 300}, "LOGIN", FontManager::GetMainFont());
+	UIButton* loginButton = new UIButton("BLogin", { 200, 50 }, {240, 300}, "LOGIN", FontManager::GetMainFont(), sf::Color::White);
 
 	loginButton->OnClick.Subscribe([this]() { _client->LoginRegister("LOGIN", _usernameTextField->GetText(), _passwordTextField->GetText()); });
 
-	UIButton* registerButton = new UIButton("BRegister", { 200, 60 }, {740, 300}, "REGISTER", FontManager::GetMainFont());
+	UIButton* registerButton = new UIButton("BRegister", { 200, 50 }, {740, 300}, "REGISTER", FontManager::GetMainFont(), sf::Color::White);
 
 	registerButton->OnClick.Subscribe([this]() { _client->LoginRegister("REGISTER", _usernameTextField->GetText(), _passwordTextField->GetText()); });
 
-	_client->onLoginSuccess.Subscribe([] { 
-		std::cout << "Matchmaking Menu" << std::endl;
-		});
+	_client->onLoginSuccess.Subscribe([this] { onLoginSuccess = true; });
 
-	 _usernameTextField = new UITextField("Tusername", {150, 30}, {740, 100}, "Username");
-	 _passwordTextField = new UITextField("Tpassword", { 150, 30 }, {740, 100}, "Password");
+	 _usernameTextField = new UITextField("Tusername", {440, 100}, { 150, 30 }, "Username");
+	 _passwordTextField = new UITextField("Tpassword", {440, 200}, { 150, 30 }, "Password");
 
 	_canvas.AddElement(background);
 	_canvas.AddElement(loginButton);
@@ -33,10 +33,16 @@ LoginScene::LoginScene()
 LoginScene::~LoginScene()
 {
 	delete _client;
+	_canvas.Clear();
 }
 
 void LoginScene::Update(float dt)
 {
+	if (onLoginSuccess)
+	{
+		SceneManager::ChangeScene(new MatchMakingScene());
+		onLoginSuccess = false;
+	}
 	_canvas.Update(dt);
 }
 

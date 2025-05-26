@@ -97,10 +97,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UIImage.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="MatchMakingScene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,10 +156,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UIImage.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="MatchMakingScene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

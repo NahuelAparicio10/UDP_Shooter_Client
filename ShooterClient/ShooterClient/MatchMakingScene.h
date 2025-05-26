@@ -15,6 +15,6 @@ public:
 	void HandleEvent(const sf::Event& event) override;
 
 private:
-	UICanvas canvas;
+	UICanvas _canvas;
 };
 

@@ -32,6 +32,15 @@ void UICanvas::HandleEvent(const sf::Event& event)
 	}
 }
 
+void UICanvas::Clear()
+{
+	for (auto* e : _elements)
+	{
+		delete e;
+	}
+	_elements.clear();
+}
+
 UIElement* UICanvas::GetElementByID(const std::string& id)
 {
 	for (auto* e : _elements)
