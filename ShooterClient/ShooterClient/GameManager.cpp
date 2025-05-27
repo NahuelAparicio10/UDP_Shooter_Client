@@ -2,8 +2,9 @@
 
 GameManager::GameManager()
 {
+	NetworkManager::GetInstance().Initialize();
 	_window = new Window();
-	SceneManager::ChangeScene(new LoginScene());
+	SceneManager::ChangeScene(new LoginScene());	
 }
 
 GameManager::~GameManager()
@@ -34,5 +35,7 @@ void GameManager::HandleEvents()
 	while (const std::optional event = _window->GetWindow()->pollEvent())
 	{
 		SceneManager::HandleEvent(*event);
+
+
 	}
 }

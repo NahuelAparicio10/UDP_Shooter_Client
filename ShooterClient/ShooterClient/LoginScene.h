@@ -2,9 +2,9 @@
 #include "UICanvas.h"
 #include "Scene.h"
 #include "FontManager.h"
-#include "ClientTCP.h"
 #include "SceneManager.h"
 #include "MatchMakingScene.h"
+#include "NetworkManager.h"
 
 class LoginScene : public Scene
 {
@@ -23,6 +23,5 @@ private:
 	UITextField* _usernameTextField;
 	UITextField* _passwordTextField;
 	UICanvas _canvas;
-	ClientTCP* _client;
 };
 

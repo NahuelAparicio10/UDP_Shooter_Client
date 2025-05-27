@@ -4,6 +4,10 @@
 #include <string>
 #include <iostream>
 #include "Constants.h"
+#include <atomic>
+#include <thread>
+#include <functional>
+#include "Event.h"
 
 class ClientUDP
 {
@@ -14,11 +18,18 @@ public:
     bool Init();
     void SendFindMatch(std::string command);
     std::optional<std::string> ListenForMatch(float timeoutSeconds);
-    void SendACK(const sf::IpAddress& ip, unsigned short port);
+
+    void StartListeningForMatch();
+    void CancelMatchSearch();
+
+    Event<const std::string&> onMatchFound;
+    Event<> onCancelConfirmed;
 
 private:
     sf::UdpSocket _socket;
-    //sf::IpAddress _serverIp = "127.0.0.1"; // o desde Constants
-    //unsigned short _serverPort = 9100;     // puerto del MatchmakingServer
+    std::thread _matchmakingThread;
+    std::atomic<bool> _listening = false;
+
+    void SendACK(const sf::IpAddress& ip, unsigned short port, const std::string& ack);
 };
 
