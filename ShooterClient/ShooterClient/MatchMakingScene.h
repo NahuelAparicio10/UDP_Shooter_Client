@@ -1,7 +1,9 @@
 #pragma once
 #include "Scene.h"
-#include "UICanvas.h"
 #include "NetworkManager.h"
+#include "Constants.h"
+#include "SceneManager.h"
+#include "GameScene.h"
 
 class MatchMakingScene : public Scene
 {
@@ -16,8 +18,8 @@ public:
 	void HandleEvent(const sf::Event& event) override;
 
 private:
+	bool _onMatchFound = false;
 	void SetUISearchMatch();
 	void ResetUI();
-	UICanvas _canvas;
 };
 

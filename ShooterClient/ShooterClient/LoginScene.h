@@ -1,5 +1,4 @@
 #pragma once
-#include "UICanvas.h"
 #include "Scene.h"
 #include "FontManager.h"
 #include "SceneManager.h"
@@ -22,6 +21,5 @@ private:
 	bool onLoginSuccess;
 	UITextField* _usernameTextField;
 	UITextField* _passwordTextField;
-	UICanvas _canvas;
 };
 

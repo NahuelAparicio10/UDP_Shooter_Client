@@ -12,14 +12,14 @@ MatchMakingScene::MatchMakingScene()
 	casualButton->OnClick.Subscribe([this]() 
 	{ 
 		SetUISearchMatch();
-		NetworkManager::GetInstance().GetUDPClient()->SendFindMatch("NORMAL");
+		NetworkManager::GetInstance().GetUDPClient()->SendStringMessage("FIND_MATCH:NORMAL", Constants::ServiceServerIP.value(), Constants::MatchMakingServerPort);
 		NetworkManager::GetInstance().GetUDPClient()->StartListeningForMatch();
 	});
 
 	rankedButton->OnClick.Subscribe([this]() 
 	{ 
 		SetUISearchMatch();
-		NetworkManager::GetInstance().GetUDPClient()->SendFindMatch("RANKED");
+		NetworkManager::GetInstance().GetUDPClient()->SendStringMessage("FIND_MATCH:RANKED", Constants::ServiceServerIP.value(), Constants::MatchMakingServerPort);
 		NetworkManager::GetInstance().GetUDPClient()->StartListeningForMatch();
 	});
 
@@ -34,7 +34,7 @@ MatchMakingScene::MatchMakingScene()
 
 	NetworkManager::GetInstance().GetUDPClient()->onMatchFound.Subscribe([this](const std::string& msg)
 		{
-
+			_onMatchFound = true;
 		});
 	NetworkManager::GetInstance().GetUDPClient()->onCancelConfirmed.Subscribe([this]() {
 		ResetUI();
@@ -53,6 +53,10 @@ MatchMakingScene::~MatchMakingScene()
 
 void MatchMakingScene::Update(float dt)
 {
+	if (_onMatchFound)
+	{
+		SceneManager::ChangeScene(new GameScene());
+	}
 	_canvas.Update(dt);
 }
 

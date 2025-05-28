@@ -55,6 +55,12 @@
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{ef706542-7bb1-45cb-9fd2-5e7183bc69dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Clients">
+      <UniqueIdentifier>{9e29e6c1-2f98-48cd-a3a1-d536f7cdc8a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Clients">
+      <UniqueIdentifier>{2e068522-7082-423f-a7f9-04dba7fade66}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -93,20 +99,35 @@
     <ClCompile Include="UITextField.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="ClientTCP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UIImage.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="MatchMakingScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="ClientUDP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="NetworkManager.cpp">
       <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientTCP.cpp">
+      <Filter>Source Files\Clients</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientUDP.cpp">
+      <Filter>Source Files\Clients</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider2D.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigidbody2D.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,20 +179,35 @@
     <ClInclude Include="FontManager.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="ClientTCP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UIImage.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="MatchMakingScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="ClientUDP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="NetworkManager.h">
       <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientTCP.h">
+      <Filter>Header Files\Clients</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientUDP.h">
+      <Filter>Header Files\Clients</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider2D.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Rigidbody2D.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

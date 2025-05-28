@@ -16,8 +16,7 @@ public:
     ~ClientUDP();
 
     bool Init();
-    void SendFindMatch(std::string command);
-    std::optional<std::string> ListenForMatch(float timeoutSeconds);
+    void SendStringMessage(std::string command, std::optional<sf::IpAddress> ip, unsigned short port);
 
     void StartListeningForMatch();
     void CancelMatchSearch();
@@ -30,6 +29,5 @@ private:
     std::thread _matchmakingThread;
     std::atomic<bool> _listening = false;
 
-    void SendACK(const sf::IpAddress& ip, unsigned short port, const std::string& ack);
 };
 
