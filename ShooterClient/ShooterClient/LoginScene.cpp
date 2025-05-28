@@ -4,21 +4,19 @@ LoginScene::LoginScene()
 {
 	onLoginSuccess = false;
 
-	_client = new ClientTCP();
-
-	_client->ConnectToBootstrapServer("127.0.0.1", 50000);
+	NetworkManager::GetInstance().GetTCPClient()->ConnectToBootstrapServer("127.0.0.1", 50000);
 
 	UIImage* background = new UIImage("bg", "Assets/Backgrounds/bg_lr.png", sf::Color::White, false);
 
 	UIButton* loginButton = new UIButton("BLogin", { 200, 50 }, {240, 300}, "LOGIN", FontManager::GetMainFont(), sf::Color::White);
 
-	loginButton->OnClick.Subscribe([this]() { _client->LoginRegister("LOGIN", _usernameTextField->GetText(), _passwordTextField->GetText()); });
+	loginButton->OnClick.Subscribe([this]() { NetworkManager::GetInstance().GetTCPClient()->LoginRegister("LOGIN", _usernameTextField->GetText(), _passwordTextField->GetText()); });
 
 	UIButton* registerButton = new UIButton("BRegister", { 200, 50 }, {740, 300}, "REGISTER", FontManager::GetMainFont(), sf::Color::White);
 
-	registerButton->OnClick.Subscribe([this]() { _client->LoginRegister("REGISTER", _usernameTextField->GetText(), _passwordTextField->GetText()); });
+	registerButton->OnClick.Subscribe([this]() { NetworkManager::GetInstance().GetTCPClient()->LoginRegister("REGISTER", _usernameTextField->GetText(), _passwordTextField->GetText()); });
 
-	_client->onLoginSuccess.Subscribe([this] { onLoginSuccess = true; });
+	NetworkManager::GetInstance().GetTCPClient()->onLoginSuccess.Subscribe([this] { onLoginSuccess = true; });
 
 	 _usernameTextField = new UITextField("Tusername", {440, 100}, { 150, 30 }, "Username");
 	 _passwordTextField = new UITextField("Tpassword", {440, 200}, { 150, 30 }, "Password");
@@ -32,7 +30,7 @@ LoginScene::LoginScene()
 
 LoginScene::~LoginScene()
 {
-	delete _client;
+	NetworkManager::GetInstance().GetTCPClient()->DisconnectFromBootstrapServer();
 	_canvas.Clear();
 }
 

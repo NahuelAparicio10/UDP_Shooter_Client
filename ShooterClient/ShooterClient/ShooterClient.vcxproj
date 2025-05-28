@@ -136,12 +136,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ClientTCP.cpp" />
+    <ClCompile Include="ClientUDP.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Launcher.cpp" />
     <ClCompile Include="LoginScene.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MatchMakingScene.cpp" />
+    <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -153,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientTCP.h" />
+    <ClInclude Include="ClientUDP.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Event.h" />
@@ -162,6 +165,7 @@
     <ClInclude Include="Launcher.h" />
     <ClInclude Include="LoginScene.h" />
     <ClInclude Include="MatchMakingScene.h" />
+    <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Transform.h" />

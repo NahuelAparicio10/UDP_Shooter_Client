@@ -4,6 +4,7 @@
 #include "SceneManager.h"
 #include "Window.h"
 #include "LoginScene.h"
+#include "NetworkManager.h"
 
 class GameManager
 {

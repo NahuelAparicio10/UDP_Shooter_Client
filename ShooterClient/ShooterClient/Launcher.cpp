@@ -20,7 +20,7 @@ bool Launcher::CheckAndUpdate()
 
     std::string message = "VERSION:" + GetLocalVersion();
 
-    if (socket.send(message.c_str(), message.size(), Constants::VersionCheckerServerIP.value(), Constants::VersionCheckerServerPort) != sf::Socket::Status::Done)
+    if (socket.send(message.c_str(), message.size(), Constants::ServiceServerIP.value(), Constants::VersionCheckerServerPort) != sf::Socket::Status::Done)
     {
         std::cerr << "[LAUNCHER] Failed to send version check." << std::endl;
         return false;

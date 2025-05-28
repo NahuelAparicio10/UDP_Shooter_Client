@@ -12,5 +12,6 @@ public:
 
 private:
 	static Scene* _currentScene;
+	static bool _closeWindow;
 };
 
