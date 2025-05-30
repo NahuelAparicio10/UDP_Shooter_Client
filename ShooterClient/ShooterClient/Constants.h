@@ -5,6 +5,8 @@
 class Constants
 {
 public:
+	inline static constexpr int WIDTH = 1080;
+	inline static constexpr int HEIGHT = 720;
 	
 	#pragma region Paths
 		inline static const std::string VersionFile = "Config/version.txt";

@@ -129,6 +129,9 @@
     <ClCompile Include="PhysicsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MapManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Launcher.h">
@@ -207,6 +210,9 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

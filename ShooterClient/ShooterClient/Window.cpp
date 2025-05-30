@@ -2,7 +2,7 @@
 
 Window::Window()
 {
-    _window = new sf::RenderWindow(sf::VideoMode({ WIDTH, HEIGHT }), "Parchis Online");
+    _window = new sf::RenderWindow(sf::VideoMode({ Constants::WIDTH, Constants::HEIGHT }), "Parchis Online");
 }
 
 Window::~Window() { _window->close(); }

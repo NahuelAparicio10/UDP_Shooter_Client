@@ -2,6 +2,8 @@
 
 GameScene::GameScene()
 {
+	_mapManager = new MapManager(&_physicsManager);
+
 	UIImage* background = new UIImage("bg", "", sf::Color::White, false);
 
 	auto* obj1 = new GameObject();
@@ -22,6 +24,7 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
+	delete _mapManager;
 }
 
 void GameScene::Update(float dt)
@@ -32,10 +35,13 @@ void GameScene::Update(float dt)
 
 void GameScene::Render(sf::RenderWindow* window)
 {
+	_mapManager->Draw(window);
+
 	for (auto* p : _players)
 	{
 		p->GetComponent<SpriteRenderer>()->Draw(window, p->GetComponent<Transform>());
 	}
+
 	_canvas.Render(window);
 }
 

@@ -2,6 +2,8 @@
 
 // -- Registers a new Collider to colliders physic manager
 
+
+
 void PhysicsManager::Register(GameObject* go)
 {
 	if (go->GetComponent<BoxCollider2D>())
@@ -19,8 +21,6 @@ void PhysicsManager::UnRegister(GameObject* go)
         _colliders.erase(it);
     }
 }
-
-
 
 void PhysicsManager::Update(float dt)
 {

@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "PhysicsManager.h"
 #include "SpriteRenderer.h"
+#include "MapManager.h"
 class GameScene : public Scene
 {
 public:
@@ -14,7 +15,7 @@ public:
 private:
 	PhysicsManager _physicsManager;
 	std::vector<GameObject*> _players;
-
+	MapManager* _mapManager;
 protected:
 };
 
