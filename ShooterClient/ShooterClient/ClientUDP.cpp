@@ -20,22 +20,26 @@ bool ClientUDP::Init()
     return true;
 }
 
-void ClientUDP::SendStringMessage(std::string command, std::optional<sf::IpAddress> ip, unsigned short port) { _socket.send(command.c_str(), command.size(), ip.value(), port); }
+void ClientUDP::Send(PacketHeader header, PacketType type, const std::string& content, sf::IpAddress ip, unsigned short port) { SendDatagram(_socket, header, type, content, ip, port); }
 
 // -- Listens for a match incoming message from Service Server on recieved sends a ACK to verify without timeout
 
 void ClientUDP::StartListeningForMatch()
 {
     if (_listening) return;
-
     _listening = true;
 
-    // - Start thread for check constantly every X ms if the server did found us a match
+    _dispatcher.RegisterHandler(PacketType::MATCH_FOUND, [this](const RawPacketJob& job) 
+        {
+        Send(PacketHeader::NORMAL, PacketType::ACK_MATCH_FOUND, "", job.sender.value(), job.port);
+        _listening = false;
+        onMatchFound.Invoke(job.content);
+        });
+
+    _dispatcher.Start();
 
     _matchmakingThread = std::thread([this]() {
         _socket.setBlocking(false);
-        sf::Clock timer;
-
         while (_listening)
         {
             char buffer[1024];
@@ -43,57 +47,41 @@ void ClientUDP::StartListeningForMatch()
             std::optional<sf::IpAddress> sender = std::nullopt;
             unsigned short senderPort;
 
-            if (_socket.receive(buffer, sizeof(buffer), received, sender, senderPort) == sf::Socket::Status::Done && sender.has_value())
-            {
-                std::string msg(buffer, received);
-
-                if (msg.find("MATCH_FOUND:") == 0)
-                {
-                    // - If server founds a match we answer with ACK response and invoke the event for notify the scene
-
-                    SendStringMessage("ACK_MATCH_FOUND", sender, senderPort);
-
-                    _listening = false;
-                    onMatchFound.Invoke(msg);
-                    return;
-                }
+            if (_socket.receive(buffer, sizeof(buffer), received, sender, senderPort) == sf::Socket::Status::Done && sender.has_value()) {
+                RawPacketJob job;
+                if (ParseRawDatagram(buffer, received, job, sender.value(), senderPort))
+                    _dispatcher.EnqueuePacket(job);
             }
 
-            sf::sleep(sf::milliseconds(100)); // Reduce carga CPU
+            sf::sleep(sf::milliseconds(100));
         }
         std::cout << "[CLIENT_UDP] Listening stopped.\n";
-
         });
-
+    _dispatcher.Stop();
     _matchmakingThread.detach();
 }
 
 void ClientUDP::CancelMatchSearch() 
 { 
     if (!_listening) return;
-
     _listening = false;
 
-    SendStringMessage("CANCELED_SEARCHING", Constants::ServiceServerIP.value(), Constants::MatchMakingServerPort);
+    Send(PacketHeader::NORMAL, PacketType::CANCEL_SEARCH, "", Constants::ServiceServerIP.value(), Constants::MatchMakingServerPort);
 
     _socket.setBlocking(false);
     sf::Clock timer;
 
-    while (timer.getElapsedTime().asSeconds() < 0.5f) 
-    {
+    while (timer.getElapsedTime().asSeconds() < 0.5f) {
         char buffer[1024];
         std::size_t received = 0;
         std::optional<sf::IpAddress> sender = std::nullopt;
         unsigned short senderPort;
 
-        if (_socket.receive(buffer, sizeof(buffer), received, sender, senderPort) == sf::Socket::Status::Done)
-        {
-            std::string msg(buffer, received);
-
-            if (msg == "CANCEL_CONFIRMED")
-            {
+        if (_socket.receive(buffer, sizeof(buffer), received, sender, senderPort) == sf::Socket::Status::Done && sender.has_value()) {
+            RawPacketJob job;
+            if (ParseRawDatagram(buffer, received, job, sender.value(), senderPort) && job.type == PacketType::OK) {
                 std::cout << "[CLIENT_UDP] Cancel confirmed by server.\n";
-                onCancelConfirmed.Invoke(); 
+                onCancelConfirmed.Invoke();
                 return;
             }
         }

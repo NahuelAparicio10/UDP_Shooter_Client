@@ -6,25 +6,83 @@ Launcher::~Launcher() { }
 
 bool Launcher::CheckAndUpdate()
 {
-    sf::UdpSocket socket;
+    //sf::UdpSocket socket;
 
-    // Tries to bind UDP socket 
+    //// Tries to bind UDP socket 
+
+    //if (socket.bind(sf::Socket::AnyPort) != sf::Socket::Status::Done)
+    //{
+    //    std::cerr << "[LAUNCHER] Failed to bind UDP socket." << std::endl;
+	   // return false;
+    //}
+
+    //// If socket binds sends message with version
+
+    //std::string message = "VERSION:" + GetLocalVersion();
+
+    //if (socket.send(message.c_str(), message.size(), Constants::ServiceServerIP.value(), Constants::VersionCheckerServerPort) != sf::Socket::Status::Done)
+    //{
+    //    std::cerr << "[LAUNCHER] Failed to send version check." << std::endl;
+    //    return false;
+    //}
+
+    //char buffer[1024];
+    //std::size_t received = 0;
+    //std::optional<sf::IpAddress> sender = std::nullopt;
+    //unsigned short senderPort = 0;
+
+    //std::ofstream mapFile(Constants::MapFile, std::ios::trunc);
+
+    //if (!mapFile.is_open()) 
+    //{
+    //    std::cerr << "[LAUNCHER] Couldn't open map file for writing.\n";
+    //    return false;
+    //}
+
+    //bool updateStarted = false;
+
+    //while (true)
+    //{
+    //    if (socket.receive(buffer, sizeof(buffer), received, sender, senderPort) == sf::Socket::Status::Done && sender.has_value()) {
+    //        std::string data(buffer, received);
+
+    //        if (data == "OK") 
+    //        {
+    //            std::cout << "[LAUNCHER] Client is up to date.\n";
+    //            return true;
+    //        }
+    //        else if (data.rfind("UPDATE:", 0) == 0)
+    //        {
+    //            std::string version = data.substr(7);
+    //            SaveLocalVersion(version);
+    //            updateStarted = true;
+    //            std::cout << "[LAUNCHER] Update required to version " << version << ". Receiving map...\n";
+    //        }
+    //        else if (data == "EOF") 
+    //        {
+    //            std::cout << "[LAUNCHER] Update completed successfully.\n";
+    //            break;
+    //        }
+    //        else if (updateStarted) 
+    //        {
+    //            mapFile << data << "\n";
+    //        }
+    //    }
+    //}
+
+    //mapFile.close();
+
+    //return true;
+    sf::UdpSocket socket;
 
     if (socket.bind(sf::Socket::AnyPort) != sf::Socket::Status::Done)
     {
         std::cerr << "[LAUNCHER] Failed to bind UDP socket." << std::endl;
-	    return false;
-    }
-
-    // If socket binds sends message with version
-
-    std::string message = "VERSION:" + GetLocalVersion();
-
-    if (socket.send(message.c_str(), message.size(), Constants::ServiceServerIP.value(), Constants::VersionCheckerServerPort) != sf::Socket::Status::Done)
-    {
-        std::cerr << "[LAUNCHER] Failed to send version check." << std::endl;
         return false;
     }
+
+    // Enviar versión con header y tipo
+    SendDatagram(socket, PacketHeader::NORMAL, PacketType::VERSION, GetLocalVersion(), Constants::ServiceServerIP.value(), Constants::VersionCheckerServerPort);
 
     char buffer[1024];
     std::size_t received = 0;
@@ -32,46 +90,69 @@ bool Launcher::CheckAndUpdate()
     unsigned short senderPort = 0;
 
     std::ofstream mapFile(Constants::MapFile, std::ios::trunc);
-
-    if (!mapFile.is_open()) 
-    {
+    if (!mapFile.is_open()) {
         std::cerr << "[LAUNCHER] Couldn't open map file for writing.\n";
         return false;
     }
 
-    bool updateStarted = false;
-
+    bool mapUpdated = false;
     while (true)
     {
-        if (socket.receive(buffer, sizeof(buffer), received, sender, senderPort) == sf::Socket::Status::Done && sender.has_value()) {
-            std::string data(buffer, received);
+        if (socket.receive(buffer, sizeof(buffer), received, sender, senderPort) == sf::Socket::Status::Done && sender.has_value())
+        {
+            RawPacketJob job;
+            if (ParseRawDatagram(buffer, received, job, sender.value(), senderPort))
+            {
+                switch (job.type)
+                {
+                    case PacketType::OK:
+                        std::cout << "[LAUNCHER] Client is up to date.\n";
+                        return true;
 
-            if (data == "OK") 
-            {
-                std::cout << "[LAUNCHER] Client is up to date.\n";
-                return true;
+                    case PacketType::UPDATE:
+                        SaveLocalVersion(job.content);
+                        std::cout << "[LAUNCHER] Update required to version " << job.content << ". Receiving map...\n";
+                        break;
+                    case PacketType::UPDATE_MAP:
+                    {
+                        std::ofstream mapFile(Constants::MapFile, std::ios::trunc);
+                        if (mapFile.is_open()) 
+                        {
+                            mapFile << job.content;
+                            std::cout << "[LAUNCHER] Map updated successfully.\n";
+                        }
+                        else {
+                            std::cerr << "[LAUNCHER] Failed to save updated map.\n";
+                        }
+                        mapUpdated = true;
+                        break;
+                    }
+                    default:
+                        break;
+                }
             }
-            else if (data.rfind("UPDATE:", 0) == 0)
-            {
-                std::string version = data.substr(7);
-                SaveLocalVersion(version);
-                updateStarted = true;
-                std::cout << "[LAUNCHER] Update required to version " << version << ". Receiving map...\n";
-            }
-            else if (data == "EOF") 
-            {
-                std::cout << "[LAUNCHER] Update completed successfully.\n";
-                break;
-            }
-            else if (updateStarted) 
-            {
-                mapFile << data << "\n";
-            }
+            //else
+            //{
+            //    std::string raw(buffer, received);
+            //    if (raw == "EOF")
+            //    {
+            //        std::cout << "[LAUNCHER] Update completed successfully.\n";
+            //        break;
+            //    }
+            //    else if (updateStarted)
+            //    {
+            //        mapFile << raw << "\n";
+            //    }
+            //}
         }
+        if (mapUpdated)
+        {
+            break;
+        }
+
     }
 
     mapFile.close();
-
     return true;
 }
 

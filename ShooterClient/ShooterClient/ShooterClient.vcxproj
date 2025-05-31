@@ -148,6 +148,7 @@
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="MatchMakingScene.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
+    <ClCompile Include="PacketDispatcher.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PlayerMovementComponent.cpp" />
     <ClCompile Include="Rigidbody2D.cpp" />
@@ -177,7 +178,9 @@
     <ClInclude Include="LoginScene.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="MatchMakingScene.h" />
+    <ClInclude Include="NetworkDefs.h" />
     <ClInclude Include="NetworkManager.h" />
+    <ClInclude Include="PacketDispatcher.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PlayerMovementComponent.h" />
     <ClInclude Include="Rigidbody2D.h" />

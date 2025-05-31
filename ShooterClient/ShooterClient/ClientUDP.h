@@ -8,7 +8,7 @@
 #include <thread>
 #include <functional>
 #include "Event.h"
-
+#include "PacketDispatcher.h"
 class ClientUDP
 {
 public:
@@ -16,7 +16,7 @@ public:
     ~ClientUDP();
 
     bool Init();
-    void SendStringMessage(std::string command, std::optional<sf::IpAddress> ip, unsigned short port);
+    void Send(PacketHeader header, PacketType type, const std::string& content, sf::IpAddress ip, unsigned short port);
 
     void StartListeningForMatch();
     void CancelMatchSearch();
@@ -28,6 +28,6 @@ private:
     sf::UdpSocket _socket;
     std::thread _matchmakingThread;
     std::atomic<bool> _listening = false;
-
+    PacketDispatcher _dispatcher;
 };
 
