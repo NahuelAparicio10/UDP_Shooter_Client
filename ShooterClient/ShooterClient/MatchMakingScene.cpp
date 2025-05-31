@@ -55,7 +55,7 @@ void MatchMakingScene::Update(float dt)
 {
 	if (_onMatchFound)
 	{
-		SceneManager::ChangeScene(new GameScene());
+		SceneManager::ChangeScene(new GameScene(4));
 	}
 	_canvas.Update(dt);
 }

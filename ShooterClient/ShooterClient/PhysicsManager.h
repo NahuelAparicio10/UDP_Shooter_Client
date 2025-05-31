@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "BoxCollider2D.h"
 #include "Transform.h"
+#include "Rigidbody2D.h"
 
 class PhysicsManager
 {

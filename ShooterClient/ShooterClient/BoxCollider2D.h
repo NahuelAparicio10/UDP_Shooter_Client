@@ -14,7 +14,7 @@ public:
 	bool isTrigger = false;
 
 	Event<GameObject*> OnCollisionEnter;
-
+	void DrawDebug(sf::RenderWindow* window, Transform* transform) const;
 	sf::FloatRect GetBounds(Transform* transform) const;
 
 	virtual const std::type_index GetType() override;

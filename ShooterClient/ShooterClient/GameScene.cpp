@@ -1,25 +1,10 @@
 #include "GameScene.h"
 
-GameScene::GameScene()
+GameScene::GameScene(int numPlayers)
 {
 	_mapManager = new MapManager(&_physicsManager);
 
-	UIImage* background = new UIImage("bg", "", sf::Color::White, false);
-
-	auto* obj1 = new GameObject();
-	obj1->AddComponent<Transform>()->position = { 100, 100 };
-	obj1->AddComponent<BoxCollider2D>()->size = { 50, 50 };
-	obj1->AddComponent<SpriteRenderer>("Assets/Sprites/player.png", sf::Color::Blue, true);
-	_physicsManager.Register(obj1);
-
-	auto* obj2 = new GameObject();
-	obj2->AddComponent<Transform>()->position = { 110, 110 };
-	obj2->AddComponent<BoxCollider2D>()->size = { 50, 50 };
-	obj2->AddComponent<SpriteRenderer>("Assets/Sprites/player.png", sf::Color::Red, true);
-	_physicsManager.Register(obj2);
-
-
-	_canvas.AddElement(background);
+	CreatePlayers(numPlayers);
 }
 
 GameScene::~GameScene()
@@ -29,6 +14,12 @@ GameScene::~GameScene()
 
 void GameScene::Update(float dt)
 {
+	_players[0]->GetComponent<PlayerMovementComponent>()->Update(_players[0], dt);
+
+	for (auto* p : _players)
+	{
+		p->GetComponent<Rigidbody2D>()->Update(p->GetComponent<Transform>(), dt);
+	}
 	_canvas.Update(dt);
 	_physicsManager.Update(dt);
 }
@@ -39,7 +30,9 @@ void GameScene::Render(sf::RenderWindow* window)
 
 	for (auto* p : _players)
 	{
-		p->GetComponent<SpriteRenderer>()->Draw(window, p->GetComponent<Transform>());
+		Transform* transform = p->GetComponent<Transform>();
+		p->GetComponent<SpriteRenderer>()->Draw(window, transform);
+		p->GetComponent<BoxCollider2D>()->DrawDebug(window, transform);
 	}
 
 	_canvas.Render(window);
@@ -47,5 +40,34 @@ void GameScene::Render(sf::RenderWindow* window)
 
 void GameScene::HandleEvent(const sf::Event& event)
 {
+	_players[0]->GetComponent<InputComponent>()->ProcessEvent(event);
 	_canvas.HandleEvent(event);
+}
+
+void GameScene::CreatePlayers(int numPlayers)
+{
+	//- Generates Player player is _players[0]
+	auto* player = new GameObject();
+	player->GetComponent<Transform>()->position = { 50, 50 };
+	player->AddComponent<SpriteRenderer>("Assets/Sprites/player.png", sf::Color::Blue, true);
+	sf::Vector2u size = player->GetComponent<SpriteRenderer>()->GetSprite().getTexture().getSize();
+	player->AddComponent<BoxCollider2D>()->size = static_cast<sf::Vector2f>(size);
+	player->AddComponent<Rigidbody2D>();
+	player->AddComponent<InputComponent>();
+	player->AddComponent<PlayerMovementComponent>();
+	_physicsManager.Register(player);
+	_players.push_back(player);
+
+	// - Generetes enemies
+	for (int i = 0; i < numPlayers; i++)
+	{
+		auto* enemy = new GameObject();
+		enemy->GetComponent<Transform>()->position = { 150, 150 };
+		enemy->AddComponent<SpriteRenderer>("Assets/Sprites/player.png", sf::Color::Red, true);
+		size = enemy->GetComponent<SpriteRenderer>()->GetSprite().getTexture().getSize();
+		enemy->AddComponent<BoxCollider2D>()->size = static_cast<sf::Vector2f>(size);
+		enemy->AddComponent<Rigidbody2D>();
+		_physicsManager.Register(enemy);
+		_players.push_back(enemy);
+	}
 }

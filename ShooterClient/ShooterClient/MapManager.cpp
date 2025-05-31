@@ -47,7 +47,7 @@ void MapManager::GenerateGameObjects()
 
             if (tile == '-')
             {
-                // Detecta secuencia de '-'
+                // - Checks if there is more than one char - in the same line continuos to add it to the same object
                 int startX = x;
                 while (x < cols && map[y][x] == '-') x++;
                 int length = x - startX;
@@ -68,7 +68,6 @@ void MapManager::GenerateGameObjects()
             }
             else if (tile == '#')
             {
-                // Pared normal
                 auto* go = new GameObject();
                 auto* transform = go->GetComponent<Transform>();
                 transform->position = {
@@ -98,5 +97,9 @@ void MapManager::Draw(sf::RenderWindow* window)
     for (auto* p : _mapObjects)
     {
         p->GetComponent<SpriteRenderer>()->Draw(window, p->GetComponent<Transform>());
+        if (p->GetComponent<BoxCollider2D>())
+        {
+            p->GetComponent<BoxCollider2D>()->DrawDebug(window, p->GetComponent<Transform>());
+        }
     }
 }
