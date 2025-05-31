@@ -4,7 +4,7 @@ void Rigidbody2D::Update(Transform* transform, float dt)
 {
 	if (applyGravity)
 	{
-		transform->position.y += gravityScale * dt;
+		velocity.y += gravityScale * dt;
 	}
 
 	transform->position += velocity * dt;

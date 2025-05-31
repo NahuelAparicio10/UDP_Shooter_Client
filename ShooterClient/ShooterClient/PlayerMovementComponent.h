@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Rigidbody2D.h"
 #include "InputComponent.h"
+#include "Transform.h"
 
 class PlayerMovementComponent : public Component
 {
