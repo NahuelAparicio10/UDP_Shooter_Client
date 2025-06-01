@@ -23,14 +23,6 @@ bool Launcher::CheckAndUpdate()
     std::optional<sf::IpAddress> sender = std::nullopt;
     unsigned short senderPort = 0;
 
-    // - Opens file map to be overwritten if needed
-
-    std::ofstream mapFile(Constants::MapFile, std::ios::trunc);
-    if (!mapFile.is_open()) {
-        std::cerr << "[LAUNCHER] Couldn't open map file for writing.\n";
-        return false;
-    }
-
     bool mapUpdated = false;
 
     while (true)
@@ -65,6 +57,8 @@ bool Launcher::CheckAndUpdate()
                             std::cerr << "[LAUNCHER] Failed to save updated map.\n";
                         }
                         mapUpdated = true;
+                        mapFile.close();
+
                         break;
                     }
                     default:
@@ -79,7 +73,6 @@ bool Launcher::CheckAndUpdate()
 
     }
 
-    mapFile.close();
     return true;
 }
 

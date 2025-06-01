@@ -13,7 +13,7 @@ GameScene::GameScene(int numPlayers)
 		{
 			// - Ignore if its me
 			if (packet.playerID == NetworkManager::GetInstance().GetUDPClient()->currentPlayerID)
-				return;
+				return;	
 
 			// - Search enemy by ID
 			auto it = std::find_if(_enemies.begin(), _enemies.end(),

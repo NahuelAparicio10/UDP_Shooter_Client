@@ -146,8 +146,13 @@ void ClientUDP::StartListeningForMatch()
             _gameServerIp = ip;
             _gameServerPort = port;
 
-            onMatchFound.Invoke(job.content);
             JoinGameServer();
+            onMatchFound.Invoke(job.content);
+        });
+
+    _dispatcher.RegisterHandler(PacketType::ACK_JOINED, [this](const RawPacketJob& job) {
+        std::cout << "[CLIENT] Received ACK_JOINED from server.\n";
+        _joinedConfirmed = true;
         });
 
     _dispatcher.Start();
@@ -214,6 +219,23 @@ void ClientUDP::JoinGameServer()
 {
     if (!_gameServerIp.has_value()) return;
 
-    std::string payload = std::to_string(currentMatchID) + ":" + std::to_string(currentPlayerID);
-    Send(PacketHeader::CRITICAL, PacketType::JOIN_GAME, payload, _gameServerIp.value(), _gameServerPort);
+    _joinedConfirmed = false;
+
+    std::string content = std::to_string(currentMatchID) + ":" + std::to_string(currentPlayerID);
+
+    std::thread joinThread([this, content]() {
+        int attempts = 0;
+        while (!_joinedConfirmed && attempts < 10) {
+            Send(PacketHeader::CRITICAL, PacketType::JOIN_GAME, content,
+                GetGameServerIP().value(), GetCurrentGameServerPort());
+            sf::sleep(sf::milliseconds(200));
+            attempts++;
+        }
+
+        if (!_joinedConfirmed) {
+            std::cout << "[CLIENT] Failed to join game server.\n";
+        }
+        });
+
+    joinThread.detach();
 }

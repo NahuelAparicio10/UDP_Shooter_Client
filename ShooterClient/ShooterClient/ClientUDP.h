@@ -42,6 +42,7 @@ public:
 private:
     sf::UdpSocket _socket;
     std::thread _matchmakingThread;
+    std::atomic<bool> _joinedConfirmed = false;
     std::atomic<bool> _receivingGameplay = false;
     std::atomic<bool> _listening = false;
     PacketDispatcher _dispatcher;
