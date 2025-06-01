@@ -4,8 +4,8 @@ GameManager::GameManager()
 {
 	NetworkManager::GetInstance().Initialize();
 	_window = new Window();
-	//SceneManager::ChangeScene(new GameScene(4));	
-	SceneManager::ChangeScene(new LoginScene());	
+	SceneManager::ChangeScene(new GameScene(2));	
+	//SceneManager::ChangeScene(new LoginScene());	
 }
 
 GameManager::~GameManager()

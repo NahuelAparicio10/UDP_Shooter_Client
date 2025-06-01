@@ -33,6 +33,8 @@ public:
 		return nullptr;
 	}
 
+	Transform* transform;
+
 	std::vector<Component*> components;
 };
 

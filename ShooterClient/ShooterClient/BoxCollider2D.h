@@ -14,6 +14,7 @@ public:
 	bool isTrigger = false;
 
 	Event<GameObject*> OnCollisionEnter;
+	Event<GameObject*> OnTriggerEnter;
 	void DrawDebug(sf::RenderWindow* window, Transform* transform) const;
 	sf::FloatRect GetBounds(Transform* transform) const;
 

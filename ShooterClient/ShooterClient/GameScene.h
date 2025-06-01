@@ -6,6 +6,7 @@
 #include "MapManager.h"
 #include "Rigidbody2D.h"
 #include "PlayerMovementComponent.h"
+#include "BulletHandler.h"
 
 class GameScene : public Scene
 {
@@ -19,8 +20,12 @@ public:
 private:
 	void CreatePlayers(int numPlayers);
 	PhysicsManager _physicsManager;
+
+	GameObject* _player;
 	std::vector<GameObject*> _players;
+
 	MapManager* _mapManager;
+	BulletHandler* _bulletHandler;
 protected:
 };
 

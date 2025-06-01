@@ -8,7 +8,7 @@ void InputComponent::ProcessEvent(const sf::Event& event)
         if (code == sf::Keyboard::Key::A) moveLeft = true;
         if (code == sf::Keyboard::Key::D) moveRight = true;
         if (code == sf::Keyboard::Key::Space) jump = true;
-        if (code == sf::Keyboard::Key::LShift) shoot = true;
+        //if (code == sf::Keyboard::Key::LShift) shoot = true;
     }
     else if (event.is<sf::Event::KeyReleased>())
     {
@@ -16,7 +16,13 @@ void InputComponent::ProcessEvent(const sf::Event& event)
         if (code == sf::Keyboard::Key::A) moveLeft = false;
         if (code == sf::Keyboard::Key::D) moveRight = false;
         if (code == sf::Keyboard::Key::Space) jump = false;
-        if (code == sf::Keyboard::Key::LShift) shoot = false;
+        //if (code == sf::Keyboard::Key::LShift) shoot = false;
+    }
+    else if (const sf::Event::MouseButtonPressed* mousePressed = event.getIf<sf::Event::MouseButtonPressed>())
+    {
+        //sf::Vector2f mousePos(mousePressed->position.x, mousePressed->position.y);
+
+        shoot = true;
     }
 }
 

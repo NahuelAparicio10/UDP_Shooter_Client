@@ -42,6 +42,16 @@ void PhysicsManager::Update(float dt)
                 auto intersection = colliderA->GetBounds(transformA).findIntersection(colliderB->GetBounds(transformB));
                 if (intersection.has_value())
                 {
+                    bool isTriggerA = colliderA->isTrigger;
+                    bool isTriggerB = colliderB->isTrigger;
+
+                    if (isTriggerA || isTriggerB)
+                    {
+                        colliderA->OnTriggerEnter.Invoke(objectB);
+                        colliderB->OnTriggerEnter.Invoke(objectA);
+                        continue;
+                    }
+
                     sf::FloatRect inter = intersection.value();
                     sf::Vector2f mtv;
 

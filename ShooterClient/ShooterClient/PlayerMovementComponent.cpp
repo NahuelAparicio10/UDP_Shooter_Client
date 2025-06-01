@@ -1,6 +1,8 @@
 #include "PlayerMovementComponent.h"
 
-void PlayerMovementComponent::Update(GameObject* go, float dt)
+void PlayerMovementComponent::SetPhysicsManager(PhysicsManager* physicsManager) { _physicsManager = physicsManager; }
+
+void PlayerMovementComponent::Update(GameObject* go, float dt, BulletHandler* bulletHandler)
 {
     auto input = go->GetComponent<InputComponent>();
     auto rb = go->GetComponent<Rigidbody2D>();
@@ -25,4 +27,19 @@ void PlayerMovementComponent::Update(GameObject* go, float dt)
     {
         rb->velocity.y = jumpForce;
     }
+
+    if (input->shoot)
+    {
+        if (transform->scale.x >= 0.f)
+        {
+            bulletHandler->CreateBullet(go->transform->position, { 1.f, 0.f });
+            input->shoot = false;
+        }
+        if (transform->scale.x < 0.f)
+        {
+            bulletHandler->CreateBullet(go->transform->position, { -1.f, 0.f });
+            input->shoot = false;
+        }
+    }
 }
+
