@@ -5,8 +5,8 @@
 #include "InputComponent.h"
 #include "MapManager.h"
 #include "Rigidbody2D.h"
-#include "PlayerMovementComponent.h"
 #include "BulletHandler.h"
+#include "PlayerComponentScript.h"
 
 class GameScene : public Scene
 {

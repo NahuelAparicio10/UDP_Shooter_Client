@@ -4,8 +4,8 @@ GameScene::GameScene(int numPlayers)
 {
 	_mapManager = new MapManager(&_physicsManager);
 
-	CreatePlayers(numPlayers);
 	_bulletHandler = new BulletHandler(&_physicsManager);
+	CreatePlayers(numPlayers);
 }
 
 GameScene::~GameScene()
@@ -15,11 +15,8 @@ GameScene::~GameScene()
 
 void GameScene::Update(float dt)
 {
-	_player->GetComponent<PlayerMovementComponent>()->Update(_player, dt, _bulletHandler);
-
+	_player->GetComponent<PlayerComponentScript>()->Update(dt);
 	_bulletHandler->UpdateBullets(dt);
-
-	_player->GetComponent<Rigidbody2D>()->Update(_player->transform, dt);
 
 	for (auto* p : _players)
 	{
@@ -36,7 +33,8 @@ void GameScene::Render(sf::RenderWindow* window)
 
 	_bulletHandler->RenderBullets(window);
 	
-	_player->GetComponent<SpriteRenderer>()->Draw(window, _player->transform);
+	_player->GetComponent<PlayerComponentScript>()->RenderPlayer(window);
+
 	_player->GetComponent<BoxCollider2D>()->DrawDebug(window, _player->transform);
 
 	for (auto* p : _players)
@@ -50,7 +48,7 @@ void GameScene::Render(sf::RenderWindow* window)
 
 void GameScene::HandleEvent(const sf::Event& event)
 {
-	_player->GetComponent<InputComponent>()->ProcessEvent(event);
+	_player->GetComponent<PlayerComponentScript>()->HandlePlayerEvents(event);
 	_canvas.HandleEvent(event);
 }
 
@@ -63,8 +61,7 @@ void GameScene::CreatePlayers(int numPlayers)
 	_player->AddComponent<BoxCollider2D>()->size = static_cast<sf::Vector2f>(size);
 	_player->AddComponent<Rigidbody2D>();
 	_player->AddComponent<InputComponent>();
-	auto* compo = _player->AddComponent<PlayerMovementComponent>();
-	compo->SetPhysicsManager(&_physicsManager);
+	_player->AddComponent<PlayerComponentScript>(_bulletHandler, _player);
 	_physicsManager.Register(_player);
 
 	// - Generetes enemies

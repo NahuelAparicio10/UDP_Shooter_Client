@@ -1,12 +1,4 @@
-﻿  BulletHandler.cpp
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
-  (compiling source file 'BulletHandler.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      see declaration of 'std::runtime_error'
-      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
-      see declaration of 'sf::Exception'
-  
-  GameManager.cpp
+﻿  GameManager.cpp
 E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
   (compiling source file 'GameManager.cpp')
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
@@ -66,20 +58,9 @@ E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\in
       E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
       see declaration of 'sf::Exception'
   
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\PlayerComponentScript.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  (compiling source file 'PlayerComponentScript.cpp')
-  
-  PlayerMovementComponent.cpp
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
-  (compiling source file 'PlayerMovementComponent.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      see declaration of 'std::runtime_error'
-      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
-      see declaration of 'sf::Exception'
-  
   Generating code
-  20 of 1807 functions ( 1.1%) were compiled, the rest were copied from previous compilation.
-    3 functions were new in current compilation
-    54 functions had inline decision re-evaluated but remain unchanged
+  0 of 1812 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    21 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   ShooterClient.vcxproj -> E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\x64\Release\ShooterClient.exe

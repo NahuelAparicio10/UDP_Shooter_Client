@@ -152,7 +152,6 @@
     <ClCompile Include="PacketDispatcher.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PlayerComponentScript.cpp" />
-    <ClCompile Include="PlayerMovementComponent.cpp" />
     <ClCompile Include="Rigidbody2D.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -186,7 +185,6 @@
     <ClInclude Include="PacketDispatcher.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PlayerComponentScript.h" />
-    <ClInclude Include="PlayerMovementComponent.h" />
     <ClInclude Include="Rigidbody2D.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
