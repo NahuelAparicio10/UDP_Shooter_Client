@@ -9,6 +9,7 @@
 #include <functional>
 #include "Event.h"
 #include "PacketDispatcher.h"
+#include <sstream>
 class ClientUDP
 {
 public:
@@ -20,6 +21,7 @@ public:
 
     void StartListeningForMatch();
     void CancelMatchSearch();
+    void JoinGameServer();
     void StartMatchSearchWithRetry(std::string matchType);
 
     Event<const std::string&> onMatchFound;
@@ -32,5 +34,8 @@ private:
     PacketDispatcher _dispatcher;
     std::optional< sf::IpAddress> _gameServerIp;
     unsigned short _gameServerPort;
+    unsigned int _currentMatchID;
+    unsigned int _currentPlayerID;
+
 };
 

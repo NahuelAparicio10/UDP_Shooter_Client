@@ -20,6 +20,10 @@ enum class PacketType : uint8_t {
     OK = 7,
     UPDATE_MAP = 8,
     SEARCH_ACK = 9,
+    JOIN_GAME = 10,
+    CREATE_MATCH = 11,
+    MATCH_UNIQUE = 12,
+    MATCH_USED = 13
 
 };
 

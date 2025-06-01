@@ -13,31 +13,12 @@ MatchMakingScene::MatchMakingScene()
 	{ 
 		SetUISearchMatch();
 		NetworkManager::GetInstance().GetUDPClient()->StartMatchSearchWithRetry("NORMAL");
-
-		/*NetworkManager::GetInstance().GetUDPClient()->Send("FIND_MATCH:NORMAL", Constants::ServiceServerIP.value(), Constants::MatchMakingServerPort);*/
-		//NetworkManager::GetInstance().GetUDPClient()->Send(
-		//	PacketHeader::CRITICAL,
-		//	PacketType::FIND_MATCH,
-		//	"NORMAL",
-		//	Constants::ServiceServerIP.value(),
-		//	Constants::MatchMakingServerPort);
-		//NetworkManager::GetInstance().GetUDPClient()->StartListeningForMatch();
 	});
 
 	rankedButton->OnClick.Subscribe([this]() 
 	{ 
 		SetUISearchMatch();
-		//NetworkManager::GetInstance().GetUDPClient()->Send("FIND_MATCH:RANKED", Constants::ServiceServerIP.value(), Constants::MatchMakingServerPort);
 		NetworkManager::GetInstance().GetUDPClient()->StartMatchSearchWithRetry("RANKED");
-
-
-		//NetworkManager::GetInstance().GetUDPClient()->Send(
-		//	PacketHeader::CRITICAL,
-		//	PacketType::FIND_MATCH,
-		//	"RANKED",
-		//	Constants::ServiceServerIP.value(),
-		//	Constants::MatchMakingServerPort);
-		//NetworkManager::GetInstance().GetUDPClient()->StartListeningForMatch();
 	});
 
 	// - Button Pressed -> Cancel Match Search + Resets UI

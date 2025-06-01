@@ -76,17 +76,22 @@ void ClientUDP::StartListeningForMatch()
             Send(PacketHeader::NORMAL, PacketType::ACK_MATCH_FOUND, "", job.sender.value(), job.port);
             _listening = false;
 
-            std::string ipPort = job.content;
-            std::size_t sep = ipPort.find(':');
-            if (sep == std::string::npos) {
-                std::cerr << "[CLIENT_UDP] Formato de IP inválido en MATCH_FOUND\n";
-                return;
-            }
+            std::istringstream ss(job.content);
+            std::string ipStr, portStr, matchIDStr, playerIDStr;
+            std::getline(ss, ipStr, ':');
+            std::getline(ss, portStr, ':');
+            std::getline(ss, matchIDStr, ':');
+            std::getline(ss, playerIDStr, ':');
 
-            std::string ipStr = ipPort.substr(0, sep);
-            std::string portStr = ipPort.substr(sep + 1);
             std::optional<sf::IpAddress> ip = sf::IpAddress::resolve(ipStr);
             unsigned short port = static_cast<unsigned short>(std::stoi(portStr));
+            unsigned int matchID = std::stoi(matchIDStr);
+            unsigned int playerID = std::stoi(playerIDStr);
+
+            _gameServerIp = ip;
+            _gameServerPort = port;
+            _currentMatchID = matchID;      
+            _currentPlayerID = playerID;
 
             std::cout << "[CLIENT_UDP] Match encontrado en GameServer: " << ip.value() << ":" << port << "\n";
 
@@ -94,6 +99,7 @@ void ClientUDP::StartListeningForMatch()
             _gameServerPort = port;
 
             onMatchFound.Invoke(job.content);
+            JoinGameServer();
         });
 
     _dispatcher.Start();
@@ -154,4 +160,12 @@ void ClientUDP::CancelMatchSearch()
     }
 
     std::cout << "[CLIENT_UDP] Cancel timeout - no response from server.\n";
+}
+
+void ClientUDP::JoinGameServer()
+{
+    if (!_gameServerIp.has_value()) return;
+
+    std::string payload = std::to_string(_currentMatchID) + ":" + std::to_string(_currentPlayerID);
+    Send(PacketHeader::CRITICAL, PacketType::JOIN_GAME, payload, _gameServerIp.value(), _gameServerPort);
 }
