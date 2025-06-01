@@ -18,7 +18,8 @@ enum class PacketType : uint8_t {
     VERSION = 5,
     UPDATE = 6,
     OK = 7,
-    UPDATE_MAP = 8
+    UPDATE_MAP = 8,
+    SEARCH_ACK = 9
 
 };
 

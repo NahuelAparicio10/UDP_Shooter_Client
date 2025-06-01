@@ -75,7 +75,6 @@ void ClientUDP::StartListeningForMatch()
         }
         std::cout << "[CLIENT_UDP] Listening stopped.\n";
         });
-    _dispatcher.Stop();
     _matchmakingThread.detach();
 }
 
@@ -107,6 +106,19 @@ void ClientUDP::CancelMatchSearch()
     }
 
     std::cout << "[CLIENT_UDP] Cancel timeout - no response from server.\n";
+}
+
+void ClientUDP::RequestMatch(PacketType type)
+{
+    _dispatcher.RegisterHandler(PacketType::SEARCH_ACK, [this](const RawPacketJob& job) {
+        std::cout << "[CLIENT_UDP] Match search ACK received. Starting to listen...\n";
+        StartListeningForMatch(); 
+        });
+
+    std::string content = (type == PacketType::FIND_MATCH ? "NORMAL" : "RANKED");
+
+    Send(PacketHeader::CRITICAL, PacketType::FIND_MATCH, content,
+        Constants::ServiceServerIP.value(), Constants::MatchMakingServerPort);
 }
 
 
