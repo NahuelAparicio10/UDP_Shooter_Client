@@ -11,8 +11,16 @@ PacketDispatcher::~PacketDispatcher()
 
 void PacketDispatcher::EnqueuePacket(const RawPacketJob& job)
 {
-	std::lock_guard<std::mutex> lock(_mutex);
-	_queue.push(job);
+    std::lock_guard<std::mutex> lock(_mutex);
+    if (job.headerMask & PacketHeader::CRITICAL) {
+        _queueCritical.push(job);
+    }
+    else if (job.headerMask & PacketHeader::URGENT) {
+        _queueUrgent.push(job);
+    }
+    else {
+        _queueNormal.push(job);
+    }
 }
 
 void PacketDispatcher::RegisterHandler(PacketType type, std::function<void(const RawPacketJob&)> handler) {	_handlers[type] = handler; }
@@ -31,19 +39,33 @@ void PacketDispatcher::Stop()
 
 void PacketDispatcher::DispatchLoop()
 {
-    while (_running) 
+    while (_running)
     {
         RawPacketJob job;
         {
             std::lock_guard<std::mutex> lock(_mutex);
-            if (_queue.empty()) continue;
-            job = _queue.front();
-            _queue.pop();
+            if (!_queueCritical.empty()) 
+            {
+                job = _queueCritical.front();
+                _queueCritical.pop();
+            }
+            else if (!_queueUrgent.empty()) 
+            {
+                job = _queueUrgent.front();
+                _queueUrgent.pop();
+            }
+            else if (!_queueNormal.empty()) 
+            {
+                job = _queueNormal.front();
+                _queueNormal.pop();
+            }
+            else {
+                continue;
+            }
         }
 
         auto it = _handlers.find(job.type);
-        if (it != _handlers.end()) 
-        {
+        if (it != _handlers.end()) {
             it->second(job);
         }
     }

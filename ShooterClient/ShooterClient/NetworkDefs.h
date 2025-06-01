@@ -19,7 +19,7 @@ enum class PacketType : uint8_t {
     UPDATE = 6,
     OK = 7,
     UPDATE_MAP = 8
-    // Agrega más tipos si hace falta
+
 };
 
 
@@ -30,6 +30,7 @@ struct RawPacketJob {
     std::optional<sf::IpAddress> sender;
     unsigned short port;
 };
+
 // Función para crear un datagrama listo para enviar
 inline std::size_t CreateRawDatagram(uint8_t headerMask, PacketType type, const std::string& content, char* outBuffer)
 {
@@ -38,6 +39,7 @@ inline std::size_t CreateRawDatagram(uint8_t headerMask, PacketType type, const 
     std::memcpy(outBuffer + 2, content.data(), content.size());
     return 2 + content.size();
 }
+
 inline void SendDatagram(sf::UdpSocket& socket, PacketHeader header, PacketType type, const std::string& content, const sf::IpAddress& ip, unsigned short port)
 {
     char buffer[1024];
