@@ -29,5 +29,7 @@ private:
     std::thread _matchmakingThread;
     std::atomic<bool> _listening = false;
     PacketDispatcher _dispatcher;
+    std::optional< sf::IpAddress> _gameServerIp;
+    unsigned short _gameServerPort;
 };
 

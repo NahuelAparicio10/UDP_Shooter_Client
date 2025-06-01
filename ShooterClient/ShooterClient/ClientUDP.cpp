@@ -1,6 +1,6 @@
 #include "ClientUDP.h"
 
-ClientUDP::ClientUDP()
+ClientUDP::ClientUDP() 
 {
     Init();
 }
@@ -33,6 +33,24 @@ void ClientUDP::StartListeningForMatch()
         {
         Send(PacketHeader::NORMAL, PacketType::ACK_MATCH_FOUND, "", job.sender.value(), job.port);
         _listening = false;
+
+        std::string ipPort = job.content;
+        std::size_t sep = ipPort.find(':');
+        if (sep == std::string::npos) {
+            std::cerr << "[CLIENT_UDP] Formato de IP inválido en MATCH_FOUND\n";
+            return;
+        }
+
+        std::string ipStr = ipPort.substr(0, sep);
+        std::string portStr = ipPort.substr(sep + 1);
+        std::optional<sf::IpAddress> ip = sf::IpAddress::resolve(ipStr);
+        unsigned short port = static_cast<unsigned short>(std::stoi(portStr));
+
+        std::cout << "[CLIENT_UDP] Match encontrado en GameServer: " << ip.value() << ":" << port << "\n";
+
+        _gameServerIp = ip;
+        _gameServerPort = port;
+
         onMatchFound.Invoke(job.content);
         });
 

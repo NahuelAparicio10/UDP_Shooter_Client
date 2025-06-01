@@ -26,6 +26,5 @@ private:
 
 	MapManager* _mapManager;
 	BulletHandler* _bulletHandler;
-protected:
 };
 
