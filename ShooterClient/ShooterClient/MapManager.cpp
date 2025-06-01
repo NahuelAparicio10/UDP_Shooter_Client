@@ -89,6 +89,7 @@ void MapManager::GenerateGameObjects()
             };
 
             go->AddComponent<SpriteRenderer>("", color, true, collider->size);
+            go->tag = "Wall";
             _mapObjects.push_back(go);
             _physicsManager->Register(go);
         }

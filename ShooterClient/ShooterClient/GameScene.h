@@ -7,6 +7,7 @@
 #include "Rigidbody2D.h"
 #include "BulletHandler.h"
 #include "PlayerComponentScript.h"
+#include "NetworkManager.h"
 
 class GameScene : public Scene
 {
@@ -22,9 +23,10 @@ private:
 	PhysicsManager _physicsManager;
 
 	GameObject* _player;
-	std::vector<GameObject*> _players;
+	std::vector<GameObject*> _enemies;
 
 	MapManager* _mapManager;
 	BulletHandler* _bulletHandler;
+	std::unordered_map<int, InterpolationData> _enemyInterpolations;
 };
 

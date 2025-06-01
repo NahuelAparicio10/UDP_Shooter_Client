@@ -2,7 +2,7 @@
 #include <vector>
 #include "Component.h"
 #include "Transform.h"
-
+#include <string>
 // Making GO as ECS (simplified) like UNity :')
 
 class GameObject
@@ -34,7 +34,8 @@ public:
 	}
 
 	Transform* transform;
-
+	int id;
+	std::string tag;
 	std::vector<Component*> components;
 };
 

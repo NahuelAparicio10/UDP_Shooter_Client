@@ -24,18 +24,29 @@ public:
     void JoinGameServer();
     void StartMatchSearchWithRetry(std::string matchType);
 
+    void StartReceivingGameplayPackets();
+    void StopReceivingGameplayPackets();
+    
     Event<const std::string&> onMatchFound;
     Event<> onCancelConfirmed;
+    
+    Event<MovementPacket> onMovementPacketRecived;
+    Event<const MovementPacket&> onReconcilePacketRecived;
+
+
+    std::optional< sf::IpAddress> GetGameServerIP() { return _gameServerIp; }
+    unsigned short GetCurrentGameServerPort() { return _gameServerPort; }
+    unsigned int currentMatchID;
+    unsigned int currentPlayerID;
 
 private:
     sf::UdpSocket _socket;
     std::thread _matchmakingThread;
+    std::atomic<bool> _receivingGameplay = false;
     std::atomic<bool> _listening = false;
     PacketDispatcher _dispatcher;
     std::optional< sf::IpAddress> _gameServerIp;
     unsigned short _gameServerPort;
-    unsigned int _currentMatchID;
-    unsigned int _currentPlayerID;
 
 };
 

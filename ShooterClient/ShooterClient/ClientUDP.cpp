@@ -66,6 +66,54 @@ void ClientUDP::StartMatchSearchWithRetry(std::string matchType)
     }
 }
 
+void ClientUDP::StartReceivingGameplayPackets()
+{
+    _receivingGameplay = true;
+
+    _dispatcher.RegisterHandler(PacketType::PLAYER_MOVEMENT, [this](const RawPacketJob& job) {
+            MovementPacket packet = MovementPacket::Deserialize(job.content);
+            onMovementPacketRecived.Invoke(packet);
+        });
+
+    _dispatcher.RegisterHandler(PacketType::RECONCILE, [this](const RawPacketJob& job) {
+            MovementPacket packet = MovementPacket::Deserialize(job.content);
+            onReconcilePacketRecived.Invoke(packet);
+        });
+
+    std::thread gameplayThread([this]()
+        {
+            _socket.setBlocking(false);
+
+            while (_receivingGameplay)
+            {
+                char buffer[1024];
+                std::size_t received = 0;
+                std::optional<sf::IpAddress> sender = std::nullopt;
+                unsigned short senderPort;
+
+                if (_socket.receive(buffer, sizeof(buffer), received, sender, senderPort) == sf::Socket::Status::Done && sender.has_value())
+                {
+                    RawPacketJob job;
+                    if (ParseRawDatagram(buffer, received, job, sender.value(), senderPort))
+                    {
+                        _dispatcher.EnqueuePacket(job);
+                    }
+                }
+
+                sf::sleep(sf::milliseconds(10));
+            }
+
+            std::cout << "[CLIENT_UDP] Gameplay reception thread ended.\n";
+        });
+
+    gameplayThread.detach();
+}
+
+void ClientUDP::StopReceivingGameplayPackets()
+{
+    _receivingGameplay = false;
+}
+
 void ClientUDP::StartListeningForMatch()
 {
     if (_listening) return;
@@ -90,8 +138,8 @@ void ClientUDP::StartListeningForMatch()
 
             _gameServerIp = ip;
             _gameServerPort = port;
-            _currentMatchID = matchID;      
-            _currentPlayerID = playerID;
+            currentMatchID = matchID;      
+            currentPlayerID = playerID;
 
             std::cout << "[CLIENT_UDP] Match encontrado en GameServer: " << ip.value() << ":" << port << "\n";
 
@@ -166,6 +214,6 @@ void ClientUDP::JoinGameServer()
 {
     if (!_gameServerIp.has_value()) return;
 
-    std::string payload = std::to_string(_currentMatchID) + ":" + std::to_string(_currentPlayerID);
+    std::string payload = std::to_string(currentMatchID) + ":" + std::to_string(currentPlayerID);
     Send(PacketHeader::CRITICAL, PacketType::JOIN_GAME, payload, _gameServerIp.value(), _gameServerPort);
 }

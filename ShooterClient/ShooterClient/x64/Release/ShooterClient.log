@@ -1,11 +1,126 @@
-﻿  ClientUDP.cpp
+﻿  BoxCollider2D.cpp
 C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
 C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
-C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(52,16): warning C4834: discarding return value of function with 'nodiscard' attribute
+  BulletHandler.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+  ClientTCP.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+  ClientUDP.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(90,16): warning C4834: discarding return value of function with 'nodiscard' attribute
+  GameManager.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(90,16): warning C4834: discarding return value of function with 'nodiscard' attribute
+  GameScene.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(90,16): warning C4834: discarding return value of function with 'nodiscard' attribute
+  LoginScene.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(90,16): warning C4834: discarding return value of function with 'nodiscard' attribute
+  Main.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(90,16): warning C4834: discarding return value of function with 'nodiscard' attribute
+  MapManager.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\MapManager.cpp(35,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\MapManager.cpp(36,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\MapManager.cpp(37,21): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\MapManager.cpp(38,22): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  MatchMakingScene.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(90,16): warning C4834: discarding return value of function with 'nodiscard' attribute
+  NetworkManager.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(90,16): warning C4834: discarding return value of function with 'nodiscard' attribute
+  PhysicsManager.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+  PlayerComponentScript.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(90,16): warning C4834: discarding return value of function with 'nodiscard' attribute
+  Scene.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+  SceneManager.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+  UIButton.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\UIButton.cpp(33,79): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\UIButton.cpp(33,53): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+  UICanvas.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+  UITextField.cpp
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,79): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,53): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
   Generating code
-  105 of 1907 functions ( 5.5%) were compiled, the rest were copied from previous compilation.
-    37 functions were new in current compilation
-    147 functions had inline decision re-evaluated but remain unchanged
+  96 of 2617 functions ( 3.7%) were compiled, the rest were copied from previous compilation.
+    13 functions were new in current compilation
+    20 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   ShooterClient.vcxproj -> C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\x64\Release\ShooterClient.exe

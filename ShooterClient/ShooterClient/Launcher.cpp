@@ -5,74 +5,7 @@ Launcher::Launcher() { }
 Launcher::~Launcher() { }
 
 bool Launcher::CheckAndUpdate()
-{
-    //sf::UdpSocket socket;
-
-    //// Tries to bind UDP socket 
-
-    //if (socket.bind(sf::Socket::AnyPort) != sf::Socket::Status::Done)
-    //{
-    //    std::cerr << "[LAUNCHER] Failed to bind UDP socket." << std::endl;
-	   // return false;
-    //}
-
-    //// If socket binds sends message with version
-
-    //std::string message = "VERSION:" + GetLocalVersion();
-
-    //if (socket.send(message.c_str(), message.size(), Constants::ServiceServerIP.value(), Constants::VersionCheckerServerPort) != sf::Socket::Status::Done)
-    //{
-    //    std::cerr << "[LAUNCHER] Failed to send version check." << std::endl;
-    //    return false;
-    //}
-
-    //char buffer[1024];
-    //std::size_t received = 0;
-    //std::optional<sf::IpAddress> sender = std::nullopt;
-    //unsigned short senderPort = 0;
-
-    //std::ofstream mapFile(Constants::MapFile, std::ios::trunc);
-
-    //if (!mapFile.is_open()) 
-    //{
-    //    std::cerr << "[LAUNCHER] Couldn't open map file for writing.\n";
-    //    return false;
-    //}
-
-    //bool updateStarted = false;
-
-    //while (true)
-    //{
-    //    if (socket.receive(buffer, sizeof(buffer), received, sender, senderPort) == sf::Socket::Status::Done && sender.has_value()) {
-    //        std::string data(buffer, received);
-
-    //        if (data == "OK") 
-    //        {
-    //            std::cout << "[LAUNCHER] Client is up to date.\n";
-    //            return true;
-    //        }
-    //        else if (data.rfind("UPDATE:", 0) == 0)
-    //        {
-    //            std::string version = data.substr(7);
-    //            SaveLocalVersion(version);
-    //            updateStarted = true;
-    //            std::cout << "[LAUNCHER] Update required to version " << version << ". Receiving map...\n";
-    //        }
-    //        else if (data == "EOF") 
-    //        {
-    //            std::cout << "[LAUNCHER] Update completed successfully.\n";
-    //            break;
-    //        }
-    //        else if (updateStarted) 
-    //        {
-    //            mapFile << data << "\n";
-    //        }
-    //    }
-    //}
-
-    //mapFile.close();
-
-    //return true;
+{   
     sf::UdpSocket socket;
 
     if (socket.bind(sf::Socket::AnyPort) != sf::Socket::Status::Done)
@@ -81,13 +14,16 @@ bool Launcher::CheckAndUpdate()
         return false;
     }
 
-    // Enviar versión con header y tipo
-    SendDatagram(socket, PacketHeader::NORMAL, PacketType::VERSION, GetLocalVersion(), Constants::ServiceServerIP.value(), Constants::VersionCheckerServerPort);
+    // - Sends to Service Server his version to make the check control
+
+    SendDatagram(socket, PacketHeader::CRITICAL, PacketType::VERSION, GetLocalVersion(), Constants::ServiceServerIP.value(), Constants::VersionCheckerServerPort);
 
     char buffer[1024];
     std::size_t received = 0;
     std::optional<sf::IpAddress> sender = std::nullopt;
     unsigned short senderPort = 0;
+
+    // - Opens file map to be overwritten if needed
 
     std::ofstream mapFile(Constants::MapFile, std::ios::trunc);
     if (!mapFile.is_open()) {
@@ -96,25 +32,28 @@ bool Launcher::CheckAndUpdate()
     }
 
     bool mapUpdated = false;
+
     while (true)
     {
         if (socket.receive(buffer, sizeof(buffer), received, sender, senderPort) == sf::Socket::Status::Done && sender.has_value())
         {
             RawPacketJob job;
+            
+            // - If receives packet and can be parsed in Raw Datagram checks for packet type
+
             if (ParseRawDatagram(buffer, received, job, sender.value(), senderPort))
             {
                 switch (job.type)
                 {
-                    case PacketType::OK:
+                    case PacketType::OK: // - If its ok when continue to Login.
                         std::cout << "[LAUNCHER] Client is up to date.\n";
                         return true;
 
-                    case PacketType::UPDATE:
+                    case PacketType::UPDATE: // - If needs update, saves the new version and wait for UPDATE_MAP
                         SaveLocalVersion(job.content);
                         std::cout << "[LAUNCHER] Update required to version " << job.content << ". Receiving map...\n";
-                        //SendDatagram(socket, PacketHeader::NORMAL, PacketType::ACK_UPDATE, "", sender.value(), senderPort);
                         break;
-                    case PacketType::UPDATE_MAP:
+                    case PacketType::UPDATE_MAP: // - if recieves an update map we save the incoming map into the file
                     {
                         std::ofstream mapFile(Constants::MapFile, std::ios::trunc);
                         if (mapFile.is_open()) 

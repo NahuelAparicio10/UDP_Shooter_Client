@@ -53,7 +53,7 @@ void MatchMakingScene::Update(float dt)
 {
 	if (_onMatchFound)
 	{
-		SceneManager::ChangeScene(new GameScene(4));
+		SceneManager::ChangeScene(new GameScene(Constants::NUM_PLAYERS));
 	}
 	_canvas.Update(dt);
 }

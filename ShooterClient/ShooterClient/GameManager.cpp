@@ -1,10 +1,11 @@
 #include "GameManager.h"
+#include "Constants.h"
 
 GameManager::GameManager()
 {
 	NetworkManager::GetInstance().Initialize();
 	_window = new Window();
-	//SceneManager::ChangeScene(new GameScene(2));	
+	//SceneManager::ChangeScene(new GameScene(Constants::NUM_PLAYERS));	
 	SceneManager::ChangeScene(new LoginScene());	
 }
 
