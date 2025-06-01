@@ -20,7 +20,7 @@ public:
 
     void StartListeningForMatch();
     void CancelMatchSearch();
-    void RequestMatch(PacketType type); 
+    void StartMatchSearchWithRetry(std::string matchType);
 
     Event<const std::string&> onMatchFound;
     Event<> onCancelConfirmed;

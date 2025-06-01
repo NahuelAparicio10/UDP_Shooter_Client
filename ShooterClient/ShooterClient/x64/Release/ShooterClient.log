@@ -1,94 +1,11 @@
 ﻿  ClientUDP.cpp
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
-  (compiling source file 'ClientUDP.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      see declaration of 'std::runtime_error'
-      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
-      see declaration of 'sf::Exception'
-  
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(48,16): warning C4834: discarding return value of function with [[nodiscard]] attribute
-  (compiling source file 'ClientUDP.cpp')
-  
-  GameManager.cpp
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
-  (compiling source file 'GameManager.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      see declaration of 'std::runtime_error'
-      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
-      see declaration of 'sf::Exception'
-  
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(48,16): warning C4834: discarding return value of function with [[nodiscard]] attribute
-  (compiling source file 'GameManager.cpp')
-  
-  Launcher.cpp
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
-  (compiling source file 'Launcher.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      see declaration of 'std::runtime_error'
-      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
-      see declaration of 'sf::Exception'
-  
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(48,16): warning C4834: discarding return value of function with [[nodiscard]] attribute
-  (compiling source file 'Launcher.cpp')
-  
-  LoginScene.cpp
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
-  (compiling source file 'LoginScene.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      see declaration of 'std::runtime_error'
-      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
-      see declaration of 'sf::Exception'
-  
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(48,16): warning C4834: discarding return value of function with [[nodiscard]] attribute
-  (compiling source file 'LoginScene.cpp')
-  
-  Main.cpp
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
-  (compiling source file 'Main.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      see declaration of 'std::runtime_error'
-      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
-      see declaration of 'sf::Exception'
-  
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(48,16): warning C4834: discarding return value of function with [[nodiscard]] attribute
-  (compiling source file 'Main.cpp')
-  
-  MatchMakingScene.cpp
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
-  (compiling source file 'MatchMakingScene.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      see declaration of 'std::runtime_error'
-      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
-      see declaration of 'sf::Exception'
-  
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(48,16): warning C4834: discarding return value of function with [[nodiscard]] attribute
-  (compiling source file 'MatchMakingScene.cpp')
-  
-  NetworkManager.cpp
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
-  (compiling source file 'NetworkManager.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      see declaration of 'std::runtime_error'
-      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
-      see declaration of 'sf::Exception'
-  
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(48,16): warning C4834: discarding return value of function with [[nodiscard]] attribute
-  (compiling source file 'NetworkManager.cpp')
-  
-  PacketDispatcher.cpp
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
-  (compiling source file 'PacketDispatcher.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
-      see declaration of 'std::runtime_error'
-      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
-      see declaration of 'sf::Exception'
-  
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(48,16): warning C4834: discarding return value of function with [[nodiscard]] attribute
-  (compiling source file 'PacketDispatcher.cpp')
-  
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(42,1): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\stdexcept(101): message : see declaration of 'std::runtime_error'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41): message : see declaration of 'sf::Exception'
+C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(48,16): warning C4834: discarding return value of function with 'nodiscard' attribute
   Generating code
-  42 of 1881 functions ( 2.2%) were compiled, the rest were copied from previous compilation.
-    19 functions were new in current compilation
-    39 functions had inline decision re-evaluated but remain unchanged
+  14 of 1875 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  ShooterClient.vcxproj -> E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\x64\Release\ShooterClient.exe
+  ShooterClient.vcxproj -> C:\Users\nahue\Desktop\CloneRepositoryGitHub\AA4_Shooter_UDP\AA4_ShooterClient\ShooterClient\x64\Release\ShooterClient.exe

@@ -12,7 +12,8 @@ MatchMakingScene::MatchMakingScene()
 	casualButton->OnClick.Subscribe([this]() 
 	{ 
 		SetUISearchMatch();
-		NetworkManager::GetInstance().GetUDPClient()->RequestMatch(PacketType::FIND_MATCH);
+		NetworkManager::GetInstance().GetUDPClient()->StartMatchSearchWithRetry("NORMAL");
+
 		/*NetworkManager::GetInstance().GetUDPClient()->Send("FIND_MATCH:NORMAL", Constants::ServiceServerIP.value(), Constants::MatchMakingServerPort);*/
 		//NetworkManager::GetInstance().GetUDPClient()->Send(
 		//	PacketHeader::CRITICAL,
@@ -27,7 +28,8 @@ MatchMakingScene::MatchMakingScene()
 	{ 
 		SetUISearchMatch();
 		//NetworkManager::GetInstance().GetUDPClient()->Send("FIND_MATCH:RANKED", Constants::ServiceServerIP.value(), Constants::MatchMakingServerPort);
-		NetworkManager::GetInstance().GetUDPClient()->RequestMatch(PacketType::INVALID);
+		NetworkManager::GetInstance().GetUDPClient()->StartMatchSearchWithRetry("RANKED");
+
 
 		//NetworkManager::GetInstance().GetUDPClient()->Send(
 		//	PacketHeader::CRITICAL,

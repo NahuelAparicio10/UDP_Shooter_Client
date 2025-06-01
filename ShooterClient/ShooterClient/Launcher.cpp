@@ -112,6 +112,7 @@ bool Launcher::CheckAndUpdate()
                     case PacketType::UPDATE:
                         SaveLocalVersion(job.content);
                         std::cout << "[LAUNCHER] Update required to version " << job.content << ". Receiving map...\n";
+                        //SendDatagram(socket, PacketHeader::NORMAL, PacketType::ACK_UPDATE, "", sender.value(), senderPort);
                         break;
                     case PacketType::UPDATE_MAP:
                     {
@@ -131,19 +132,6 @@ bool Launcher::CheckAndUpdate()
                         break;
                 }
             }
-            //else
-            //{
-            //    std::string raw(buffer, received);
-            //    if (raw == "EOF")
-            //    {
-            //        std::cout << "[LAUNCHER] Update completed successfully.\n";
-            //        break;
-            //    }
-            //    else if (updateStarted)
-            //    {
-            //        mapFile << raw << "\n";
-            //    }
-            //}
         }
         if (mapUpdated)
         {
