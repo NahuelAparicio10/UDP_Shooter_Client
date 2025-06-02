@@ -4,10 +4,21 @@ GameScene::GameScene(int numPlayers)
 {
 	_mapManager = new MapManager(&_physicsManager);
 
-	_bulletHandler = new BulletHandler(&_physicsManager);
-	CreatePlayers(numPlayers);
+	_bulletHandler = new BulletHandler(&_physicsManager);	
+	
+	NetworkManager::GetInstance().GetUDPClient()->StartReceivingGameplayPackets();
 
+	// - When we recieve CREATE_PLAYER from server we create players with the ID and resend to the server player created
+	NetworkManager::GetInstance().GetUDPClient()->onPlayerCreatedRecieved.Subscribe(
+		[this](const CreatePlayerPacket& packet)
+		{
+			CreatePlayer(packet);
+			NetworkManager::GetInstance().GetUDPClient()->Send(PacketHeader::CRITIC, PacketType::ACK_PLAYERS_CREATED, "", NetworkManager::GetInstance().GetUDPClient()->GetGameServerIP().value(), NetworkManager::GetInstance().GetUDPClient()->GetCurrentGameServerPort());
+		}
+	);
 
+	//Subscribirse al evento nuevo de onPLayerRecieved(packet)
+	 
 	NetworkManager::GetInstance().GetUDPClient()->onMovementPacketRecived.Subscribe(
 		[this](const MovementPacket& packet)
 		{
@@ -88,33 +99,53 @@ void GameScene::HandleEvent(const sf::Event& event)
 	_canvas.HandleEvent(event);
 }
 
-void GameScene::CreatePlayers(int numPlayers)
+void GameScene::CreatePlayer(const CreatePlayerPacket& packet)
 {
-	_player = new GameObject();
-	_player->GetComponent<Transform>()->position = { 50, 50 };
-	_player->AddComponent<SpriteRenderer>("Assets/Sprites/player.png", sf::Color::Blue, true);
-	sf::Vector2u size = _player->GetComponent<SpriteRenderer>()->GetSprite().getTexture().getSize();
-	_player->AddComponent<BoxCollider2D>()->size = static_cast<sf::Vector2f>(size);
-	_player->AddComponent<Rigidbody2D>();
-	_player->AddComponent<InputComponent>();
-	_player->AddComponent<PlayerComponentScript>(_bulletHandler, _player);
-	_physicsManager.Register(_player);
-
-	// - Generetes enemies
-	for (int i = 0; i < numPlayers; i++)
+	std::cout << packet.playerID << " miau " << packet.spawnPosition.x << "miau " << packet.spawnPosition.y << std::endl;
+	sf::Vector2u size;
+	if (packet.playerID == NetworkManager::GetInstance().GetUDPClient()->currentPlayerID)
 	{
-		if (i == NetworkManager::GetInstance().GetUDPClient()->currentMatchID) continue;
-
+		_player = new GameObject();
+		_player->GetComponent<Transform>()->position = { packet.spawnPosition.x, packet.spawnPosition.y };
+		_player->AddComponent<SpriteRenderer>("Assets/Sprites/player.png", sf::Color::Blue, true);
+		size = _player->GetComponent<SpriteRenderer>()->GetSprite().getTexture().getSize();
+		_player->AddComponent<BoxCollider2D>()->size = static_cast<sf::Vector2f>(size);
+		_player->AddComponent<Rigidbody2D>();
+		_player->AddComponent<InputComponent>();
+		_player->AddComponent<PlayerComponentScript>(_bulletHandler, _player);
+		_physicsManager.Register(_player);
+	}
+	else 
+	{
 		auto* enemy = new GameObject();
-		enemy->GetComponent<Transform>()->position = { 150, 150 };
+		enemy->GetComponent<Transform>()->position = { packet.spawnPosition.x, packet.spawnPosition.y };
 		enemy->AddComponent<SpriteRenderer>("Assets/Sprites/player.png", sf::Color::Red, true);
 		size = enemy->GetComponent<SpriteRenderer>()->GetSprite().getTexture().getSize();
 		enemy->AddComponent<BoxCollider2D>()->size = static_cast<sf::Vector2f>(size);
 		enemy->AddComponent<Rigidbody2D>();
-		
-		enemy->id = i;
-		
+
+		enemy->id = packet.playerID;
+
 		_physicsManager.Register(enemy);
 		_enemies.push_back(enemy);
 	}
+
+
+	// - Generetes enemies
+	//for (int i = 0; i < numPlayers; i++)
+	//{
+	//	if (i == NetworkManager::GetInstance().GetUDPClient()->currentMatchID) continue;
+
+	//	auto* enemy = new GameObject();
+	//	enemy->GetComponent<Transform>()->position = { 150, 150 };
+	//	enemy->AddComponent<SpriteRenderer>("Assets/Sprites/player.png", sf::Color::Red, true);
+	//	size = enemy->GetComponent<SpriteRenderer>()->GetSprite().getTexture().getSize();
+	//	enemy->AddComponent<BoxCollider2D>()->size = static_cast<sf::Vector2f>(size);
+	//	enemy->AddComponent<Rigidbody2D>();
+	//	
+	//	enemy->id = i;
+	//	
+	//	_physicsManager.Register(enemy);
+	//	_enemies.push_back(enemy);
+	//}
 }

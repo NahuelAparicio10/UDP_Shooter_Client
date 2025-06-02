@@ -5,8 +5,8 @@
 #include <sstream>
 enum PacketHeader : uint8_t {
     NORMAL = 0b00000001,
-    URGENT = 0b00000010,
-    CRITICAL = 0b00000100
+    CRITIC = 0b00000010,
+    URGENT = 0b00000100
 };
 
 enum class PacketType : uint8_t {
@@ -26,7 +26,10 @@ enum class PacketType : uint8_t {
     MATCH_USED = 13,
     PLAYER_MOVEMENT = 14,
     RECONCILE = 15,
-    ACK_JOINED = 16
+    ACK_JOINED = 16,
+    ACK_MATCH_CREATED = 17,
+    CREATE_PLAYER = 18,
+    ACK_PLAYERS_CREATED = 19
 };
 
 struct InterpolationData {
@@ -61,6 +64,32 @@ struct MovementPacket {
         sscanf_s(segment.c_str(), "%f,%f", &packet.position.x, &packet.position.y);
         std::getline(ss, segment, ':');
         sscanf_s(segment.c_str(), "%f,%f", &packet.velocity.x, &packet.velocity.y);
+
+        return packet;
+    }
+};
+
+struct CreatePlayerPacket {
+    unsigned int playerID;
+    sf::Vector2f spawnPosition;
+
+    static CreatePlayerPacket Deserialize(const std::string& msg) {
+        std::istringstream ss(msg);
+        std::string token;
+        std::vector<std::string> tokens;
+
+        while (std::getline(ss, token, ':')) {
+            tokens.push_back(token);
+        }
+
+        if (tokens.size() != 3) {
+            throw std::runtime_error("Invalid CREATE_PLAYER packet format: " + msg);
+        }
+
+        CreatePlayerPacket packet;
+        packet.playerID = std::stoul(tokens[0]);
+        packet.spawnPosition.x = std::stof(tokens[1]);
+        packet.spawnPosition.y = std::stof(tokens[2]);
 
         return packet;
     }

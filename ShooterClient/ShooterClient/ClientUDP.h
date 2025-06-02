@@ -33,6 +33,9 @@ public:
     Event<MovementPacket> onMovementPacketRecived;
     Event<const MovementPacket&> onReconcilePacketRecived;
 
+    Event<CreatePlayerPacket> onPlayerCreatedRecieved;
+    //Event <const CreatePlayerPacket&> onPlayerCreated
+
 
     std::optional< sf::IpAddress> GetGameServerIP() { return _gameServerIp; }
     unsigned short GetCurrentGameServerPort() { return _gameServerPort; }

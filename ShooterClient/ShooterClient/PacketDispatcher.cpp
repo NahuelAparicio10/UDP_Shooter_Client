@@ -12,11 +12,11 @@ PacketDispatcher::~PacketDispatcher()
 void PacketDispatcher::EnqueuePacket(const RawPacketJob& job)
 {
     std::lock_guard<std::mutex> lock(_mutex);
-    if (job.headerMask & PacketHeader::CRITICAL) {
-        _queueCritical.push(job);
-    }
-    else if (job.headerMask & PacketHeader::URGENT) {
+    if (job.headerMask & PacketHeader::URGENT) {
         _queueUrgent.push(job);
+    }
+    else if (job.headerMask & PacketHeader::CRITIC) {
+        _queueCritical.push(job);
     }
     else {
         _queueNormal.push(job);
@@ -44,15 +44,15 @@ void PacketDispatcher::DispatchLoop()
         RawPacketJob job;
         {
             std::lock_guard<std::mutex> lock(_mutex);
-            if (!_queueCritical.empty()) 
-            {
-                job = _queueCritical.front();
-                _queueCritical.pop();
-            }
-            else if (!_queueUrgent.empty()) 
+            if (!_queueUrgent.empty()) 
             {
                 job = _queueUrgent.front();
                 _queueUrgent.pop();
+            }
+            else if (!_queueCritical.empty()) 
+            {
+                job = _queueCritical.front();
+                _queueCritical.pop();
             }
             else if (!_queueNormal.empty()) 
             {

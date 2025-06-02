@@ -19,7 +19,7 @@ public:
 	virtual void Render(sf::RenderWindow* window) override;
 	virtual void HandleEvent(const sf::Event& event) override;
 private:
-	void CreatePlayers(int numPlayers);
+	void CreatePlayer(const CreatePlayerPacket& packet);
 	PhysicsManager _physicsManager;
 
 	GameObject* _player;

@@ -19,15 +19,19 @@ void ClientUDP::Send(PacketHeader header, PacketType type, const std::string& co
     SendDatagram(_socket, header, type, content, ip, port);
 }
 
+//-- Sends every X time to the server FIND_MATCH until an ACK recieved
+
 void ClientUDP::StartMatchSearchWithRetry(std::string matchType)
 {
     const int maxRetries = 5;
     int retries = 0;
     bool ackReceived = false;
 
+    // - Sends FIND_MATCH with X retries to the SS
+
     while (retries < maxRetries && !ackReceived)
     {
-        Send(PacketHeader::CRITICAL, PacketType::FIND_MATCH, matchType, Constants::ServiceServerIP.value(), Constants::MatchMakingServerPort);
+        Send(PacketHeader::URGENT, PacketType::FIND_MATCH, matchType, Constants::ServiceServerIP.value(), Constants::MatchMakingServerPort);
         std::cout << "[CLIENT_UDP] Sent FIND_MATCH: " << matchType << " (retry " << retries << ")\n";
 
         sf::Clock timer;
@@ -41,6 +45,7 @@ void ClientUDP::StartMatchSearchWithRetry(std::string matchType)
             if (_socket.receive(buffer, sizeof(buffer), received, sender, senderPort) == sf::Socket::Status::Done && sender.has_value())
             {
                 RawPacketJob job;
+                // - If I recieve a SEARCH_ACK confirms and Starts Listening For Match
                 if (ParseRawDatagram(buffer, received, job, sender.value(), senderPort) && job.type == PacketType::SEARCH_ACK)
                 {
                     std::cout << "[CLIENT_UDP] Received SEARCH_ACK from server.\n";
@@ -76,8 +81,15 @@ void ClientUDP::StartReceivingGameplayPackets()
         });
 
     _dispatcher.RegisterHandler(PacketType::RECONCILE, [this](const RawPacketJob& job) {
-            MovementPacket packet = MovementPacket::Deserialize(job.content);
-            onReconcilePacketRecived.Invoke(packet);
+        MovementPacket packet = MovementPacket::Deserialize(job.content);
+        onReconcilePacketRecived.Invoke(packet);
+        });
+
+    // - Crear uno para CREATE_PLAYER, que invoque un evento como onReconcilePacketRecived.Invoke(packet);
+
+    _dispatcher.RegisterHandler(PacketType::CREATE_PLAYER, [this](const RawPacketJob& job) {
+        CreatePlayerPacket packet = CreatePlayerPacket::Deserialize(job.content);
+        onPlayerCreatedRecieved.Invoke(packet);
         });
 
     std::thread gameplayThread([this]()
@@ -117,12 +129,15 @@ void ClientUDP::StopReceivingGameplayPackets()
 void ClientUDP::StartListeningForMatch()
 {
     if (_listening) return;
+
     _listening = true;
+
     _dispatcher.Stop();
+
     _dispatcher.RegisterHandler(PacketType::MATCH_FOUND, [this](const RawPacketJob& job)
         {
             Send(PacketHeader::NORMAL, PacketType::ACK_MATCH_FOUND, "", job.sender.value(), job.port);
-            _listening = false;
+            //_listening = false;
 
             std::istringstream ss(job.content);
             std::string ipStr, portStr, matchIDStr, playerIDStr;
@@ -143,16 +158,15 @@ void ClientUDP::StartListeningForMatch()
 
             std::cout << "[CLIENT_UDP] Match encontrado en GameServer: " << ip.value() << ":" << port << "\n";
 
-            _gameServerIp = ip;
-            _gameServerPort = port;
-
             JoinGameServer();
-            onMatchFound.Invoke(job.content);
+
         });
 
     _dispatcher.RegisterHandler(PacketType::ACK_JOINED, [this](const RawPacketJob& job) {
         std::cout << "[CLIENT] Received ACK_JOINED from server.\n";
+        _listening = false;
         _joinedConfirmed = true;
+        onMatchFound.Invoke(job.content);
         });
 
     _dispatcher.Start();
@@ -225,14 +239,15 @@ void ClientUDP::JoinGameServer()
 
     std::thread joinThread([this, content]() {
         int attempts = 0;
-        while (!_joinedConfirmed && attempts < 10) {
-            Send(PacketHeader::CRITICAL, PacketType::JOIN_GAME, content,
-                GetGameServerIP().value(), GetCurrentGameServerPort());
+        while (!_joinedConfirmed && attempts < 100) 
+        {
+            Send(PacketHeader::URGENT, PacketType::JOIN_GAME, content, GetGameServerIP().value(), GetCurrentGameServerPort());
             sf::sleep(sf::milliseconds(200));
             attempts++;
         }
 
-        if (!_joinedConfirmed) {
+        if (!_joinedConfirmed) 
+        {
             std::cout << "[CLIENT] Failed to join game server.\n";
         }
         });

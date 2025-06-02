@@ -16,7 +16,7 @@ bool Launcher::CheckAndUpdate()
 
     // - Sends to Service Server his version to make the check control
 
-    SendDatagram(socket, PacketHeader::CRITICAL, PacketType::VERSION, GetLocalVersion(), Constants::ServiceServerIP.value(), Constants::VersionCheckerServerPort);
+    SendDatagram(socket, PacketHeader::URGENT, PacketType::VERSION, GetLocalVersion(), Constants::ServiceServerIP.value(), Constants::VersionCheckerServerPort);
 
     char buffer[1024];
     std::size_t received = 0;
