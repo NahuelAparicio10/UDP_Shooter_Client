@@ -231,29 +231,35 @@ void ClientUDP::CancelMatchSearch()
 
 void ClientUDP::JoinGameServer()
 {
-    std::cout << "Entor Join Game" << std::endl;
+    std::cout << "Entering JoinGameServer..." << std::endl;
     if (!_gameServerIp.has_value()) return;
-    std::cout << "Entor IFFF" << std::endl;
 
     _joinedConfirmed = false;
 
     std::string content = std::to_string(currentMatchID) + ":" + std::to_string(currentPlayerID);
 
     std::thread joinThread([this, content]() {
+        const int maxAttempts = 100;
+        const sf::Time retryDelay = sf::milliseconds(750);
         int attempts = 0;
-        while (!_joinedConfirmed && attempts < 100) 
+
+        while (!_joinedConfirmed && attempts < maxAttempts) 
         {
-            std::cout << "mando join game" << std::endl;
+            std::cout << "[CLIENT] Sending JOIN_GAME attempt #" << (attempts + 1) << std::endl;
+
             Send(PacketHeader::URGENT, PacketType::JOIN_GAME, content, GetGameServerIP().value(), GetCurrentGameServerPort());
-            sf::sleep(sf::milliseconds(200));
+
+            sf::sleep(retryDelay);
             attempts++;
         }
 
         if (!_joinedConfirmed) 
         {
-            std::cout << "[CLIENT] Failed to join game server.\n";
+            std::cout << "[CLIENT] Failed to join game server after " << maxAttempts << " attempts.\n";
         }
-        });
+    });
 
     joinThread.detach();
 }
+
+

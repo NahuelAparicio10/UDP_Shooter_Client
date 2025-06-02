@@ -13,7 +13,8 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 		[this](const CreatePlayerPacket& packet)
 		{
 			CreatePlayer(packet);
-			NetworkManager::GetInstance().GetUDPClient()->Send(PacketHeader::CRITIC, PacketType::ACK_PLAYERS_CREATED, "", NetworkManager::GetInstance().GetUDPClient()->GetGameServerIP().value(), NetworkManager::GetInstance().GetUDPClient()->GetCurrentGameServerPort());
+			std::string msg = std::to_string(NetworkManager::GetInstance().GetUDPClient()->currentMatchID) + ":";
+			NetworkManager::GetInstance().GetUDPClient()->Send(PacketHeader::CRITIC, PacketType::ACK_PLAYERS_CREATED, msg, NetworkManager::GetInstance().GetUDPClient()->GetGameServerIP().value(), NetworkManager::GetInstance().GetUDPClient()->GetCurrentGameServerPort());
 		}
 	);
 
