@@ -172,7 +172,6 @@ void ClientUDP::StartListeningForMatch()
     _dispatcher.Start();
 
     _matchmakingThread = std::thread([this]() {
-        _socket.setBlocking(false);
         while (_listening)
         {
             char buffer[1024];
@@ -180,6 +179,7 @@ void ClientUDP::StartListeningForMatch()
             std::optional<sf::IpAddress> sender = std::nullopt;
             unsigned short senderPort;
 
+            _socket.setBlocking(false);
             if (_socket.receive(buffer, sizeof(buffer), received, sender, senderPort) == sf::Socket::Status::Done && sender.has_value())
             {
                 RawPacketJob job;
@@ -231,7 +231,9 @@ void ClientUDP::CancelMatchSearch()
 
 void ClientUDP::JoinGameServer()
 {
+    std::cout << "Entor Join Game" << std::endl;
     if (!_gameServerIp.has_value()) return;
+    std::cout << "Entor IFFF" << std::endl;
 
     _joinedConfirmed = false;
 
@@ -241,6 +243,7 @@ void ClientUDP::JoinGameServer()
         int attempts = 0;
         while (!_joinedConfirmed && attempts < 100) 
         {
+            std::cout << "mando join game" << std::endl;
             Send(PacketHeader::URGENT, PacketType::JOIN_GAME, content, GetGameServerIP().value(), GetCurrentGameServerPort());
             sf::sleep(sf::milliseconds(200));
             attempts++;

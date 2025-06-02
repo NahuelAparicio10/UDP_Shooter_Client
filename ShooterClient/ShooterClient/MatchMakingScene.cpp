@@ -32,6 +32,7 @@ MatchMakingScene::MatchMakingScene()
 
 	NetworkManager::GetInstance().GetUDPClient()->onMatchFound.Subscribe([this](const std::string& msg)
 		{
+			numPlayers = atoi(msg.c_str());
 			_onMatchFound = true;
 		});
 	NetworkManager::GetInstance().GetUDPClient()->onCancelConfirmed.Subscribe([this]() {
@@ -53,7 +54,7 @@ void MatchMakingScene::Update(float dt)
 {
 	if (_onMatchFound)
 	{
-		SceneManager::ChangeScene(new GameScene(Constants::NUM_PLAYERS));
+		SceneManager::ChangeScene(new GameScene(numPlayers));
 	}
 	_canvas.Update(dt);
 }

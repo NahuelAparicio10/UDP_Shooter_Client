@@ -28,5 +28,7 @@ private:
 	MapManager* _mapManager;
 	BulletHandler* _bulletHandler;
 	std::unordered_map<int, InterpolationData> _enemyInterpolations;
+	int _numPlayers;
+	bool canStartGame = false;
 };
 

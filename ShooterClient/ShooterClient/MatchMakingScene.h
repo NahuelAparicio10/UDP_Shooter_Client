@@ -21,5 +21,6 @@ private:
 	bool _onMatchFound = false;
 	void SetUISearchMatch();
 	void ResetUI();
+	int numPlayers;
 };
 

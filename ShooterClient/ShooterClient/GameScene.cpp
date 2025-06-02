@@ -1,6 +1,6 @@
 #include "GameScene.h"
 
-GameScene::GameScene(int numPlayers)
+GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 {
 	_mapManager = new MapManager(&_physicsManager);
 
@@ -48,7 +48,9 @@ GameScene::~GameScene()
 
 void GameScene::Update(float dt)
 {
+	if (!canStartGame) return;
 	_player->GetComponent<PlayerComponentScript>()->Update(dt);
+
 	_bulletHandler->UpdateBullets(dt);
 
 	for (auto* p : _enemies)
@@ -76,6 +78,8 @@ void GameScene::Update(float dt)
 
 void GameScene::Render(sf::RenderWindow* window)
 {
+	if (!canStartGame) return;
+
 	_mapManager->Draw(window);
 
 	_bulletHandler->RenderBullets(window);
@@ -95,6 +99,8 @@ void GameScene::Render(sf::RenderWindow* window)
 
 void GameScene::HandleEvent(const sf::Event& event)
 {
+	if (!canStartGame) return;
+
 	_player->GetComponent<PlayerComponentScript>()->HandlePlayerEvents(event);
 	_canvas.HandleEvent(event);
 }
@@ -130,22 +136,12 @@ void GameScene::CreatePlayer(const CreatePlayerPacket& packet)
 		_enemies.push_back(enemy);
 	}
 
-
-	// - Generetes enemies
-	//for (int i = 0; i < numPlayers; i++)
-	//{
-	//	if (i == NetworkManager::GetInstance().GetUDPClient()->currentMatchID) continue;
-
-	//	auto* enemy = new GameObject();
-	//	enemy->GetComponent<Transform>()->position = { 150, 150 };
-	//	enemy->AddComponent<SpriteRenderer>("Assets/Sprites/player.png", sf::Color::Red, true);
-	//	size = enemy->GetComponent<SpriteRenderer>()->GetSprite().getTexture().getSize();
-	//	enemy->AddComponent<BoxCollider2D>()->size = static_cast<sf::Vector2f>(size);
-	//	enemy->AddComponent<Rigidbody2D>();
-	//	
-	//	enemy->id = i;
-	//	
-	//	_physicsManager.Register(enemy);
-	//	_enemies.push_back(enemy);
-	//}
+	if (_player != nullptr && _enemies.size() > 1)
+	{
+		int numPlayers = _enemies.size() + 1; // -Enemies + player
+		if (numPlayers >= _numPlayers)
+		{
+			canStartGame = true;
+		}
+	}
 }
