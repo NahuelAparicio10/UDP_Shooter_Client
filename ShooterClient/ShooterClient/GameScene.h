@@ -8,6 +8,7 @@
 #include "BulletHandler.h"
 #include "PlayerComponentScript.h"
 #include "NetworkManager.h"
+#include "UtilsMaths.h"
 
 class GameScene : public Scene
 {
@@ -15,7 +16,6 @@ public:
 	GameScene(int numPlayers);
 	~GameScene();
 
-	void OnReceiveCreatePlayer(const std::string& content);
 
 	virtual void Update(float dt) override;
 	virtual void Render(sf::RenderWindow* window) override;

@@ -29,7 +29,8 @@ public:
     
     Event<const int> onMatchFound;
     Event<> onCancelConfirmed;
-    
+    Event<const CreateBulletPacket&> onCreateBullet;
+    Event<int> onDestroyBullet;
     Event<MovementPacket> onMovementPacketRecived;
     Event<const MovementPacket&> onReconcilePacketRecived;
 

@@ -7,6 +7,7 @@
 #include "SpriteRenderer.h"
 #include "NetworkDefs.h"
 #include "NetworkManager.h"
+#include "UtilsMaths.h"
 class PlayerComponentScript : public Component
 {
 public:
@@ -20,6 +21,8 @@ private:
 	void UpdatePlayerPhysics(float dt);
 	void UpdateMovement(float dt);
 
+	void UpdateReconciliation(float dt);
+
 	void ApplyReconciliation(const MovementPacket& correction);
 
 	float _moveSpeed = 150.f;
@@ -31,6 +34,8 @@ private:
 	BulletHandler* _bulletHandler;
 	std::deque<MovementPacket> _movementHistory;
 	unsigned int _tick = 0;
-	bool _canSimulate;
+
+	sf::Vector2f _reconciliationTarget;
+	bool _isReconciling = false;
 };
 

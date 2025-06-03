@@ -11,7 +11,6 @@ PlayerComponentScript::PlayerComponentScript(BulletHandler* bHandler, GameObject
     NetworkManager::GetInstance().GetUDPClient()->onReconcilePacketRecived.Subscribe([this](const MovementPacket& packet) {
         if (packet.playerID == NetworkManager::GetInstance().GetUDPClient()->currentPlayerID)
         {
-            _canSimulate = true;
             ApplyReconciliation(packet);
         }
         });
@@ -19,8 +18,8 @@ PlayerComponentScript::PlayerComponentScript(BulletHandler* bHandler, GameObject
 
 void PlayerComponentScript::Update(float dt)
 {
-    //if (!_canSimulate) return;
     UpdateMovement(dt);
+    UpdateReconciliation(dt);
     UpdatePlayerPhysics(dt);
 }
 
@@ -53,21 +52,28 @@ void PlayerComponentScript::UpdateMovement(float dt)
 
     if (_input->jump)
     {
+        std::cout << "[SALTO] Antes del salto. Rigidbody: " << _rigidbody << "\n";
+        std::cout << "Velocity.y = " << _rigidbody->velocity.y << "\n";
         _rigidbody->velocity.y = _jumpForce;
     }
 
     if (_input->shoot)
     {
-        if (playerGo->transform->scale.x >= 0.f)
-        {
-            _bulletHandler->CreateBullet(playerGo->transform->position, { 1.f, 0.f });
-            _input->shoot = false;
-        }
-        if (playerGo->transform->scale.x < 0.f)
-        {
-            _bulletHandler->CreateBullet(playerGo->transform->position, { -1.f, 0.f });
-            _input->shoot = false;
-        }
+        ShootBulletPacket packet;
+        packet.matchID = NetworkManager::GetInstance().GetUDPClient()->currentMatchID;
+        packet.playerID = NetworkManager::GetInstance().GetUDPClient()->currentPlayerID;
+        packet.position = playerGo->transform->position;
+        packet.direction = playerGo->transform->scale.x >= 0 ? sf::Vector2f{ 1.f, 0.f } : sf::Vector2f{ -1.f, 0.f };
+
+        NetworkManager::GetInstance().GetUDPClient()->Send(
+            PacketHeader::URGENT,
+            PacketType::SHOOT_BULLET,
+            packet.Serialize(),
+            NetworkManager::GetInstance().GetUDPClient()->GetGameServerIP().value(),
+            NetworkManager::GetInstance().GetUDPClient()->GetCurrentGameServerPort()
+        );
+
+        _input->shoot = false;
     }
 
     static float accumulator = 0.f; // its stay unless you do acumulator 0.f bc is staic btw
@@ -91,7 +97,8 @@ void PlayerComponentScript::UpdateMovement(float dt)
             NetworkManager::GetInstance().GetUDPClient()->GetGameServerIP().value(),
             NetworkManager::GetInstance().GetUDPClient()->GetCurrentGameServerPort()
         );
-
+        std::cout << "[MOVEMENT] Before push_back. Position: " << playerGo->transform->position.x << "," << playerGo->transform->position.y << "\n";
+        std::cout << "Velocity: " << _rigidbody->velocity.x << "," << _rigidbody->velocity.y << "\n";
         _movementHistory.push_back(packet);
 
         // - Limit to 100 actions from moveHistory
@@ -99,6 +106,22 @@ void PlayerComponentScript::UpdateMovement(float dt)
             _movementHistory.pop_front();
     }
 }
+
+
+
+void PlayerComponentScript::UpdateReconciliation(float dt)
+{
+    if (!_isReconciling) return;
+
+    sf::Vector2f current = playerGo->transform->position;
+    float alpha = 100.f * dt; 
+    playerGo->transform->position = current * (1 - alpha) + _reconciliationTarget * alpha;
+
+    if (UtilsMaths::Distance(current, _reconciliationTarget) < 1.f)
+        _isReconciling = false;
+}
+
+
 
 void PlayerComponentScript::ApplyReconciliation(const MovementPacket& correction)
 {
@@ -111,13 +134,13 @@ void PlayerComponentScript::ApplyReconciliation(const MovementPacket& correction
         float dx = std::abs(it->position.x - correction.position.x);
         float dy = std::abs(it->position.y - correction.position.y);
 
-        if (dx > 5.f || dy > 5.f) // - correction 
+        if (dx > 5.f || dy > 5.f)
         {
-            std::cout << "[RECONCILE] Corrigiendo posición en tick " << correction.tick << "\n";
-            playerGo->transform->position = playerGo->transform->position * 0.5f + correction.position * 0.5f;
+            std::cout << "[RECONCILE] Corrigiendo tick " << correction.tick << "\n";
+            _reconciliationTarget = correction.position;
             _rigidbody->velocity = correction.velocity;
+            _isReconciling = true;
 
-            // - Deletes all behind that tick bc it's reconciliated 
             _movementHistory.erase(_movementHistory.begin(), it + 1);
         }
     }

@@ -93,6 +93,16 @@ void ClientUDP::StartReceivingGameplayPackets()
         onPlayerCreatedRecieved.Invoke(playersToCreate);
         });
 
+    _dispatcher.RegisterHandler(PacketType::CREATE_BULLET, [this](const RawPacketJob& job) {
+        CreateBulletPacket packet = CreateBulletPacket::Deserialize(job.content);
+        onCreateBullet.Invoke(packet);
+        });
+
+    _dispatcher.RegisterHandler(PacketType::DESTROY_BULLET, [this](const RawPacketJob& job) {
+        unsigned int bulletID = std::stoul(job.content);
+        onDestroyBullet.Invoke(bulletID);
+        });
+
     std::thread gameplayThread([this]()
         {
             _socket.setBlocking(false);

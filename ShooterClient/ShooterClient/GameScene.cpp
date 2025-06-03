@@ -20,23 +20,37 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 	NetworkManager::GetInstance().GetUDPClient()->onMovementPacketRecived.Subscribe(
 		[this](const MovementPacket& packet)
 		{
-			// - Ignore if its me
 			if (packet.playerID == NetworkManager::GetInstance().GetUDPClient()->currentPlayerID)
-				return;	
+				return;
 
-			// - Search enemy by ID
 			auto it = std::find_if(_enemies.begin(), _enemies.end(),
 				[&](GameObject* go) { return go->id == packet.playerID; });
 
 			if (it != _enemies.end())
 			{
+				GameObject* enemy = *it;
 				InterpolationData& data = _enemyInterpolations[packet.playerID];
-				data.previous = data.current;
-				data.current = packet.position;
-				data.timer = 0.f;
+
+				// Solo actualiza si la posición cambia de forma significativa
+				if (UtilsMaths::Distance(packet.position, data.current) > 0.01f)
+				{
+					data.previous = enemy->transform->position;  // no usamos el viejo current
+					data.current = packet.position;
+					data.timer = 0.f;
+				}
 			}
 		}
 	);
+
+	NetworkManager::GetInstance().GetUDPClient()->onCreateBullet.Subscribe(
+		[this](const CreateBulletPacket& packet) {
+			_bulletHandler->CreateBullet(packet.bulletID,packet.position, packet.direction);
+		});
+
+	NetworkManager::GetInstance().GetUDPClient()->onDestroyBullet.Subscribe(
+		[this](int bulletID) {
+			_bulletHandler->DestroyBulletByID(bulletID);
+		});
 }
 
 GameScene::~GameScene()
@@ -48,7 +62,10 @@ GameScene::~GameScene()
 void GameScene::Update(float dt)
 {
 	if (!canStartGame) return;
-	_player->GetComponent<PlayerComponentScript>()->Update(dt);
+	if (_player->GetComponent<PlayerComponentScript>() != nullptr)
+	{
+		_player->GetComponent<PlayerComponentScript>()->Update(dt);
+	}
 
 	_bulletHandler->UpdateBullets(dt);
 
@@ -56,10 +73,10 @@ void GameScene::Update(float dt)
 	{
 		if (p->GetComponent<Rigidbody2D>()->velocity.x >= 0)
 		{
-			p->transform->scale.x = 1.f;
+			p->transform->scale.x = -1.f;
 		}
 		else {
-			p->transform->scale.x = -1.f;
+			p->transform->scale.x = 1.f;
 
 		}
 		p->GetComponent<Rigidbody2D>()->Update(p->transform, dt);
@@ -72,10 +89,18 @@ void GameScene::Update(float dt)
 		if (_enemyInterpolations.count(id))
 		{
 			InterpolationData& data = _enemyInterpolations[id];
+
+			// Solo interpolamos si hay diferencia real de posición
+			if (UtilsMaths::Distance(data.current, data.previous) < 0.01f)
+				continue;
+
 			data.timer += dt;
 
-			float alpha = std::clamp(data.timer / 0.025f, 0.f, 1.f);
-			enemy->transform->position = data.previous * (1.f - alpha) + data.current * alpha;
+			float alpha = std::clamp(data.timer / 0.005f, 0.f, 1.f);
+			sf::Vector2f interpolatedPos = data.previous * (1.f - alpha) + data.current * alpha;
+
+			// Aplicar suavizado final (opcional)
+			enemy->transform->position = UtilsMaths::Lerp(enemy->transform->position, interpolatedPos, 10.f * dt);
 		}
 	}
 

@@ -29,7 +29,70 @@ enum class PacketType : uint8_t {
     ACK_JOINED = 16,
     ACK_MATCH_CREATED = 17,
     CREATE_PLAYER = 18,
-    ACK_PLAYERS_CREATED = 19
+    ACK_PLAYERS_CREATED = 19,
+    SHOOT_BULLET = 20,
+    CREATE_BULLET = 21,
+    DESTROY_BULLET = 22
+};
+
+struct CreateBulletPacket
+{
+    unsigned int shooterID;
+    unsigned int bulletID;
+    sf::Vector2f position;
+    sf::Vector2f direction;
+
+    std::string Serialize() const {
+        return std::to_string(shooterID) + ":" +
+            std::to_string(bulletID) + ":" +
+            std::to_string(position.x) + ":" +
+            std::to_string(position.y) + ":" +
+            std::to_string(direction.x) + ":" +
+            std::to_string(direction.y);
+    }
+
+    static CreateBulletPacket Deserialize(const std::string& data) {
+        std::istringstream ss(data);
+        CreateBulletPacket p;
+        std::string value;
+        std::getline(ss, value, ':'); p.shooterID = std::stoul(value);
+        std::getline(ss, value, ':'); p.bulletID = std::stoul(value);
+        std::getline(ss, value, ':'); p.position.x = std::stof(value);
+        std::getline(ss, value, ':'); p.position.y = std::stof(value);
+        std::getline(ss, value, ':'); p.direction.x = std::stof(value);
+        std::getline(ss, value, ':'); p.direction.y = std::stof(value);
+        return p;
+    }
+};
+
+struct ShootBulletPacket
+{
+    unsigned int matchID;
+    unsigned int playerID;
+    sf::Vector2f position;
+    sf::Vector2f direction;
+
+    std::string Serialize() const {
+        return std::to_string(matchID) + ":" +
+            std::to_string(playerID) + ":" +
+            std::to_string(position.x) + ":" +
+            std::to_string(position.y) + ":" +
+            std::to_string(direction.x) + ":" +
+            std::to_string(direction.y);
+    }
+
+    static ShootBulletPacket Deserialize(const std::string& data) {
+        std::istringstream ss(data);
+        ShootBulletPacket p;
+        std::string value;
+        std::getline(ss, value, ':'); p.matchID = std::stoul(value);
+        std::getline(ss, value, ':'); p.playerID = std::stoul(value);
+        std::getline(ss, value, ':'); p.position.x = std::stof(value);
+        std::getline(ss, value, ':'); p.position.y = std::stof(value);
+        std::getline(ss, value, ':'); p.direction.x = std::stof(value);
+        std::getline(ss, value, ':'); p.direction.y = std::stof(value);
+        return p;
+    }
 };
 
 struct InterpolationData {
@@ -37,6 +100,7 @@ struct InterpolationData {
     sf::Vector2f current;
     float timer = 0.f;
 };
+
 struct MovementPacket {
     uint32_t matchID;
     uint32_t playerID;
@@ -100,26 +164,6 @@ struct CreatePlayerPacket {
         return playerPacket;
     }
 
-   /* static CreatePlayerPacket Deserialize(const std::string& msg) {
-        std::istringstream ss(msg);
-        std::string token;
-        std::vector<std::string> tokens;
-
-        while (std::getline(ss, token, ':')) {
-            tokens.push_back(token);
-        }
-
-        if (tokens.size() != 3) {
-            throw std::runtime_error("Invalid CREATE_PLAYER packet format: " + msg);
-        }
-
-        CreatePlayerPacket packet;
-        packet.playerID = std::stoul(tokens[0]);
-        packet.spawnPosition.x = std::stof(tokens[1]);
-        packet.spawnPosition.y = std::stof(tokens[2]);
-
-        return packet;
-    }*/
 };
 
 struct RawPacketJob {
