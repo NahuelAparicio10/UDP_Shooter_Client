@@ -64,7 +64,13 @@ void PlayerComponentScript::UpdateMovement(float dt)
         packet.playerID = NetworkManager::GetInstance().GetUDPClient()->currentPlayerID;
         packet.position = playerGo->transform->position;
         packet.direction = playerGo->transform->scale.x >= 0 ? sf::Vector2f{ 1.f, 0.f } : sf::Vector2f{ -1.f, 0.f };
-
+        if (packet.direction.x < 0)
+        {
+            packet.position.x -= 35.f;
+        }
+        else {
+            packet.position.x += 35.f;
+        }
         NetworkManager::GetInstance().GetUDPClient()->Send(
             PacketHeader::URGENT,
             PacketType::SHOOT_BULLET,
@@ -79,7 +85,7 @@ void PlayerComponentScript::UpdateMovement(float dt)
     static float accumulator = 0.f; // its stay unless you do acumulator 0.f bc is staic btw
     accumulator += dt;
 
-    if (accumulator >= 0.033f) 
+    if (accumulator >= .033f) 
     {
         accumulator = 0.f;
 
@@ -97,8 +103,7 @@ void PlayerComponentScript::UpdateMovement(float dt)
             NetworkManager::GetInstance().GetUDPClient()->GetGameServerIP().value(),
             NetworkManager::GetInstance().GetUDPClient()->GetCurrentGameServerPort()
         );
-        std::cout << "[MOVEMENT] Before push_back. Position: " << playerGo->transform->position.x << "," << playerGo->transform->position.y << "\n";
-        std::cout << "Velocity: " << _rigidbody->velocity.x << "," << _rigidbody->velocity.y << "\n";
+
         _movementHistory.push_back(packet);
 
         // - Limit to 100 actions from moveHistory
@@ -134,7 +139,7 @@ void PlayerComponentScript::ApplyReconciliation(const MovementPacket& correction
         float dx = std::abs(it->position.x - correction.position.x);
         float dy = std::abs(it->position.y - correction.position.y);
 
-        if (dx > 5.f || dy > 5.f)
+        if (dx > 6.5f || dy > 6.5f)
         {
             std::cout << "[RECONCILE] Corrigiendo tick " << correction.tick << "\n";
             _reconciliationTarget = correction.position;

@@ -19,5 +19,6 @@ private:
 	void HandleEvents();
 	Window* _window;
 	sf::Clock _clock;
+	float accumulator = 0.f;
 };
 

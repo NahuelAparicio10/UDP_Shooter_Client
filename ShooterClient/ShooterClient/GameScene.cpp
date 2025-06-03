@@ -96,7 +96,7 @@ void GameScene::Update(float dt)
 
 			data.timer += dt;
 
-			float alpha = std::clamp(data.timer / 0.005f, 0.f, 1.f);
+			float alpha = std::clamp(data.timer / 0.033f, 0.f, 1.f);
 			sf::Vector2f interpolatedPos = data.previous * (1.f - alpha) + data.current * alpha;
 
 			// Aplicar suavizado final (opcional)

@@ -1,6 +1,5 @@
 #include "GameManager.h"
 #include "Constants.h"
-
 GameManager::GameManager()
 {
 	NetworkManager::GetInstance().Initialize();
