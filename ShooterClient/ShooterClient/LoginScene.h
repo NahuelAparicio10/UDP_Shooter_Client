@@ -5,6 +5,7 @@
 #include "MatchMakingScene.h"
 #include "NetworkManager.h"
 #include "Constants.h"
+
 class LoginScene : public Scene
 {
 public:
@@ -21,5 +22,7 @@ private:
 	bool onLoginSuccess;
 	UITextField* _usernameTextField;
 	UITextField* _passwordTextField;
+	UIText* _testText;
+	sf::Color _customColor;
 };
 

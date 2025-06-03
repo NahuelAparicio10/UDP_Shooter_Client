@@ -4,6 +4,7 @@
 #include "Constants.h"
 #include "SceneManager.h"
 #include "GameScene.h"
+#include "FontManager.h"
 
 class MatchMakingScene : public Scene
 {
@@ -22,5 +23,7 @@ private:
 	void SetUISearchMatch();
 	void ResetUI();
 	int numPlayers;
+	sf::Color _customColor;
+
 };
 

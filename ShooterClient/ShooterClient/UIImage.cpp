@@ -1,6 +1,7 @@
 #include "UIImage.h"
 
-UIImage::UIImage(const std::string& id, const std::string& texturePath, sf::Color color, bool centerOrigin) : _texture(), _sprite(_texture)
+UIImage::UIImage(const std::string& id, const std::string& texturePath, sf::Color color, bool centerOrigin) 
+	: _texture(), _sprite(_texture)
 {
 	SetID(id);
 	SetActive(true);
