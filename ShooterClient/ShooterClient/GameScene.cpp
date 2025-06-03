@@ -2,6 +2,14 @@
 
 GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 {
+	UIImage* hp1 = new UIImage("1hp", "Assets/Sprites/heart.png", sf::Color::Red, sf::Vector2f{ 50, 50 }, sf::Vector2f{ 25, 25},  false);
+	UIImage* hp2 = new UIImage("2hp", "Assets/Sprites/heart.png", sf::Color::Red, sf::Vector2f{ 50, 50 }, sf::Vector2f{ 100, 25 },  false);
+	UIImage* hp3 = new UIImage("3hp", "Assets/Sprites/heart.png", sf::Color::Red, sf::Vector2f{ 50, 50 }, sf::Vector2f{ 175, 25 },  false);
+
+	_canvas.AddElement(hp1);
+	_canvas.AddElement(hp2);
+	_canvas.AddElement(hp3);
+
 	_mapManager = new MapManager(&_physicsManager);
 
 	_bulletHandler = new BulletHandler(&_physicsManager);	
@@ -26,7 +34,6 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 			if (it != _enemies.end())
 			{				
 				GameObject* enemy = *it;
-				//enemy->GetComponent<Rigidbody2D>()->velocity = packet.velocity;
 
 				InterpolationData& data = _enemyInterpolations[packet.playerID];
 
@@ -42,12 +49,40 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 
 	NetworkManager::GetInstance().GetUDPClient()->onCreateBullet.Subscribe(
 		[this](const CreateBulletPacket& packet) {
-			_bulletHandler->CreateBullet(packet.bulletID,packet.position, packet.direction);
+			_bulletHandler->HandleCreateBulletPacket(packet);
 		});
 
 	NetworkManager::GetInstance().GetUDPClient()->onMatchFinished.Subscribe([this]() { matchFinished = true; });
 
 	NetworkManager::GetInstance().GetUDPClient()->onDestroyBullet.Subscribe([this](int bulletID) { _bulletHandler->DestroyBulletByID(bulletID);	});
+	NetworkManager::GetInstance().GetUDPClient()->onPlayerHit.Subscribe([this](int bulletID) 
+		{ 
+			
+			if (_lastBulletIdThatHittedMe == bulletID) return;
+
+			_lastBulletIdThatHittedMe = bulletID;
+
+			_bulletHandler->DestroyBulletByID(bulletID);	
+
+			HealthComponent* hp = _player->GetComponent<HealthComponent>();
+			
+			hp->GetDamage(1);
+			
+			int currentHealth = hp->GetCurrentHealth();
+			std::cout << currentHealth << std::endl;
+			if (currentHealth < 10 && currentHealth >= 5)
+			{
+				_canvas.GetElementByID("1hp")->SetActive(false);
+			}
+			else if (currentHealth < 5 && currentHealth >= 1)
+			{
+				_canvas.GetElementByID("2hp")->SetActive(false);
+			}
+			else if(currentHealth < 1)
+			{
+				_canvas.GetElementByID("3hp")->SetActive(false);
+			}
+		});
 }
 
 GameScene::~GameScene()
@@ -157,6 +192,7 @@ void GameScene::CreatePlayer(const std::vector<CreatePlayerPacket>& playersToCre
 			_player->AddComponent<Rigidbody2D>();
 			_player->AddComponent<InputComponent>();
 			_player->AddComponent<PlayerComponentScript>(_bulletHandler, _player);
+			_player->AddComponent<HealthComponent>();
 			_physicsManager.Register(_player);
 		}
 		else 

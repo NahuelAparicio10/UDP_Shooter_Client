@@ -1,5 +1,7 @@
 #include "HealthComponent.h"
 
+
+
 void HealthComponent::GetDamage(int dmg)
 {
     _health -= dmg;

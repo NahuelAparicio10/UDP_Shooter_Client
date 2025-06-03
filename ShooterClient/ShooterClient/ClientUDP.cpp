@@ -106,7 +106,11 @@ void ClientUDP::StartReceivingGameplayPackets()
         unsigned int bulletID = std::stoul(job.content);
         onDestroyBullet.Invoke(bulletID);
         });
-
+    _dispatcher.RegisterHandler(PacketType::PLAYER_HIT, [this](const RawPacketJob& job) 
+        {
+            unsigned int bulletID = std::stoul(job.content);
+            onPlayerHit.Invoke(bulletID);
+        });
     std::thread gameplayThread([this]()
         {
             _socket.setBlocking(false);

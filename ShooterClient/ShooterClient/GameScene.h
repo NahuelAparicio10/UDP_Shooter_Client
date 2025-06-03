@@ -11,6 +11,8 @@
 #include "UtilsMaths.h"
 #include "SceneManager.h"
 #include "MatchMakingScene.h"
+#include "UIImage.h"
+#include "HealthComponent.h"
 
 class GameScene : public Scene
 {
@@ -35,5 +37,7 @@ private:
 	int _numPlayers;
 	bool canStartGame = false;
 	bool matchFinished = false;
+
+	int _lastBulletIdThatHittedMe = -10;
 };
 

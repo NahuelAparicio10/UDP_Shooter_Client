@@ -35,7 +35,7 @@ public:
     Event<MovementPacket> onMovementPacketRecived;
     Event<const MovementPacket&> onReconcilePacketRecived;
     Event<> onMatchFinished;
-
+    Event<int> onPlayerHit;
     Event<std::vector<CreatePlayerPacket>> onPlayerCreatedRecieved;
     //Event <const CreatePlayerPacket&> onPlayerCreated
 

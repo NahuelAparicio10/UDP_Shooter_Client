@@ -37,5 +37,8 @@ private:
 
 	sf::Vector2f _reconciliationTarget;
 	bool _isReconciling = false;
+
+	int nextGhostBulletID = -1;
+	int ghostID = nextGhostBulletID--;
 };
 

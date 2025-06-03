@@ -36,6 +36,35 @@ void BulletHandler::CreateBullet(int bulletID, sf::Vector2f position, sf::Vector
     _bulletById[bulletID] = bullet;
 }
 
+void BulletHandler::HandleCreateBulletPacket(const CreateBulletPacket& packet)
+{
+    // - Check for the closest bullet ghost
+    int bestGhostID = -99999;
+    float bestDist = 99999.f;
+    sf::Vector2f bestPos = packet.position;
+
+    for (const auto& b : _bullets)
+    {
+        if (b->id >= 0) continue; 
+
+        float dist = UtilsMaths::Distance(b->transform->position, packet.position);
+        if (dist < bestDist)
+        {
+            bestDist = dist;
+            bestGhostID = b->id;
+            bestPos = b->transform->position;
+        }
+    }
+
+    // - Deletes ghost bullet
+    if (bestGhostID != -99999)
+        DestroyBulletByID(bestGhostID);
+
+    // - Create the oficial one (pos visual = last)
+    CreateBullet(packet.bulletID, bestPos, packet.direction);
+
+}
+
 void BulletHandler::UpdateBullets(float dt)
 {
     if (_bullets.empty()) return;

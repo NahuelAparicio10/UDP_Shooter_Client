@@ -78,7 +78,8 @@ void PlayerComponentScript::UpdateMovement(float dt)
             NetworkManager::GetInstance().GetUDPClient()->GetGameServerIP().value(),
             NetworkManager::GetInstance().GetUDPClient()->GetCurrentGameServerPort()
         );
-
+        int ghostBulletID = nextGhostBulletID--;
+        _bulletHandler->CreateBullet(ghostBulletID, packet.position, packet.direction);
         _input->shoot = false;
     }
 
