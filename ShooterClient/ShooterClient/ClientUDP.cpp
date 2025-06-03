@@ -85,6 +85,10 @@ void ClientUDP::StartReceivingGameplayPackets()
         onReconcilePacketRecived.Invoke(packet);
         });
 
+    _dispatcher.RegisterHandler(PacketType::MATCH_FINISHED, [this](const RawPacketJob& job) {
+        onMatchFinished.Invoke();
+        });
+
     // - Crear uno para CREATE_PLAYER, que invoque un evento como onReconcilePacketRecived.Invoke(packet);
 
     _dispatcher.RegisterHandler(PacketType::CREATE_PLAYER, [this](const RawPacketJob& job) {
@@ -130,6 +134,21 @@ void ClientUDP::StartReceivingGameplayPackets()
         });
 
     gameplayThread.detach();
+}
+
+void ClientUDP::StartSendingPings(std::atomic<bool>* shouldRun)
+{
+    std::thread pingThread([this, shouldRun]() {
+        std::string msg = std::to_string(currentMatchID);
+        while (*shouldRun)
+        {
+            Send(PacketHeader::NORMAL, PacketType::PING, msg + ":", GetGameServerIP().value(), GetCurrentGameServerPort());
+
+            sf::sleep(sf::seconds(1)); // 1 segundo entre pings
+        }
+        });
+
+    pingThread.detach();
 }
 
 void ClientUDP::StopReceivingGameplayPackets()

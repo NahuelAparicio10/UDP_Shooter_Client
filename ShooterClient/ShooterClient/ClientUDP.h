@@ -25,6 +25,7 @@ public:
     void StartMatchSearchWithRetry(std::string matchType);
 
     void StartReceivingGameplayPackets();
+    void StartSendingPings(std::atomic<bool>* shouldRun);
     void StopReceivingGameplayPackets();
     
     Event<const int> onMatchFound;
@@ -33,6 +34,7 @@ public:
     Event<int> onDestroyBullet;
     Event<MovementPacket> onMovementPacketRecived;
     Event<const MovementPacket&> onReconcilePacketRecived;
+    Event<> onMatchFinished;
 
     Event<std::vector<CreatePlayerPacket>> onPlayerCreatedRecieved;
     //Event <const CreatePlayerPacket&> onPlayerCreated

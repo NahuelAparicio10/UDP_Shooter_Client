@@ -5,20 +5,17 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 	_mapManager = new MapManager(&_physicsManager);
 
 	_bulletHandler = new BulletHandler(&_physicsManager);	
-	
+	shouldRun = new std::atomic<bool>(true);
 	NetworkManager::GetInstance().GetUDPClient()->StartReceivingGameplayPackets();
+	NetworkManager::GetInstance().GetUDPClient()->StartSendingPings(shouldRun);
 
 	// - When we recieve CREATE_PLAYER from server we create players with the ID and resend to the server player created
-	NetworkManager::GetInstance().GetUDPClient()->onPlayerCreatedRecieved.Subscribe(
-		[this](const std::vector<CreatePlayerPacket>& playersToCreate)
+	NetworkManager::GetInstance().GetUDPClient()->onPlayerCreatedRecieved.Subscribe	([this](const std::vector<CreatePlayerPacket>& playersToCreate)
 		{
-			std::cout << "Create Invoked";
-
 			CreatePlayer(playersToCreate);		
-		}
-	);
-	NetworkManager::GetInstance().GetUDPClient()->onMovementPacketRecived.Subscribe(
-		[this](const MovementPacket& packet)
+		});
+
+	NetworkManager::GetInstance().GetUDPClient()->onMovementPacketRecived.Subscribe([this](const MovementPacket& packet)
 		{
 			if (packet.playerID == NetworkManager::GetInstance().GetUDPClient()->currentPlayerID)
 				return;
@@ -27,14 +24,15 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 				[&](GameObject* go) { return go->id == packet.playerID; });
 
 			if (it != _enemies.end())
-			{
+			{				
 				GameObject* enemy = *it;
+				//enemy->GetComponent<Rigidbody2D>()->velocity = packet.velocity;
+
 				InterpolationData& data = _enemyInterpolations[packet.playerID];
 
-				// Solo actualiza si la posición cambia de forma significativa
 				if (UtilsMaths::Distance(packet.position, data.current) > 0.01f)
 				{
-					data.previous = enemy->transform->position;  // no usamos el viejo current
+					data.previous = enemy->transform->position;  
 					data.current = packet.position;
 					data.timer = 0.f;
 				}
@@ -47,14 +45,14 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 			_bulletHandler->CreateBullet(packet.bulletID,packet.position, packet.direction);
 		});
 
-	NetworkManager::GetInstance().GetUDPClient()->onDestroyBullet.Subscribe(
-		[this](int bulletID) {
-			_bulletHandler->DestroyBulletByID(bulletID);
-		});
+	NetworkManager::GetInstance().GetUDPClient()->onMatchFinished.Subscribe([this]() { matchFinished = true; });
+
+	NetworkManager::GetInstance().GetUDPClient()->onDestroyBullet.Subscribe([this](int bulletID) { _bulletHandler->DestroyBulletByID(bulletID);	});
 }
 
 GameScene::~GameScene()
 {
+	shouldRun = new std::atomic<bool>(false);
 	delete _mapManager;
 }
 
@@ -69,18 +67,18 @@ void GameScene::Update(float dt)
 
 	_bulletHandler->UpdateBullets(dt);
 
-	for (auto* p : _enemies)
-	{
-		if (p->GetComponent<Rigidbody2D>()->velocity.x >= 0)
-		{
-			p->transform->scale.x = -1.f;
-		}
-		else {
-			p->transform->scale.x = 1.f;
-
-		}
-		p->GetComponent<Rigidbody2D>()->Update(p->transform, dt);
-	}
+	//for (auto* p : _enemies)
+	//{
+	//	std::cout << p->GetComponent<Rigidbody2D>()->velocity.x << std::endl;
+	//	if (p->GetComponent<Rigidbody2D>()->velocity.x >= 0)
+	//	{
+	//		p->transform->scale.x = -1.f;
+	//	}
+	//	else {
+	//		p->transform->scale.x = 1.f;
+	//	}
+	//	p->GetComponent<Rigidbody2D>()->Update(p->transform, dt);
+	//}
 
 	for (auto* enemy : _enemies)
 	{
@@ -90,22 +88,23 @@ void GameScene::Update(float dt)
 		{
 			InterpolationData& data = _enemyInterpolations[id];
 
-			// Solo interpolamos si hay diferencia real de posición
-			if (UtilsMaths::Distance(data.current, data.previous) < 0.01f)
-				continue;
-
 			data.timer += dt;
 
 			float alpha = std::clamp(data.timer / 0.033f, 0.f, 1.f);
 			sf::Vector2f interpolatedPos = data.previous * (1.f - alpha) + data.current * alpha;
 
-			// Aplicar suavizado final (opcional)
-			enemy->transform->position = UtilsMaths::Lerp(enemy->transform->position, interpolatedPos, 10.f * dt);
+			// _ Double Smooth
+			enemy->transform->position = UtilsMaths::Lerp(enemy->transform->position, interpolatedPos, 100.f * dt);
 		}
 	}
 
 	_canvas.Update(dt);
 	_physicsManager.Update(dt);
+
+	if (matchFinished)
+	{
+		SceneManager::ChangeScene(new MatchMakingScene());
+	}
 }
 
 void GameScene::Render(sf::RenderWindow* window)

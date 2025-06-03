@@ -9,6 +9,8 @@
 #include "PlayerComponentScript.h"
 #include "NetworkManager.h"
 #include "UtilsMaths.h"
+#include "SceneManager.h"
+#include "MatchMakingScene.h"
 
 class GameScene : public Scene
 {
@@ -26,11 +28,12 @@ private:
 
 	GameObject* _player;
 	std::vector<GameObject*> _enemies;
-
+	std::atomic<bool>* shouldRun;
 	MapManager* _mapManager;
 	BulletHandler* _bulletHandler;
 	std::unordered_map<int, InterpolationData> _enemyInterpolations;
 	int _numPlayers;
 	bool canStartGame = false;
+	bool matchFinished = false;
 };
 
