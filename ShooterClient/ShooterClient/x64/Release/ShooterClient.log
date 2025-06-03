@@ -54,9 +54,76 @@ E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\in
 E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\NetworkDefs.h(119,16): warning C4834: discarding return value of function with [[nodiscard]] attribute
   (compiling source file 'MatchMakingScene.cpp')
   
+  SFX.cpp
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+  (compiling source file 'SFX.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
+      see declaration of 'std::runtime_error'
+      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
+      see declaration of 'sf::Exception'
+  
+  Scene.cpp
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+  (compiling source file 'Scene.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
+      see declaration of 'std::runtime_error'
+      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
+      see declaration of 'sf::Exception'
+  
+  SceneManager.cpp
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+  (compiling source file 'SceneManager.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
+      see declaration of 'std::runtime_error'
+      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
+      see declaration of 'sf::Exception'
+  
+  UICanvas.cpp
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+  (compiling source file 'UICanvas.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
+      see declaration of 'std::runtime_error'
+      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
+      see declaration of 'sf::Exception'
+  
+  UIText.cpp
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+  (compiling source file 'UIText.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
+      see declaration of 'std::runtime_error'
+      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
+      see declaration of 'sf::Exception'
+  
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UIText.cpp(9,28): warning C4244: 'argument': conversion from 'const float' to 'unsigned int', possible loss of data
+  UITextField.cpp
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,47): warning C4275: non dll-interface class 'std::runtime_error' used as base for dll-interface class 'sf::Exception'
+  (compiling source file 'UITextField.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\stdexcept(100,19):
+      see declaration of 'std::runtime_error'
+      E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\Dependencies\include\SFML\System\Exception.hpp(41,23):
+      see declaration of 'sf::Exception'
+  
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,79): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,79): warning C4244:         with
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,79): warning C4244:         [
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,79): warning C4244:             T=int
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,79): warning C4244:         ]
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,79): warning C4244:         and
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,79): warning C4244:         [
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,79): warning C4244:             T=float
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,79): warning C4244:         ]
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,53): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,53): warning C4244:         with
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,53): warning C4244:         [
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,53): warning C4244:             T=int
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,53): warning C4244:         ]
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,53): warning C4244:         and
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,53): warning C4244:         [
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,53): warning C4244:             T=float
+E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp(64,53): warning C4244:         ]
   Generating code
-  17 of 2849 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    59 functions had inline decision re-evaluated but remain unchanged
+  8 of 2852 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    4 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   ShooterClient.vcxproj -> E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\x64\Release\ShooterClient.exe

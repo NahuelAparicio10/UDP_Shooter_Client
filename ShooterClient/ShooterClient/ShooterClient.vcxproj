@@ -155,11 +155,13 @@
     <ClCompile Include="Rigidbody2D.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SFX.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UICanvas.cpp" />
     <ClCompile Include="UIImage.cpp" />
+    <ClCompile Include="UIText.cpp" />
     <ClCompile Include="UITextField.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -188,12 +190,14 @@
     <ClInclude Include="Rigidbody2D.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SFX.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UICanvas.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="UIImage.h" />
+    <ClInclude Include="UIText.h" />
     <ClInclude Include="UITextField.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

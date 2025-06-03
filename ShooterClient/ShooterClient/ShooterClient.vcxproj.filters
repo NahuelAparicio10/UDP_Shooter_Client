@@ -144,6 +144,12 @@
     <ClCompile Include="PlayerComponentScript.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="UIText.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SFX.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Launcher.h">
@@ -240,6 +246,12 @@
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="PlayerComponentScript.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="UIText.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SFX.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
