@@ -27,13 +27,13 @@ public:
     void StartReceivingGameplayPackets();
     void StopReceivingGameplayPackets();
     
-    Event<const std::string&> onMatchFound;
+    Event<const int> onMatchFound;
     Event<> onCancelConfirmed;
     
     Event<MovementPacket> onMovementPacketRecived;
     Event<const MovementPacket&> onReconcilePacketRecived;
 
-    Event<CreatePlayerPacket> onPlayerCreatedRecieved;
+    Event<std::vector<CreatePlayerPacket>> onPlayerCreatedRecieved;
     //Event <const CreatePlayerPacket&> onPlayerCreated
 
 

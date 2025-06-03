@@ -73,7 +73,34 @@ struct CreatePlayerPacket {
     unsigned int playerID;
     sf::Vector2f spawnPosition;
 
-    static CreatePlayerPacket Deserialize(const std::string& msg) {
+    static std::vector<CreatePlayerPacket> Deserialize(const std::string& msg, std::vector<CreatePlayerPacket> playerPacket) 
+    {      
+        
+        std::istringstream ss(msg);
+        std::string playerData;
+
+        while (std::getline(ss, playerData, '|'))
+        {
+            std::stringstream ps(playerData);
+            std::string idStr, xStr, yStr;
+
+            std::getline(ps, idStr, ':');
+            std::getline(ps, xStr, ':');
+            std::getline(ps, yStr, ':');
+
+            unsigned int id = std::stoul(idStr);
+            float x = std::stof(xStr);
+            float y = std::stof(yStr);
+
+            CreatePlayerPacket packet{ id, { x, y } };
+
+            playerPacket.push_back(packet);
+        }
+
+        return playerPacket;
+    }
+
+   /* static CreatePlayerPacket Deserialize(const std::string& msg) {
         std::istringstream ss(msg);
         std::string token;
         std::vector<std::string> tokens;
@@ -92,7 +119,7 @@ struct CreatePlayerPacket {
         packet.spawnPosition.y = std::stof(tokens[2]);
 
         return packet;
-    }
+    }*/
 };
 
 struct RawPacketJob {

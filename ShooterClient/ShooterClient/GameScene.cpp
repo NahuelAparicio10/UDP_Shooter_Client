@@ -10,16 +10,13 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 
 	// - When we recieve CREATE_PLAYER from server we create players with the ID and resend to the server player created
 	NetworkManager::GetInstance().GetUDPClient()->onPlayerCreatedRecieved.Subscribe(
-		[this](const CreatePlayerPacket& packet)
+		[this](const std::vector<CreatePlayerPacket>& playersToCreate)
 		{
-			CreatePlayer(packet);
-			std::string msg = std::to_string(NetworkManager::GetInstance().GetUDPClient()->currentMatchID) + ":";
-			NetworkManager::GetInstance().GetUDPClient()->Send(PacketHeader::CRITIC, PacketType::ACK_PLAYERS_CREATED, msg, NetworkManager::GetInstance().GetUDPClient()->GetGameServerIP().value(), NetworkManager::GetInstance().GetUDPClient()->GetCurrentGameServerPort());
+			std::cout << "Create Invoked";
+
+			CreatePlayer(playersToCreate);		
 		}
 	);
-
-	//Subscribirse al evento nuevo de onPLayerRecieved(packet)
-	 
 	NetworkManager::GetInstance().GetUDPClient()->onMovementPacketRecived.Subscribe(
 		[this](const MovementPacket& packet)
 		{
@@ -47,6 +44,7 @@ GameScene::~GameScene()
 	delete _mapManager;
 }
 
+
 void GameScene::Update(float dt)
 {
 	if (!canStartGame) return;
@@ -56,6 +54,14 @@ void GameScene::Update(float dt)
 
 	for (auto* p : _enemies)
 	{
+		if (p->GetComponent<Rigidbody2D>()->velocity.x >= 0)
+		{
+			p->transform->scale.x = 1.f;
+		}
+		else {
+			p->transform->scale.x = -1.f;
+
+		}
 		p->GetComponent<Rigidbody2D>()->Update(p->transform, dt);
 	}
 
@@ -79,9 +85,9 @@ void GameScene::Update(float dt)
 
 void GameScene::Render(sf::RenderWindow* window)
 {
-	if (!canStartGame) return;
-
 	_mapManager->Draw(window);
+
+	if (!canStartGame) return;
 
 	_bulletHandler->RenderBullets(window);
 	
@@ -106,43 +112,53 @@ void GameScene::HandleEvent(const sf::Event& event)
 	_canvas.HandleEvent(event);
 }
 
-void GameScene::CreatePlayer(const CreatePlayerPacket& packet)
+void GameScene::CreatePlayer(const std::vector<CreatePlayerPacket>& playersToCreate)
 {
-	std::cout << packet.playerID << " miau " << packet.spawnPosition.x << "miau " << packet.spawnPosition.y << std::endl;
+
+	if (_enemies.size() + 1 >= _numPlayers)
+	{
+		return;
+	}
+
 	sf::Vector2u size;
-	if (packet.playerID == NetworkManager::GetInstance().GetUDPClient()->currentPlayerID)
+	for (const auto& player : playersToCreate)
 	{
-		_player = new GameObject();
-		_player->GetComponent<Transform>()->position = { packet.spawnPosition.x, packet.spawnPosition.y };
-		_player->AddComponent<SpriteRenderer>("Assets/Sprites/player.png", sf::Color::Blue, true);
-		size = _player->GetComponent<SpriteRenderer>()->GetSprite().getTexture().getSize();
-		_player->AddComponent<BoxCollider2D>()->size = static_cast<sf::Vector2f>(size);
-		_player->AddComponent<Rigidbody2D>();
-		_player->AddComponent<InputComponent>();
-		_player->AddComponent<PlayerComponentScript>(_bulletHandler, _player);
-		_physicsManager.Register(_player);
-	}
-	else 
-	{
-		auto* enemy = new GameObject();
-		enemy->GetComponent<Transform>()->position = { packet.spawnPosition.x, packet.spawnPosition.y };
-		enemy->AddComponent<SpriteRenderer>("Assets/Sprites/player.png", sf::Color::Red, true);
-		size = enemy->GetComponent<SpriteRenderer>()->GetSprite().getTexture().getSize();
-		enemy->AddComponent<BoxCollider2D>()->size = static_cast<sf::Vector2f>(size);
-		enemy->AddComponent<Rigidbody2D>();
-
-		enemy->id = packet.playerID;
-
-		_physicsManager.Register(enemy);
-		_enemies.push_back(enemy);
-	}
-
-	if (_player != nullptr && _enemies.size() > 1)
-	{
-		int numPlayers = _enemies.size() + 1; // -Enemies + player
-		if (numPlayers >= _numPlayers)
+		if (player.playerID == NetworkManager::GetInstance().GetUDPClient()->currentPlayerID)
 		{
-			canStartGame = true;
+			_player = new GameObject();
+			_player->GetComponent<Transform>()->position = { player.spawnPosition.x, player.spawnPosition.y };
+			_player->AddComponent<SpriteRenderer>("Assets/Sprites/player.png", sf::Color::Blue, true);
+			size = _player->GetComponent<SpriteRenderer>()->GetSprite().getTexture().getSize();
+			_player->AddComponent<BoxCollider2D>()->size = static_cast<sf::Vector2f>(size);
+			_player->AddComponent<Rigidbody2D>();
+			_player->AddComponent<InputComponent>();
+			_player->AddComponent<PlayerComponentScript>(_bulletHandler, _player);
+			_physicsManager.Register(_player);
+		}
+		else 
+		{
+			auto* enemy = new GameObject();
+			enemy->GetComponent<Transform>()->position = { player.spawnPosition.x, player.spawnPosition.y };
+			enemy->AddComponent<SpriteRenderer>("Assets/Sprites/player.png", sf::Color::Red, true);
+			size = enemy->GetComponent<SpriteRenderer>()->GetSprite().getTexture().getSize();
+			enemy->AddComponent<BoxCollider2D>()->size = static_cast<sf::Vector2f>(size);
+			enemy->AddComponent<Rigidbody2D>();
+
+			enemy->id = player.playerID;
+
+			_physicsManager.Register(enemy);
+			_enemies.push_back(enemy);
 		}
 	}
+
+		if (_enemies.size() + 1 >= _numPlayers)
+		{
+			std::cout << "All Players Created" << std::endl;
+			std::string msg = std::to_string(NetworkManager::GetInstance().GetUDPClient()->currentMatchID) + ":";
+			NetworkManager::GetInstance().GetUDPClient()->Send(PacketHeader::CRITIC, PacketType::ACK_PLAYERS_CREATED, msg, NetworkManager::GetInstance().GetUDPClient()->GetGameServerIP().value(), NetworkManager::GetInstance().GetUDPClient()->GetCurrentGameServerPort());
+			std::thread([this]() {
+				sf::sleep(sf::milliseconds(50));
+				canStartGame = true;
+				}).detach();
+		}
 }

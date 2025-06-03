@@ -142,6 +142,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="Launcher.cpp" />
     <ClCompile Include="LoginScene.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="Launcher.h" />
     <ClInclude Include="LoginScene.h" />

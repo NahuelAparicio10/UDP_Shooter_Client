@@ -15,11 +15,13 @@ public:
 	GameScene(int numPlayers);
 	~GameScene();
 
+	void OnReceiveCreatePlayer(const std::string& content);
+
 	virtual void Update(float dt) override;
 	virtual void Render(sf::RenderWindow* window) override;
 	virtual void HandleEvent(const sf::Event& event) override;
 private:
-	void CreatePlayer(const CreatePlayerPacket& packet);
+	void CreatePlayer(const std::vector<CreatePlayerPacket>& playersToCreate);
 	PhysicsManager _physicsManager;
 
 	GameObject* _player;

@@ -31,7 +31,7 @@ void ClientUDP::StartMatchSearchWithRetry(std::string matchType)
 
     while (retries < maxRetries && !ackReceived)
     {
-        Send(PacketHeader::URGENT, PacketType::FIND_MATCH, matchType, Constants::ServiceServerIP.value(), Constants::MatchMakingServerPort);
+        Send(PacketHeader::URGENT, PacketType::FIND_MATCH, matchType, Constants::SERVICE_SERVER_IP.value(), Constants::MATCHMAKING_SERVER_PORT);
         std::cout << "[CLIENT_UDP] Sent FIND_MATCH: " << matchType << " (retry " << retries << ")\n";
 
         sf::Clock timer;
@@ -88,8 +88,9 @@ void ClientUDP::StartReceivingGameplayPackets()
     // - Crear uno para CREATE_PLAYER, que invoque un evento como onReconcilePacketRecived.Invoke(packet);
 
     _dispatcher.RegisterHandler(PacketType::CREATE_PLAYER, [this](const RawPacketJob& job) {
-        CreatePlayerPacket packet = CreatePlayerPacket::Deserialize(job.content);
-        onPlayerCreatedRecieved.Invoke(packet);
+        std::cout << "Create Player Arrived";
+        std::vector<CreatePlayerPacket> playersToCreate = CreatePlayerPacket::Deserialize(job.content, playersToCreate);
+        onPlayerCreatedRecieved.Invoke(playersToCreate);
         });
 
     std::thread gameplayThread([this]()
@@ -166,7 +167,7 @@ void ClientUDP::StartListeningForMatch()
         std::cout << "[CLIENT] Received ACK_JOINED from server.\n";
         _listening = false;
         _joinedConfirmed = true;
-        onMatchFound.Invoke(job.content);
+        onMatchFound.Invoke(Constants::NUM_PLAYERS);
         });
 
     _dispatcher.Start();
@@ -200,7 +201,7 @@ void ClientUDP::CancelMatchSearch()
     if (!_listening) return;
     _listening = false;
 
-    Send(PacketHeader::NORMAL, PacketType::CANCEL_SEARCH, "", Constants::ServiceServerIP.value(), Constants::MatchMakingServerPort);
+    Send(PacketHeader::NORMAL, PacketType::CANCEL_SEARCH, "", Constants::SERVICE_SERVER_IP.value(), Constants::MATCHMAKING_SERVER_PORT);
 
     _socket.setBlocking(false);
     sf::Clock timer;

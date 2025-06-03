@@ -31,5 +31,6 @@ private:
 	BulletHandler* _bulletHandler;
 	std::deque<MovementPacket> _movementHistory;
 	unsigned int _tick = 0;
+	bool _canSimulate;
 };
 

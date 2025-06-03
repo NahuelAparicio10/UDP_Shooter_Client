@@ -30,9 +30,9 @@ MatchMakingScene::MatchMakingScene()
 
 	});
 
-	NetworkManager::GetInstance().GetUDPClient()->onMatchFound.Subscribe([this](const std::string& msg)
+	NetworkManager::GetInstance().GetUDPClient()->onMatchFound.Subscribe([this](const int nPlayers)
 		{
-			numPlayers = atoi(msg.c_str());
+			numPlayers = nPlayers;
 			_onMatchFound = true;
 		});
 	NetworkManager::GetInstance().GetUDPClient()->onCancelConfirmed.Subscribe([this]() {

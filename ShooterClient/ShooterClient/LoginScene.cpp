@@ -4,7 +4,8 @@ LoginScene::LoginScene()
 {
 	onLoginSuccess = false;
 
-	NetworkManager::GetInstance().GetTCPClient()->ConnectToBootstrapServer(Constants::ServiceServerIP.value().toString(), 50000);
+	//NetworkManager::GetInstance().GetTCPClient()->ConnectToBootstrapServer(Constants::SERVICE_SERVER_IP.value().toString(), 50000);
+	NetworkManager::GetInstance().GetTCPClient()->ConnectToBootstrapServer();
 
 	UIImage* background = new UIImage("bg", "Assets/Backgrounds/bg_lr.png", sf::Color::White, false);
 

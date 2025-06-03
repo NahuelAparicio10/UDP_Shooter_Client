@@ -11,6 +11,7 @@ PlayerComponentScript::PlayerComponentScript(BulletHandler* bHandler, GameObject
     NetworkManager::GetInstance().GetUDPClient()->onReconcilePacketRecived.Subscribe([this](const MovementPacket& packet) {
         if (packet.playerID == NetworkManager::GetInstance().GetUDPClient()->currentPlayerID)
         {
+            _canSimulate = true;
             ApplyReconciliation(packet);
         }
         });
@@ -18,6 +19,7 @@ PlayerComponentScript::PlayerComponentScript(BulletHandler* bHandler, GameObject
 
 void PlayerComponentScript::Update(float dt)
 {
+    //if (!_canSimulate) return;
     UpdateMovement(dt);
     UpdatePlayerPhysics(dt);
 }
@@ -71,7 +73,7 @@ void PlayerComponentScript::UpdateMovement(float dt)
     static float accumulator = 0.f; // its stay unless you do acumulator 0.f bc is staic btw
     accumulator += dt;
 
-    if (accumulator >= 0.025f) 
+    if (accumulator >= 0.033f) 
     {
         accumulator = 0.f;
 
@@ -112,7 +114,7 @@ void PlayerComponentScript::ApplyReconciliation(const MovementPacket& correction
         if (dx > 5.f || dy > 5.f) // - correction 
         {
             std::cout << "[RECONCILE] Corrigiendo posición en tick " << correction.tick << "\n";
-            playerGo->transform->position = correction.position;
+            playerGo->transform->position = playerGo->transform->position * 0.5f + correction.position * 0.5f;
             _rigidbody->velocity = correction.velocity;
 
             // - Deletes all behind that tick bc it's reconciliated 
