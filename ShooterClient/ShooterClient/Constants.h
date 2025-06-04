@@ -18,7 +18,7 @@ public:
 	#pragma endregion 
 
 	#pragma region IP / Ports
-		inline static const std::optional<sf::IpAddress> SERVICE_SERVER_IP = sf::IpAddress::resolve("127.0.0.1");
+		inline static const std::optional<sf::IpAddress> SERVICE_SERVER_IP = sf::IpAddress::resolve("192.168.1.133");
 		inline static const unsigned short VERSION_CHECKER_SERVER_PORT = 9000;
 		inline static const unsigned short MATCHMAKING_SERVER_PORT = 9100;
 

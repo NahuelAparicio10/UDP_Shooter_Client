@@ -88,7 +88,7 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 					NetworkManager::GetInstance().GetUDPClient()->GetGameServerIP().value(),
 					NetworkManager::GetInstance().GetUDPClient()->GetCurrentGameServerPort()
 				);
-				shouldRun = false;
+				shouldRun = new std::atomic<bool>(false);
 				matchFinished = true;
 			}
 		});
