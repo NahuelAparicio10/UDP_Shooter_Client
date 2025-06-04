@@ -8,7 +8,9 @@
 #include <thread>
 #include <functional>
 #include "Event.h"
-
+#include "PacketDispatcher.h"
+#include <sstream>
+#include "SFXManager.h"
 class ClientUDP
 {
 public:
@@ -16,20 +18,43 @@ public:
     ~ClientUDP();
 
     bool Init();
-    void SendFindMatch(std::string command);
-    std::optional<std::string> ListenForMatch(float timeoutSeconds);
+    void Send(PacketHeader header, PacketType type, const std::string& content, sf::IpAddress ip, unsigned short port);
 
     void StartListeningForMatch();
     void CancelMatchSearch();
+    void JoinGameServer();
+    void StartMatchSearchWithRetry(std::string matchType);
 
-    Event<const std::string&> onMatchFound;
+    void StartReceivingGameplayPackets();
+    void StartSendingPings(std::atomic<bool>* shouldRun);
+    void StopReceivingGameplayPackets();
+    
+    Event<const int> onMatchFound;
     Event<> onCancelConfirmed;
+    Event<const CreateBulletPacket&> onCreateBullet;
+    Event<int> onDestroyBullet;
+    Event<MovementPacket> onMovementPacketRecived;
+    Event<const MovementPacket&> onReconcilePacketRecived;
+    Event<> onMatchFinished;
+    Event<int> onPlayerHit;
+    Event<std::vector<CreatePlayerPacket>> onPlayerCreatedRecieved;
+    //Event <const CreatePlayerPacket&> onPlayerCreated
+
+
+    std::optional< sf::IpAddress> GetGameServerIP() { return _gameServerIp; }
+    unsigned short GetCurrentGameServerPort() { return _gameServerPort; }
+    unsigned int currentMatchID;
+    unsigned int currentPlayerID;
 
 private:
     sf::UdpSocket _socket;
     std::thread _matchmakingThread;
+    std::atomic<bool> _joinedConfirmed = false;
+    std::atomic<bool> _receivingGameplay = false;
     std::atomic<bool> _listening = false;
+    PacketDispatcher _dispatcher;
+    std::optional< sf::IpAddress> _gameServerIp;
+    unsigned short _gameServerPort;
 
-    void SendACK(const sf::IpAddress& ip, unsigned short port, const std::string& ack);
 };
 

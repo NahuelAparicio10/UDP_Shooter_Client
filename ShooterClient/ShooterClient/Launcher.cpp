@@ -5,72 +5,73 @@ Launcher::Launcher() { }
 Launcher::~Launcher() { }
 
 bool Launcher::CheckAndUpdate()
-{
+{   
     sf::UdpSocket socket;
-
-    // Tries to bind UDP socket 
 
     if (socket.bind(sf::Socket::AnyPort) != sf::Socket::Status::Done)
     {
         std::cerr << "[LAUNCHER] Failed to bind UDP socket." << std::endl;
-	    return false;
-    }
-
-    // If socket binds sends message with version
-
-    std::string message = "VERSION:" + GetLocalVersion();
-
-    if (socket.send(message.c_str(), message.size(), Constants::ServiceServerIP.value(), Constants::VersionCheckerServerPort) != sf::Socket::Status::Done)
-    {
-        std::cerr << "[LAUNCHER] Failed to send version check." << std::endl;
         return false;
     }
+
+    // - Sends to Service Server his version to make the check control
+
+    SendDatagram(socket, PacketHeader::URGENT, PacketType::VERSION, GetLocalVersion(), Constants::SERVICE_SERVER_IP.value(), Constants::VERSION_CHECKER_SERVER_PORT);
 
     char buffer[1024];
     std::size_t received = 0;
     std::optional<sf::IpAddress> sender = std::nullopt;
     unsigned short senderPort = 0;
 
-    std::ofstream mapFile(Constants::MapFile, std::ios::trunc);
-
-    if (!mapFile.is_open()) 
-    {
-        std::cerr << "[LAUNCHER] Couldn't open map file for writing.\n";
-        return false;
-    }
-
-    bool updateStarted = false;
+    bool mapUpdated = false;
 
     while (true)
     {
-        if (socket.receive(buffer, sizeof(buffer), received, sender, senderPort) == sf::Socket::Status::Done && sender.has_value()) {
-            std::string data(buffer, received);
+        if (socket.receive(buffer, sizeof(buffer), received, sender, senderPort) == sf::Socket::Status::Done && sender.has_value())
+        {
+            RawPacketJob job;
+            
+            // - If receives packet and can be parsed in Raw Datagram checks for packet type
 
-            if (data == "OK") 
+            if (ParseRawDatagram(buffer, received, job, sender.value(), senderPort))
             {
-                std::cout << "[LAUNCHER] Client is up to date.\n";
-                return true;
-            }
-            else if (data.rfind("UPDATE:", 0) == 0)
-            {
-                std::string version = data.substr(7);
-                SaveLocalVersion(version);
-                updateStarted = true;
-                std::cout << "[LAUNCHER] Update required to version " << version << ". Receiving map...\n";
-            }
-            else if (data == "EOF") 
-            {
-                std::cout << "[LAUNCHER] Update completed successfully.\n";
-                break;
-            }
-            else if (updateStarted) 
-            {
-                mapFile << data << "\n";
+                switch (job.type)
+                {
+                    case PacketType::OK: // - If its ok when continue to Login.
+                        std::cout << "[LAUNCHER] Client is up to date.\n";
+                        return true;
+
+                    case PacketType::UPDATE: // - If needs update, saves the new version and wait for UPDATE_MAP
+                        SaveLocalVersion(job.content);
+                        std::cout << "[LAUNCHER] Update required to version " << job.content << ". Receiving map...\n";
+                        break;
+                    case PacketType::UPDATE_MAP: // - if recieves an update map we save the incoming map into the file
+                    {
+                        std::ofstream mapFile(Constants::MapFile, std::ios::trunc);
+                        if (mapFile.is_open()) 
+                        {
+                            mapFile << job.content;
+                            std::cout << "[LAUNCHER] Map updated successfully.\n";
+                        }
+                        else {
+                            std::cerr << "[LAUNCHER] Failed to save updated map.\n";
+                        }
+                        mapUpdated = true;
+                        mapFile.close();
+
+                        break;
+                    }
+                    default:
+                        break;
+                }
             }
         }
-    }
+        if (mapUpdated)
+        {
+            break;
+        }
 
-    mapFile.close();
+    }
 
     return true;
 }

@@ -1,10 +1,11 @@
 #include "GameManager.h"
-
+#include "Constants.h"
 GameManager::GameManager()
 {
 	NetworkManager::GetInstance().Initialize();
 	_window = new Window();
-	SceneManager::ChangeScene(new LoginScene());	
+	//SceneManager::ChangeScene(new GameScene(Constants::NUM_PLAYERS));	
+	SceneManager::ChangeScene(new MatchMakingScene());	
 }
 
 GameManager::~GameManager()
@@ -35,7 +36,5 @@ void GameManager::HandleEvents()
 	while (const std::optional event = _window->GetWindow()->pollEvent())
 	{
 		SceneManager::HandleEvent(*event);
-
-
 	}
 }

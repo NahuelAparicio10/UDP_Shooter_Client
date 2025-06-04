@@ -9,11 +9,11 @@ ClientTCP::~ClientTCP()
     DisconnectFromBootstrapServer();
 }
 
-bool ClientTCP::ConnectToBootstrapServer(const std::string& ip, unsigned short port)
+bool ClientTCP::ConnectToBootstrapServer()
 {
-    auto resolved = sf::IpAddress::resolve(ip);
+    //auto resolved = sf::IpAddress::resolve(ip);
 
-    if (_bootstrapSocket.connect(*resolved, port) != sf::Socket::Status::Done)
+    if (_bootstrapSocket.connect(Constants::SERVICE_SERVER_IP.value(), Constants::LOGIN_REGISTER_SERVER_PORT) != sf::Socket::Status::Done)
     {
         std::cout << "[CLIENT_TCP] Failed to connect to bootstrap server." << std::endl;
         return false;
@@ -22,7 +22,7 @@ bool ClientTCP::ConnectToBootstrapServer(const std::string& ip, unsigned short p
     _bootstrapSocket.setBlocking(false);
     _selector.add(_bootstrapSocket);
 
-    std::cout << "[CLIENT_TCP] Connected to bootstrap server ip " + ip << std::endl;
+    std::cout << "[CLIENT_TCP] Connected to bootstrap server ip " + Constants::SERVICE_SERVER_IP.value().toString() << std::endl;
     return true;
 }
 

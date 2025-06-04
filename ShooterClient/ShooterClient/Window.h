@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#define WIDTH 1080
-#define HEIGHT 720
+#include "Constants.h"
 
 class Window
 {

@@ -10,7 +10,7 @@
 template<typename... Args>
 class Event {
 public:
-	using Callback = std::function<void(Args...)>;
+	using Callback = std::function<void(Args...)>;	
 
 	using ListenerID = uint64_t;
 

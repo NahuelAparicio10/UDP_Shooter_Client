@@ -2,7 +2,7 @@
 
 GameObject::GameObject()
 {
-	AddComponent<Transform>();
+	transform = AddComponent<Transform>();
 }
 
 GameObject::~GameObject()

@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "LoginScene.h"
 #include "NetworkManager.h"
+#include "GameScene.h"
 
 class GameManager
 {
@@ -18,5 +19,6 @@ private:
 	void HandleEvents();
 	Window* _window;
 	sf::Clock _clock;
+	float accumulator = 0.f;
 };
 

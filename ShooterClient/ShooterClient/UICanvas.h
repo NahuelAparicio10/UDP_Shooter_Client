@@ -4,6 +4,7 @@
 #include "UITextField.h"
 #include "UIButton.h"
 #include "UIImage.h"
+#include "UIText.h"
 
 class UICanvas
 {

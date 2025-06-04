@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -70,6 +70,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -127,33 +130,50 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>false</EnableCOMDATFolding>
+      <OptimizeReferences>false</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\Dependencies\lib;$(SolutionDir)Dependencies\mysqlConnector\lib64\vs14</AdditionalLibraryDirectories>
       <AdditionalDependencies>mysqlcppconn-static.lib;sfml-graphics.lib;sfml-window.lib;sfml-audio.lib;sfml-network.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BoxCollider2D.cpp" />
+    <ClCompile Include="BulletHandler.cpp" />
     <ClCompile Include="ClientTCP.cpp" />
     <ClCompile Include="ClientUDP.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="HealthComponent.cpp" />
+    <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="Launcher.cpp" />
     <ClCompile Include="LoginScene.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="MatchMakingScene.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
+    <ClCompile Include="PacketDispatcher.cpp" />
+    <ClCompile Include="PhysicsManager.cpp" />
+    <ClCompile Include="PlayerComponentScript.cpp" />
+    <ClCompile Include="Rigidbody2D.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SFXManager.cpp" />
+    <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UICanvas.cpp" />
     <ClCompile Include="UIImage.cpp" />
+    <ClCompile Include="UIText.cpp" />
     <ClCompile Include="UITextField.cpp" />
+    <ClCompile Include="UtilsMaths.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoxCollider2D.h" />
+    <ClInclude Include="BulletHandler.h" />
     <ClInclude Include="ClientTCP.h" />
     <ClInclude Include="ClientUDP.h" />
     <ClInclude Include="Component.h" />
@@ -162,18 +182,31 @@
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="InputComponent.h" />
     <ClInclude Include="Launcher.h" />
     <ClInclude Include="LoginScene.h" />
+    <ClInclude Include="MapManager.h" />
     <ClInclude Include="MatchMakingScene.h" />
+    <ClInclude Include="NetworkDefs.h" />
     <ClInclude Include="NetworkManager.h" />
+    <ClInclude Include="PacketDispatcher.h" />
+    <ClInclude Include="PhysicsManager.h" />
+    <ClInclude Include="PlayerComponentScript.h" />
+    <ClInclude Include="Rigidbody2D.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SFXManager.h" />
+    <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UICanvas.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="UIImage.h" />
+    <ClInclude Include="UIText.h" />
     <ClInclude Include="UITextField.h" />
+    <ClInclude Include="UtilsMaths.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

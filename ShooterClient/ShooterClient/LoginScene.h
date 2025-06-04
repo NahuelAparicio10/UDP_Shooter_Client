@@ -1,10 +1,10 @@
 #pragma once
-#include "UICanvas.h"
 #include "Scene.h"
 #include "FontManager.h"
 #include "SceneManager.h"
 #include "MatchMakingScene.h"
 #include "NetworkManager.h"
+#include "Constants.h"
 
 class LoginScene : public Scene
 {
@@ -22,6 +22,7 @@ private:
 	bool onLoginSuccess;
 	UITextField* _usernameTextField;
 	UITextField* _passwordTextField;
-	UICanvas _canvas;
+	UIText* _testText;
+	sf::Color _customColor;
 };
 

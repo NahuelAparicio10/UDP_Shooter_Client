@@ -3,23 +3,24 @@
 LoginScene::LoginScene()
 {
 	onLoginSuccess = false;
+	_customColor = sf::Color(227, 189, 90);
 
-	NetworkManager::GetInstance().GetTCPClient()->ConnectToBootstrapServer("127.0.0.1", 50000);
+	//NetworkManager::GetInstance().GetTCPClient()->ConnectToBootstrapServer(Constants::SERVICE_SERVER_IP.value().toString(), 50000);
+	NetworkManager::GetInstance().GetTCPClient()->ConnectToBootstrapServer();
 
-	UIImage* background = new UIImage("bg", "Assets/Backgrounds/bg_lr.png", sf::Color::White, false);
-
-	UIButton* loginButton = new UIButton("BLogin", { 200, 50 }, {240, 300}, "LOGIN", FontManager::GetMainFont(), sf::Color::White);
+	UIImage* background = new UIImage("bg", "Assets/Backgrounds/loginmenu.png", sf::Color::White, false);
+	UIButton* loginButton = new UIButton("BLogin", { 200, 50 }, {330, 560}, "LOGIN", FontManager::GetMainFont(), _customColor);
 
 	loginButton->OnClick.Subscribe([this]() { NetworkManager::GetInstance().GetTCPClient()->LoginRegister("LOGIN", _usernameTextField->GetText(), _passwordTextField->GetText()); });
 
-	UIButton* registerButton = new UIButton("BRegister", { 200, 50 }, {740, 300}, "REGISTER", FontManager::GetMainFont(), sf::Color::White);
+	UIButton* registerButton = new UIButton("BRegister", { 200, 50 }, {540, 560}, "REGISTER", FontManager::GetMainFont(), _customColor);
 
 	registerButton->OnClick.Subscribe([this]() { NetworkManager::GetInstance().GetTCPClient()->LoginRegister("REGISTER", _usernameTextField->GetText(), _passwordTextField->GetText()); });
 
 	NetworkManager::GetInstance().GetTCPClient()->onLoginSuccess.Subscribe([this] { onLoginSuccess = true; });
 
-	 _usernameTextField = new UITextField("Tusername", {440, 100}, { 150, 30 }, "Username");
-	 _passwordTextField = new UITextField("Tpassword", {440, 200}, { 150, 30 }, "Password");
+	 _usernameTextField = new UITextField("Tusername", {440, 390}, { 200, 50 }, "Username");
+	 _passwordTextField = new UITextField("Tpassword", {440, 470}, { 200, 50 }, "Password");
 
 	_canvas.AddElement(background);
 	_canvas.AddElement(loginButton);
