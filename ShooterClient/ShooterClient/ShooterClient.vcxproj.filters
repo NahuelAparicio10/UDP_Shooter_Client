@@ -150,9 +150,6 @@
     <ClCompile Include="PlayerComponentScript.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="SFX.cpp">
-      <Filter>Source Files\Audio</Filter>
-    </ClCompile>
     <ClCompile Include="HealthComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
@@ -161,6 +158,9 @@
     </ClCompile>
     <ClCompile Include="UtilsMaths.cpp">
       <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="SFXManager.cpp">
+      <Filter>Source Files\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,9 +260,6 @@
     <ClInclude Include="PlayerComponentScript.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="SFX.h">
-      <Filter>Header Files\Audio</Filter>
-    </ClInclude>
     <ClInclude Include="HealthComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
@@ -271,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="UtilsMaths.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="SFXManager.h">
+      <Filter>Header Files\Audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

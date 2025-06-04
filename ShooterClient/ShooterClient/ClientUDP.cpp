@@ -23,6 +23,7 @@ void ClientUDP::Send(PacketHeader header, PacketType type, const std::string& co
 
 void ClientUDP::StartMatchSearchWithRetry(std::string matchType)
 {
+
     const int maxRetries = 5;
     int retries = 0;
     bool ackReceived = false;

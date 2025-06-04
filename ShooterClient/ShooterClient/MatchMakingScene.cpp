@@ -4,7 +4,6 @@ MatchMakingScene::MatchMakingScene()
 {
 	_customColor = sf::Color(227, 189, 90);
 
-
 	UIImage* background = new UIImage("bg", "Assets/Backgrounds/matchmakingmenu.png", sf::Color::White, false);
 	UIImage* background2 = new UIImage("bg2", "Assets/Backgrounds/waitingroom.png", sf::Color::White, false);
 	UIButton* casualButton = new UIButton("Bcasual", { 200, 50 }, { 330, 460 }, "UNRANKED", FontManager::GetMainFont(), _customColor);
@@ -18,12 +17,14 @@ MatchMakingScene::MatchMakingScene()
 	{ 
 		SetUISearchMatch();
 		NetworkManager::GetInstance().GetUDPClient()->StartMatchSearchWithRetry("NORMAL");
+		
 	});
 
 	rankedButton->OnClick.Subscribe([this]() 
 	{ 
 		SetUISearchMatch();
 		NetworkManager::GetInstance().GetUDPClient()->StartMatchSearchWithRetry("RANKED");
+
 	});
 
 	// - Button Pressed -> Cancel Match Search + Resets UI

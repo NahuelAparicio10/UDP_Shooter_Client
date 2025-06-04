@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -160,7 +160,7 @@
     <ClCompile Include="Rigidbody2D.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="SFX.cpp" />
+    <ClCompile Include="SFXManager.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UIButton.cpp" />
@@ -197,7 +197,7 @@
     <ClInclude Include="Rigidbody2D.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="SFX.h" />
+    <ClInclude Include="SFXManager.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UIButton.h" />
