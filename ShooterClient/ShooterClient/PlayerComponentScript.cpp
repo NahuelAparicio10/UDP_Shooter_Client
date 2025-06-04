@@ -136,12 +136,12 @@ void PlayerComponentScript::UpdateReconciliation(float dt)
 {
     if (!_isReconciling) return;
 
-    sf::Vector2f current = playerGo->transform->position;
-    float alpha = 100.f * dt; 
-    playerGo->transform->position = current * (1 - alpha) + _reconciliationTarget * alpha;
+    //sf::Vector2f current = playerGo->transform->position;
+    //float alpha = 100.f * dt; 
+    //playerGo->transform->position = current * (1 - alpha) + _reconciliationTarget * alpha;
 
-    if (UtilsMaths::Distance(current, _reconciliationTarget) < 1.f)
-        _isReconciling = false;
+    //if (UtilsMaths::Distance(current, _reconciliationTarget) < 1.f)
+    //    _isReconciling = false;
 }
 
 
@@ -157,10 +157,11 @@ void PlayerComponentScript::ApplyReconciliation(const MovementPacket& correction
         float dx = std::abs(it->position.x - correction.position.x);
         float dy = std::abs(it->position.y - correction.position.y);
 
-        if (dx > 5.f || dy > 5.f)
+        if (dx > 7.f || dy > 7.f)
         {
             std::cout << "[RECONCILE] Corrigiendo tick " << correction.tick << "\n";
-            _reconciliationTarget = correction.position;
+            //_reconciliationTarget = correction.position;
+            playerGo->transform->position = correction.position;
             _rigidbody->velocity = correction.velocity;
             _isReconciling = true;
 
