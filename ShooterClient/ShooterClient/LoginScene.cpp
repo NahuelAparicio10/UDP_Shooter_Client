@@ -5,7 +5,6 @@ LoginScene::LoginScene()
 	onLoginSuccess = false;
 	_customColor = sf::Color(227, 189, 90);
 
-	//NetworkManager::GetInstance().GetTCPClient()->ConnectToBootstrapServer(Constants::SERVICE_SERVER_IP.value().toString(), 50000);
 	NetworkManager::GetInstance().GetTCPClient()->ConnectToBootstrapServer();
 
 	UIImage* background = new UIImage("bg", "Assets/Backgrounds/loginmenu.png", sf::Color::White, false);

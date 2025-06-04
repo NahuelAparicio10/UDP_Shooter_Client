@@ -11,7 +11,6 @@ ClientTCP::~ClientTCP()
 
 bool ClientTCP::ConnectToBootstrapServer()
 {
-    //auto resolved = sf::IpAddress::resolve(ip);
 
     if (_bootstrapSocket.connect(Constants::SERVICE_SERVER_IP.value(), Constants::LOGIN_REGISTER_SERVER_PORT) != sf::Socket::Status::Done)
     {

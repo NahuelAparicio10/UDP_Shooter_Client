@@ -26,8 +26,6 @@ void UIButton::Render(sf::RenderWindow* window)
 
 void UIButton::HandleEvent(const sf::Event& event)
 {
-    // Si el Usuario clica en los bounds del boton emite Onclick event
-
     if (const sf::Event::MouseButtonPressed* mousePressed = event.getIf<sf::Event::MouseButtonPressed>()) 
     {
         sf::Vector2f mousePos(mousePressed->position.x, mousePressed->position.y);

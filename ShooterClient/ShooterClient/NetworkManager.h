@@ -14,7 +14,6 @@ private:
 	NetworkManager();
 	~NetworkManager();
 
-	// Deletes a copy of NetworkManager
 	NetworkManager(const NetworkManager&) = delete;
 	NetworkManager& operator=(const NetworkManager&) = delete;
 

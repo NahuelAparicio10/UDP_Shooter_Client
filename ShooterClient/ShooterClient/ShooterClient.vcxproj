@@ -158,7 +158,6 @@
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PlayerComponentScript.cpp" />
     <ClCompile Include="Rigidbody2D.cpp" />
-    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SFXManager.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
@@ -168,7 +167,6 @@
     <ClCompile Include="UIImage.cpp" />
     <ClCompile Include="UIText.cpp" />
     <ClCompile Include="UITextField.cpp" />
-    <ClCompile Include="UtilsMaths.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>

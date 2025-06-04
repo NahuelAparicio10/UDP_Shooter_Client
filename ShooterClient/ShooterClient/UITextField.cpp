@@ -16,16 +16,7 @@ UITextField::UITextField(const std::string& id, const sf::Vector2f& position, co
 
 void UITextField::Update(float dt)
 {
-    //if (_focused) 
-    //{
-    //    _cursorBlink += dt;
 
-    //    if (_cursorBlink >= 0.5f) 
-    //    {
-    //        _cursorBlink = 0.f;
-    //        _cursorVisible = !_cursorVisible;
-    //    }
-    //}
 }
 
 void UITextField::Render(sf::RenderWindow* window)

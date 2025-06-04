@@ -31,17 +31,16 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 			auto it = std::find_if(_enemies.begin(), _enemies.end(),
 				[&](GameObject* go) { return go->id == packet.playerID; });
 
+			// - We save the data to interpolate 
+
 			if (it != _enemies.end())
 			{				
 				GameObject* enemy = *it;
 				InterpolationData& data = _enemyInterpolations[packet.playerID];
 
-				//if (UtilsMaths::Distance(packet.position, data.current) > 0.01f)
-				//{
-					data.previous = enemy->transform->position;  
-					data.current = packet.position;
-					data.timer = 0.f;
-				//}
+				data.previous = enemy->transform->position;
+				data.current = packet.position;
+				data.timer = 0.f;
 			}
 		}
 	);
@@ -55,8 +54,7 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 
 	NetworkManager::GetInstance().GetUDPClient()->onDestroyBullet.Subscribe([this](int bulletID) { _bulletHandler->DestroyBulletByID(bulletID);	});
 	NetworkManager::GetInstance().GetUDPClient()->onPlayerHit.Subscribe([this](int bulletID) 
-		{ 
-			
+		{ 			
 			if (_lastBulletIdThatHittedMe == bulletID || matchFinished) return;
 
 			_lastBulletIdThatHittedMe = bulletID;
@@ -104,6 +102,7 @@ GameScene::~GameScene()
 void GameScene::Update(float dt)
 {
 	if (!canStartGame) return;
+
 	if (_player->GetComponent<PlayerComponentScript>() != nullptr)
 	{
 		_player->GetComponent<PlayerComponentScript>()->Update(dt);
@@ -111,18 +110,7 @@ void GameScene::Update(float dt)
 
 	_bulletHandler->UpdateBullets(dt);
 
-	//for (auto* p : _enemies)
-	//{
-	//	std::cout << p->GetComponent<Rigidbody2D>()->velocity.x << std::endl;
-	//	if (p->GetComponent<Rigidbody2D>()->velocity.x >= 0)
-	//	{
-	//		p->transform->scale.x = -1.f;
-	//	}
-	//	else {
-	//		p->transform->scale.x = 1.f;
-	//	}
-	//	p->GetComponent<Rigidbody2D>()->Update(p->transform, dt);
-	//}
+	// - Enemies interpolation smooth
 
 	for (auto* enemy : _enemies)
 	{
@@ -143,6 +131,7 @@ void GameScene::Update(float dt)
 	}
 
 	_canvas.Update(dt);
+
 	_physicsManager.Update(dt);
 
 	if (matchFinished)
@@ -180,6 +169,7 @@ void GameScene::HandleEvent(const sf::Event& event)
 	_canvas.HandleEvent(event);
 }
 
+// -- Function that checks if playerData is client ID or enemy ID, then creates the GO with all info (Collider, Position)
 void GameScene::CreatePlayer(const std::vector<CreatePlayerPacket>& playersToCreate)
 {
 
@@ -211,7 +201,6 @@ void GameScene::CreatePlayer(const std::vector<CreatePlayerPacket>& playersToCre
 			enemy->AddComponent<SpriteRenderer>("Assets/Sprites/player.png", sf::Color::Red, true);
 			size = enemy->GetComponent<SpriteRenderer>()->GetSprite().getTexture().getSize();
 			enemy->AddComponent<BoxCollider2D>()->size = static_cast<sf::Vector2f>(size);
-			enemy->AddComponent<Rigidbody2D>();
 
 			enemy->id = player.playerID;
 

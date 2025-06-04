@@ -13,6 +13,13 @@ MatchMakingScene::MatchMakingScene()
 	cancelButton->SetActive(false);
 	background2->SetActive(false);
 
+	_canvas.AddElement(background);
+	_canvas.AddElement(casualButton);
+	_canvas.AddElement(rankedButton);
+	_canvas.AddElement(rankingButton);
+	_canvas.AddElement(background2);
+	_canvas.AddElement(cancelButton);
+
 	casualButton->OnClick.Subscribe([this]() 
 	{ 
 		SetUISearchMatch();
@@ -24,7 +31,6 @@ MatchMakingScene::MatchMakingScene()
 	{ 
 		SetUISearchMatch();
 		NetworkManager::GetInstance().GetUDPClient()->StartMatchSearchWithRetry("RANKED");
-
 	});
 
 	// - Button Pressed -> Cancel Match Search + Resets UI
@@ -33,23 +39,23 @@ MatchMakingScene::MatchMakingScene()
 	{
 		std::cout << "[CLIENT] Matchmaking cancelled by user." << std::endl;
 		NetworkManager::GetInstance().GetUDPClient()->CancelMatchSearch();
-
 	});
+
+	NetworkManager::GetInstance().GetUDPClient()->onStartJoin.Subscribe([this]()
+		{
+			_canvas.GetElementByID("Bcancel")->SetActive(false);
+		});
 
 	NetworkManager::GetInstance().GetUDPClient()->onMatchFound.Subscribe([this](const int nPlayers)
 		{
 			numPlayers = nPlayers;
 			_onMatchFound = true;
 		});
+
 	NetworkManager::GetInstance().GetUDPClient()->onCancelConfirmed.Subscribe([this]() {
 		ResetUI();
 	});
-		_canvas.AddElement(background);
-		_canvas.AddElement(casualButton);
-		_canvas.AddElement(rankedButton);
-		_canvas.AddElement(rankingButton);
-		_canvas.AddElement(background2);
-		_canvas.AddElement(cancelButton);
+
 }
 
 MatchMakingScene::~MatchMakingScene() 

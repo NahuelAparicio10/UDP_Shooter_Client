@@ -30,6 +30,7 @@ public:
     void StopReceivingGameplayPackets();
     
     Event<const int> onMatchFound;
+    Event<> onStartJoin;
     Event<> onCancelConfirmed;
     Event<const CreateBulletPacket&> onCreateBullet;
     Event<int> onDestroyBullet;

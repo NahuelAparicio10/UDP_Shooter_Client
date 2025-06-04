@@ -90,9 +90,6 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="LoginScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
@@ -155,9 +152,6 @@
     </ClCompile>
     <ClCompile Include="UIText.cpp">
       <Filter>Source Files\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UtilsMaths.cpp">
-      <Filter>Source Files\Utils</Filter>
     </ClCompile>
     <ClCompile Include="SFXManager.cpp">
       <Filter>Source Files\Audio</Filter>

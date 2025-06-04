@@ -24,7 +24,6 @@ UIImage::UIImage(const std::string& id, const std::string& texturePath, sf::Colo
 	_sprite.setTexture(_texture, true);
 	_sprite.setColor(color);
 
-	// Escalar sprite a 'size'
 	sf::Vector2u texSize = _texture.getSize();
 	if (texSize.x > 0 && texSize.y > 0)
 	{

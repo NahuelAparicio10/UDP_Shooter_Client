@@ -17,7 +17,6 @@ E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\P
 E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\PhysicsManager.cpp;E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\x64\Release\PhysicsManager.obj
 E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\PlayerComponentScript.cpp;E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\x64\Release\PlayerComponentScript.obj
 E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\Rigidbody2D.cpp;E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\x64\Release\Rigidbody2D.obj
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\Scene.cpp;E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\x64\Release\Scene.obj
 E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\SceneManager.cpp;E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\x64\Release\SceneManager.obj
 E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\SFXManager.cpp;E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\x64\Release\SFXManager.obj
 E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\SpriteRenderer.cpp;E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\x64\Release\SpriteRenderer.obj
@@ -27,5 +26,4 @@ E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\U
 E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UIImage.cpp;E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\x64\Release\UIImage.obj
 E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UIText.cpp;E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\x64\Release\UIText.obj
 E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UITextField.cpp;E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\x64\Release\UITextField.obj
-E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\UtilsMaths.cpp;E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\x64\Release\UtilsMaths.obj
 E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\Window.cpp;E:\3r CDI\Xarxes\AA4_UDP_Shooter\AA4_ShooterClient\ShooterClient\ShooterClient\x64\Release\Window.obj
