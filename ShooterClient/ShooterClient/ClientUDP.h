@@ -10,6 +10,7 @@
 #include "Event.h"
 #include "PacketDispatcher.h"
 #include <sstream>
+#include "SFXManager.h"
 class ClientUDP
 {
 public:

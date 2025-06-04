@@ -7,6 +7,7 @@ void InputComponent::ProcessEvent(const sf::Event& event)
         auto code = event.getIf<sf::Event::KeyPressed>()->code;
         if (code == sf::Keyboard::Key::A) moveLeft = true;
         if (code == sf::Keyboard::Key::D) moveRight = true;
+        if (code == sf::Keyboard::Key::E) emote = true;
         if (code == sf::Keyboard::Key::Space) jump = true;
     }
     else if (event.is<sf::Event::KeyReleased>())

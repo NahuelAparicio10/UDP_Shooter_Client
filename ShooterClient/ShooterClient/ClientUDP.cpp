@@ -112,6 +112,11 @@ void ClientUDP::StartReceivingGameplayPackets()
             unsigned int bulletID = std::stoul(job.content);
             onPlayerHit.Invoke(bulletID);
         });
+
+    _dispatcher.RegisterHandler(PacketType::EMOTE, [this](const RawPacketJob& job)
+        {
+            SFXManager::GetInstance().Play("Assets/Sounds/mrworldwide.wav", 100.f);
+        });
     std::thread gameplayThread([this]()
         {
             _socket.setBlocking(false);

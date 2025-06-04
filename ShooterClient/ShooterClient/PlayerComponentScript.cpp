@@ -50,6 +50,21 @@ void PlayerComponentScript::UpdateMovement(float dt)
     else
         _rigidbody->velocity.x = 0;
 
+    if (_input->emote)  
+    {
+        SFXManager::GetInstance().Play("Assets/Sounds/mrworldwide.wav", 100.f);
+
+        std::string message = std::to_string(NetworkManager::GetInstance().GetUDPClient()->currentMatchID) + ":" + std::to_string(NetworkManager::GetInstance().GetUDPClient()->currentPlayerID);
+        NetworkManager::GetInstance().GetUDPClient()->Send(
+            PacketHeader::URGENT,
+            PacketType::EMOTE,
+            message,
+            NetworkManager::GetInstance().GetUDPClient()->GetGameServerIP().value(),
+            NetworkManager::GetInstance().GetUDPClient()->GetCurrentGameServerPort()
+        );
+        _input->emote = false;
+    }
+
     if (_input->jump)
     {
         std::cout << "[SALTO] Antes del salto. Rigidbody: " << _rigidbody << "\n";

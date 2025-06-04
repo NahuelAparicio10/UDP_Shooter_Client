@@ -9,6 +9,7 @@ public:
 	bool moveRight = false;
 	bool jump = false;
 	bool shoot = false;
+	bool emote = false;
 
 	void ProcessEvent(const sf::Event& event);
 

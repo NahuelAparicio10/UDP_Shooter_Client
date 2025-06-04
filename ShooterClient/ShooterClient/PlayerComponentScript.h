@@ -8,6 +8,7 @@
 #include "NetworkDefs.h"
 #include "NetworkManager.h"
 #include "UtilsMaths.h"
+#include "SFXManager.h"
 class PlayerComponentScript : public Component
 {
 public:

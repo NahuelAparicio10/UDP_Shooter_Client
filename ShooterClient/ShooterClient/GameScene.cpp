@@ -34,15 +34,14 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 			if (it != _enemies.end())
 			{				
 				GameObject* enemy = *it;
-
 				InterpolationData& data = _enemyInterpolations[packet.playerID];
 
-				if (UtilsMaths::Distance(packet.position, data.current) > 0.01f)
-				{
+				//if (UtilsMaths::Distance(packet.position, data.current) > 0.01f)
+				//{
 					data.previous = enemy->transform->position;  
 					data.current = packet.position;
 					data.timer = 0.f;
-				}
+				//}
 			}
 		}
 	);
@@ -58,7 +57,7 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 	NetworkManager::GetInstance().GetUDPClient()->onPlayerHit.Subscribe([this](int bulletID) 
 		{ 
 			
-			if (_lastBulletIdThatHittedMe == bulletID) return;
+			if (_lastBulletIdThatHittedMe == bulletID || matchFinished) return;
 
 			_lastBulletIdThatHittedMe = bulletID;
 
@@ -72,7 +71,7 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 			std::cout << currentHealth << std::endl;
 			if (currentHealth < 10 && currentHealth >= 5)
 			{
-				_canvas.GetElementByID("1hp")->SetActive(false);
+				_canvas.GetElementByID("3hp")->SetActive(false);
 			}
 			else if (currentHealth < 5 && currentHealth >= 1)
 			{
@@ -80,7 +79,17 @@ GameScene::GameScene(int numPlayers) : _numPlayers(numPlayers)
 			}
 			else if(currentHealth < 1)
 			{
-				_canvas.GetElementByID("3hp")->SetActive(false);
+				_canvas.GetElementByID("1hp")->SetActive(false);
+				// - Die
+				NetworkManager::GetInstance().GetUDPClient()->Send(
+					PacketHeader::URGENT,
+					PacketType::PLAYER_DEATH,
+					std::to_string(NetworkManager::GetInstance().GetUDPClient()->currentMatchID) + ":" + std::to_string(_player->id),
+					NetworkManager::GetInstance().GetUDPClient()->GetGameServerIP().value(),
+					NetworkManager::GetInstance().GetUDPClient()->GetCurrentGameServerPort()
+				);
+				shouldRun = false;
+				matchFinished = true;
 			}
 		});
 }
