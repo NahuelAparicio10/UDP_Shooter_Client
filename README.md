@@ -12,11 +12,7 @@ Develop the 2D online shooter client capable of handling login/registration, mat
 
 **How I resolved it** 
 
-I implemented the client in C++ using Visual Studio. The client communicates with the Service Server via TCP for authentication, version checks, and matchmaking, and with the Game Server via UDP for real-time gameplay. The client manages player input and map loading from text files.
-
-**What I learned** 
-
-I learned how to design a game client for online multiplayer, synchronize actions and animations across different clients, and apply prediction techniques to reduce the perception of latency.
+We implemented the client in C++ using Visual Studio. The client communicates with the Service Server via TCP for authentication, version checks, and matchmaking, and with the Game Server via UDP for real-time gameplay. The client manages player input and map loading from text files.
 
 [![Shooter Client](https://img.shields.io/badge/Shooter_Client-Repository-blue?logo=github)](https://github.com/NahuelAparicio10/UDP_Shooter_Client)
 
@@ -32,3 +28,8 @@ Nahuel Aparicio Del Blanco
 - GitHub: https://github.com/NahuelAparicio10
 - Email: nahuel.ap.code@gmail.com
 - LinkedIn: https://www.linkedin.com/in/nahuel-aparicio-del-blanco
+
+Lluc Ferrando Jorda
+- GitHub: 
+- Email: 
+- LinkedIn: 
