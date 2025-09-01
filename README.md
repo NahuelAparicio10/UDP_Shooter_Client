@@ -10,7 +10,7 @@
 
 Develop the 2D online shooter client capable of handling login/registration, matchmaking, and gameplay communication with the servers.
 
-**How I resolved it** 
+**How we resolved it** 
 
 We implemented the client in C++ using Visual Studio. The client communicates with the Service Server via TCP for authentication, version checks, and matchmaking, and with the Game Server via UDP for real-time gameplay. The client manages player input and map loading from text files.
 
